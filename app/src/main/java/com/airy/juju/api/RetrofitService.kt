@@ -24,7 +24,7 @@ class RetrofitService {
         @JvmField
         val juJuApi: JuJuApi = retrofit.create(JuJuApi::class.java)
 
-        fun getBabyApi(): JuJuApi = juJuApi
+        fun getJuJuApi(): JuJuApi = juJuApi
     }
 
 }

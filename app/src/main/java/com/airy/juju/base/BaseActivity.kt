@@ -2,6 +2,7 @@ package com.airy.juju.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 
@@ -13,6 +14,8 @@ import android.widget.Toast
  */
 
 abstract class BaseActivity : AppCompatActivity() {
+
+    public final val TAG = this.javaClass.name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +36,11 @@ abstract class BaseActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun activityIntentTo(clz: Class<Any>) {
-        val intent = Intent(this, clz::class.java)
+    fun activityIntentTo(clz: Class<*>) {
+        val intent = Intent(this, clz)
         startActivity(intent)
     }
+
 
 
 }

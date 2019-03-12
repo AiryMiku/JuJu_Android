@@ -7,4 +7,4 @@ package com.airy.juju.api
  * Github: AiryMiku
  */
 
-data class HttpBody<T>(val Code: Int, val data: T)
+data class ReturnResult<T>(val code: Int, val msg: String, val data: T)
