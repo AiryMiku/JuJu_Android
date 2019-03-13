@@ -1,6 +1,6 @@
 package com.airy.juju.base
 
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 
 
 /**
@@ -9,5 +9,5 @@ import android.support.v4.app.Fragment
  * Github: AiryMiku
  */
 
-class BaseFragment : Fragment() {
+open class BaseFragment : Fragment() {
 }

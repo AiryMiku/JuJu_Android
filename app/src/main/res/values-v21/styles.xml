@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
-
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/primary_darker</item>
@@ -27,5 +25,10 @@
         <item name="colorButtonNormal">@color/primary_darker</item>
         <item name="android:colorButtonNormal">@color/primary_darker</item>
     </style>
+
+    <!--声明属性的集合-->
+    <declare-styleable name="JiKeLikeView">
+        <attr name="like_num" format="integer"/>
+    </declare-styleable>
 
 </resources>

@@ -1,7 +1,7 @@
 package com.airy.juju.ui.activity
 
 
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
@@ -35,5 +35,45 @@ class MainActivity : BaseActivity() {
             .addItem(BottomNavigationItem(R.drawable.ic_me_circle_24dp,"我").setActiveColorResource(R.color.MePurple))
             .setFirstSelectedPosition(0)
             .initialise()
+
+        bottomNavigationBar.setTabSelectedListener(object : BottomNavigationBar.OnTabSelectedListener {
+            override fun onTabReselected(position: Int) {
+                // 重复选中
+            }
+
+            override fun onTabUnselected(position: Int) {
+                // 选中 -> 未选中
+            }
+
+            override fun onTabSelected(position: Int) {
+                // 未选中 -> 选中
+                when(position) {
+                    0 -> {
+
+                    }
+                    1 -> {
+
+                    }
+                    2 -> {
+
+                    }
+                    3 -> {
+
+                    }
+                }
+            }
+        })
+
+
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(p0: Int) { }
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) { }
+
+            override fun onPageSelected(p0: Int) {
+                // 滑动切换
+                bottomNavigationBar.selectTab(p0)
+            }
+        })
     }
 }

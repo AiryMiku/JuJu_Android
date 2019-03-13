@@ -1,7 +1,7 @@
 package com.airy.juju.api
 
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
@@ -17,7 +17,7 @@ class RetrofitService {
         @JvmField
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl("http://127.0.0.1:8000")
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 

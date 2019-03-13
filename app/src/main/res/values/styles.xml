@@ -38,4 +38,9 @@
         <item name="colorControlNormal">@color/iron</item>
     </style>
 
+    <!--声明属性的集合-->
+    <declare-styleable name="JiKeLikeView">
+        <attr name="like_num" format="integer"/>
+    </declare-styleable>
+
 </resources>

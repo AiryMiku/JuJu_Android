@@ -1,5 +1,6 @@
 package com.airy.juju.bean
 
+import android.os.Parcel
 import android.os.Parcelable
 import java.io.Serializable
 
@@ -17,4 +18,32 @@ data class Group(
     val notice: String,
     val introduction: String,
     val create_time: String
-) : Serializable
+) : Serializable, Parcelable {
+    constructor(source: Parcel) : this(
+        source.readInt(),
+        source.readInt(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString()
+    )
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeInt(id)
+        writeInt(owner_user_id)
+        writeString(name)
+        writeString(notice)
+        writeString(introduction)
+        writeString(create_time)
+    }
+
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<Group> = object : Parcelable.Creator<Group> {
+            override fun createFromParcel(source: Parcel): Group = Group(source)
+            override fun newArray(size: Int): Array<Group?> = arrayOfNulls(size)
+        }
+    }
+}

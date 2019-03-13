@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="group"
+                type="com.airy.juju.bean.Group"/>
+    </data>
+
+    <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/iron"
+                android:minHeight="80dp"
+                android:padding="8dp">
+
+            <!--群组头像-->
+            <ImageView
+                    android:id="@+id/group_avatar"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@mipmap/ic_launcher"
+                    android:contentDescription="@string/group_avatar"/>
+
+            <!--群组名称-->
+            <TextView
+                    android:id="@+id/group_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/group_avatar"
+                    app:layout_constraintTop_toTopOf="@+id/group_avatar"
+                    android:layout_marginStart="10dp"
+                    android:text="@{group.name}"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    tools:text="群组名称"/>
+
+            <!--群组介绍-->
+            <TextView
+                    android:id="@+id/group_introduction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toEndOf="@id/group_avatar"
+                    app:layout_constraintTop_toBottomOf="@id/group_name"
+                    android:text="@{group.introduction}"
+                    tools:text="生活就像海洋，只有之间强的人才能到达彼岸"/>
+
+            <!--创建时间-->
+            <TextView
+                    android:id="@+id/create_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{group.create_time}"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toEndOf="@+id/group_avatar"
+                    app:layout_constraintTop_toBottomOf="@id/group_introduction"
+                    tools:text="2099年5月11日21:30" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</layout>

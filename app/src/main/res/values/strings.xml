@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JuJu</string>
+    <string name="group_avatar">group_avatar</string>
 </resources>

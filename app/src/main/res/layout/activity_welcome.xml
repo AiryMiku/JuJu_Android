@@ -4,7 +4,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <include layout="@layout/app_bar"/>
+    <include layout="@layout/layout_app_bar"/>
 
     <Button
             android:id="@+id/btn_wel_1"
