@@ -1,5 +1,6 @@
 package com.airy.juju.ui.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
@@ -14,8 +15,7 @@ import com.airy.juju.databinding.ListItemGroupBinding
  * Github: AiryMiku
  */
 
-class HomeAdapter(private val fragment: Fragment) : ListAdapter<Group, HomeAdapter.ViewHolder>(TaskDiffCallback()) {
-
+class GroupsAdapter(private val fragment: Fragment, private val onClickCallback: (Group) -> Unit) : ListAdapter<Group, GroupsAdapter.ViewHolder>(TaskDiffCallback()) {
 
     class ViewHolder(val binding: ListItemGroupBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -30,11 +30,16 @@ class HomeAdapter(private val fragment: Fragment) : ListAdapter<Group, HomeAdapt
     }
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val binding = ListItemGroupBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val group = getItem(position)
+        holder.binding.group = group        // bind your data
+        holder.binding.root.setOnClickListener { // bind listener
+            onClickCallback(group)
+        }
     }
 
 

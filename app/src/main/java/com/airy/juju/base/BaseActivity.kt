@@ -2,9 +2,10 @@ package com.airy.juju.base
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.appbar.AppBarLayout
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import com.airy.juju.R
 
 
 /**
@@ -16,6 +17,7 @@ import android.widget.Toast
 abstract class BaseActivity : AppCompatActivity() {
 
     public final val TAG = this.javaClass.name
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,15 @@ abstract class BaseActivity : AppCompatActivity() {
     fun activityIntentTo(clz: Class<*>) {
         val intent = Intent(this, clz)
         startActivity(intent)
+    }
+
+    fun initToolBar() {
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+    }
+
+    fun setToolBarTitle(title: String) {
+        toolbar.title = title
     }
 
 

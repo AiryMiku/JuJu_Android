@@ -1,5 +1,11 @@
 package com.airy.juju.repository
 
+import com.airy.juju.api.RetrofitService
+import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.Group
+import com.airy.juju.bean.ListData
+import javax.inject.Singleton
+
 
 /**
  * Created by Airy on 2019/3/13
@@ -7,5 +13,20 @@ package com.airy.juju.repository
  * Github: AiryMiku
  */
 
+//@Singleton
 class GroupRepository {
+    companion object {
+        @Volatile
+        private var instance: GroupRepository? = null
+
+        fun getInstance(): GroupRepository = instance ?: synchronized(this) {
+            instance ?: GroupRepository().also { instance = it }
+        }
+    }
+
+    suspend fun getAllGroups() : ReturnResult<ListData<Group>> {
+        return RetrofitService.getJuJuApi().getAllGroups(1, 10).await()
+    }
+
+    //...Todo
 }

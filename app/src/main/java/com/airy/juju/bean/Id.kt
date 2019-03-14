@@ -5,6 +5,8 @@ import android.os.Parcelable
 
 
 /**
+ * 用于接收返回的各种ID
+ *
  * Created by Airy on 2019/3/12
  * Mail: a532710813@gmail.com
  * Github: AiryMiku
