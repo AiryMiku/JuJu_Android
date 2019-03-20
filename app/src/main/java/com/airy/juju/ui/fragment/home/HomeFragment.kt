@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentHomeBinding
@@ -42,6 +44,22 @@ class HomeFragment : BaseFragment() {
         adapter = GroupsAdapter(this) {
                 group -> makeToast(group.name)
         }
+        binding.list.addOnScrollListener(object :RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+                    val position = layoutManager.findLastVisibleItemPosition()
+
+                    if (position == adapter.itemCount - 1) {
+                        viewModel.fetchMoreGroups()
+                    }
+                }
+            }
+        })
         binding.list.adapter = adapter
     }
 

@@ -30,7 +30,7 @@ interface JuJuApi {
     fun modifyGroup(@QueryMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
 
     @GET("/group/indexAll")
-    fun getAllGroups(@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
+    fun getGroups(@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
 
 
 }

@@ -4,7 +4,6 @@ import com.airy.juju.api.RetrofitService
 import com.airy.juju.api.ReturnResult
 import com.airy.juju.bean.Group
 import com.airy.juju.bean.ListData
-import javax.inject.Singleton
 
 
 /**
@@ -24,8 +23,8 @@ class GroupRepository {
         }
     }
 
-    suspend fun getAllGroups() : ReturnResult<ListData<Group>> {
-        return RetrofitService.getJuJuApi().getAllGroups(1, 10).await()
+    suspend fun getGroups(page: Int, size: Int) : ReturnResult<ListData<Group>> {
+        return RetrofitService.getJuJuApi().getGroups(page, size).await()
     }
 
     //...Todo

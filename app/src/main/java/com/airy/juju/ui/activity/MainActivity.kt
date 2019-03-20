@@ -6,7 +6,10 @@ import androidx.viewpager.widget.ViewPager
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.ui.adapter.MainFragmentAdapter
+import com.airy.juju.ui.fragment.chat.ChatFragment
 import com.airy.juju.ui.fragment.home.HomeFragment
+import com.airy.juju.ui.fragment.me.MeFragment
+import com.airy.juju.ui.fragment.notifcation.NotificationFragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import kotlinx.android.synthetic.main.activity_main.*
@@ -76,8 +79,10 @@ class MainActivity : BaseActivity() {
 
     private fun initViewPager() {
         mFragments = ArrayList()
-        val fragment = HomeFragment()
-        mFragments.add(fragment)
+        mFragments.add(HomeFragment())
+        mFragments.add(NotificationFragment())
+        mFragments.add(ChatFragment())
+        mFragments.add(MeFragment())
 
         viewPager = view_pager
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{

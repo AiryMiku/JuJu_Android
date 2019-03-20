@@ -42,8 +42,6 @@ class GroupsAdapter(private val fragment: Fragment, private val onClickCallback:
         }
     }
 
-
-
 }
 
 

@@ -11,7 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
-import javax.inject.Inject
+import java.util.concurrent.atomic.AtomicInteger
 
 
 /**
@@ -27,6 +27,9 @@ class HomeViewModel
     // put your data here
     val groups: MutableLiveData<ReturnResult<ListData<Group>>> = MutableLiveData()
     val repository = GroupRepository.getInstance()
+    var page: Int = 1
+    val size: Int = 99
+    var count: Int = 0
 
     init {
         // when using ui to fetch data
@@ -40,11 +43,25 @@ class HomeViewModel
     fun fetchGroups() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val r = repository.getAllGroups()
+                val r = repository.getGroups(page, size)
                 withContext(Dispatchers.Main) {
                     groups.value = r
+                    count = r.data.count
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun fetchMoreGroups() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                if (count > page * size) {
+                    page += 1
+                    fetchGroups()
+                }
+            }catch (e: Exception) {
                 e.printStackTrace()
             }
         }
