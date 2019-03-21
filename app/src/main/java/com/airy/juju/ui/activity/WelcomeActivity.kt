@@ -34,5 +34,9 @@ class WelcomeActivity : BaseActivity() {
         btn_wel_4.setOnClickListener {
             activityIntentTo(GroupDetailActivity::class.java)
         }
+
+        btn_wel_5.setOnClickListener {
+            activityIntentTo(ActivityDetailActivity::class.java)
+        }
     }
 }

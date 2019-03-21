@@ -3,13 +3,13 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".ui.activity.GroupDetailActivity">
+        tools:context=".ui.activity.ActivityDetailActivity">
 
     <data>
-        <variable
-                name="group"
-                type="com.airy.juju.bean.Group"/>
+        <variable name="activity"
+                  type="com.airy.juju.bean.Activity"/>
     </data>
+
 
     <LinearLayout
             android:orientation="vertical"
@@ -42,84 +42,69 @@
                                 android:id="@+id/item"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:minHeight="80dp"
+                                android:minHeight="100dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
                                 android:padding="8dp">
 
-                            <!--群组头像-->
-                            <ImageView
-                                    android:id="@+id/group_avatar"
-                                    android:layout_width="35dp"
-                                    android:layout_height="35dp"
+                            <!--活动标题-->
+                            <TextView
+                                    android:id="@+id/title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    tools:src="@mipmap/ic_launcher"
-                                    android:contentDescription="@string/group_avatar"/>
+                                    android:text="@{activity.title}"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold"
+                                    android:textSize="18sp"
+                                    tools:text="活动标题"/>
 
-                            <!--群组名称-->
+                            <!--所属群组名字-->
                             <TextView
                                     android:id="@+id/group_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    app:layout_constraintTop_toBottomOf="@+id/group_avatar"
-                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    android:layout_marginStart="10dp"
-                                    android:text="@{group.name}"
-                                    android:textColor="@color/black"
-                                    android:textStyle="bold"
-                                    tools:text="群组名称"/>
+                                    app:layout_constraintTop_toBottomOf="@id/title"
+                                    android:text="@{activity.start_time}"
+                                    android:textStyle="italic"
+                                    tools:text="这里是群组名字"/>
 
-                            <!--群组介绍-->
+                            <!--活动时间-->
                             <TextView
-                                    android:id="@+id/group_introduction"
+                                    android:id="@+id/start_time"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/group_name"
-                                    android:text="@{group.introduction}"
-                                    tools:text="生活就像海洋，只有意志坚强的人才能到达彼岸"/>
-
-                            <!--创建时间-->
-                            <TextView
-                                    android:id="@+id/create_time"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginTop="10dp"
-                                    android:text="@{group.create_time}"
-                                    android:textSize="12sp"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/group_introduction"
-                                    tools:text="2099年5月11日21:30" />
-
-                            <TextView
-                                    android:id="@+id/notice"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="10dp"
-                                    android:layout_marginTop="10dp"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toBottomOf="@id/create_time"
-                                    android:text="@{group.notice}"
-                                    android:textSize="16sp"
+                                    android:text="@{activity.start_time}"
                                     android:textColor="@color/black"
-                                    tools:text="这个是公告"/>
+                                    tools:text="这里是时间"/>
+
+                            <!--活动地点-->
+                            <TextView
+                                    android:id="@+id/place"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    app:layout_constraintTop_toBottomOf="@id/group_name"
+                                    app:layout_constraintStart_toEndOf="@id/start_time"
+                                    android:text="@{activity.place}"
+                                    android:textColor="@color/black"
+                                    tools:text="这里是地点"/>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </androidx.cardview.widget.CardView>
 
-                    <!--活动列表-->
+                    <!--评论列表-->
                     <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/list"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:listitem="@layout/list_item_activity"/>
+                            tools:listitem=""/>
 
                 </LinearLayout>
             </ScrollView>

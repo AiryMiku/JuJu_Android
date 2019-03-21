@@ -56,7 +56,7 @@
                     app:layout_constraintStart_toEndOf="@id/group_avatar"
                     app:layout_constraintTop_toBottomOf="@id/group_name"
                     android:text="@{group.introduction}"
-                    tools:text="生活就像海洋，只有之间强的人才能到达彼岸"/>
+                    tools:text="生活就像海洋，只有意志坚强的人才能到达彼岸"/>
 
             <!--创建时间-->
             <TextView
