@@ -12,6 +12,17 @@ class SignUpActivity : BaseActivity() {
 
     override fun initViews() {
         super.initViews()
+
+        btn_signup.setOnClickListener {
+            signup()
+        }
+
+        link_login.setOnClickListener {
+            activityIntentTo(LoginActivity::class.java)
+            finish()
+            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+        }
+
     }
 
     override fun loadData() {
@@ -60,7 +71,7 @@ class SignUpActivity : BaseActivity() {
 
 
     fun onSignupSuccess() {
-        btn_signup.setEnabled(true)
+        btn_signup.isEnabled = true
         setResult(Activity.RESULT_OK, null)
         finish()
     }

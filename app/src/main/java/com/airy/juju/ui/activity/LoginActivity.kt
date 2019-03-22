@@ -26,6 +26,7 @@ class LoginActivity : BaseActivity() {
 
     override fun initViews() {
         super.initViews()
+
         btn_login.setOnClickListener {
             login()
         }
@@ -102,7 +103,6 @@ class LoginActivity : BaseActivity() {
 
     fun onLoginFailed() {
         makeToast("登录失败")
-
         btn_login.isEnabled = true
     }
 }
