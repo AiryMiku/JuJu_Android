@@ -43,7 +43,7 @@ abstract class BaseActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    fun initToolBar() {
+    open fun initToolBar() {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
     }

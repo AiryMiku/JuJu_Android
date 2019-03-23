@@ -1,6 +1,10 @@
 package com.airy.juju.ui.activity
 
 
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.airy.juju.R
@@ -13,6 +17,7 @@ import com.airy.juju.ui.fragment.notifcation.NotificationFragment
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class MainActivity : BaseActivity() {
 
@@ -22,10 +27,6 @@ class MainActivity : BaseActivity() {
 
     override fun setContentViewId(): Int {
         return R.layout.activity_main
-    }
-
-    override fun loadData() {
-
     }
 
     override fun initViews() {
@@ -49,7 +50,6 @@ class MainActivity : BaseActivity() {
             override fun onTabSelected(position: Int) {
                 // 未选中 -> 选中
                 viewPager.currentItem = position
-
                 when(position) {
                     0 -> {
                         setToolBarTitle("首页")
@@ -75,6 +75,7 @@ class MainActivity : BaseActivity() {
             .addItem(BottomNavigationItem(R.drawable.ic_me_circle_24dp,"我").setActiveColorResource(R.color.MePurple))
             .setFirstSelectedPosition(0)
             .initialise()
+        toolbar.title = "首页"
     }
 
     private fun initViewPager() {
@@ -97,4 +98,19 @@ class MainActivity : BaseActivity() {
         val fragmentAdapter = MainFragmentAdapter(supportFragmentManager, mFragments)
         viewPager.adapter = fragmentAdapter
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            R.id.search -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
