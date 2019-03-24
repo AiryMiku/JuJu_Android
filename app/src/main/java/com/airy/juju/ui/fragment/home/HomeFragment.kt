@@ -1,5 +1,6 @@
 package com.airy.juju.ui.fragment.home
 
+import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentHomeBinding
+import com.airy.juju.ui.activity.GroupDetailActivity
 import com.airy.juju.ui.adapter.GroupsAdapter
 
 
@@ -42,7 +44,10 @@ class HomeFragment : BaseFragment() {
 
     private fun initRecycleView() {
         adapter = GroupsAdapter(this) {
-                group -> makeToast(group.name)
+            makeToast(it.name)
+            val intent = Intent(context, GroupDetailActivity::class.java)
+            intent.putExtra(GroupDetailActivity.GROUP_ID_KEY, it.id)
+            startActivity(intent)
         }
         binding.list.addOnScrollListener(object :RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

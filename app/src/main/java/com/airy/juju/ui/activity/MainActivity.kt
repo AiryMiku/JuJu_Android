@@ -25,8 +25,8 @@ class MainActivity : BaseActivity() {
     private lateinit var bottomNavigationBar: BottomNavigationBar
     private lateinit var mFragments: ArrayList<Fragment>
 
-    override fun setContentViewId(): Int {
-        return R.layout.activity_main
+    override fun toSetContentView() {
+        setContentView(R.layout.activity_main)
     }
 
     override fun initViews() {

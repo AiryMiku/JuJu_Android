@@ -8,8 +8,8 @@ import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class ActivityDetailActivity : BaseActivity() {
 
-    override fun setContentViewId(): Int {
-        return R.layout.activity_activity_detail
+    override fun toSetContentView() {
+        setContentView(R.layout.activity_activity_detail)
     }
 
     override fun initViews() {
@@ -31,6 +31,12 @@ class ActivityDetailActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
             android.R.id.home -> finish()
+            R.id.delete -> {
+
+            }
+            R.id.modify -> {
+
+            }
         }
         return super.onOptionsItemSelected(item)
     }

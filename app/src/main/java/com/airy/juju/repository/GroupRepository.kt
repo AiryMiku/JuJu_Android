@@ -2,6 +2,7 @@ package com.airy.juju.repository
 
 import com.airy.juju.api.RetrofitService
 import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.Activity
 import com.airy.juju.bean.Group
 import com.airy.juju.bean.ListData
 
@@ -25,6 +26,14 @@ class GroupRepository {
 
     suspend fun getGroups(page: Int, size: Int) : ReturnResult<ListData<Group>> {
         return RetrofitService.getJuJuApi().getGroups(page, size).await()
+    }
+
+    suspend fun getGroupBaseInfo(id: Int) : ReturnResult<Group> {
+        return RetrofitService.getJuJuApi().getGroupBaseInfo(id).await()
+    }
+
+    suspend fun getGroupBaseActivityIndex(id: Int, page: Int, size: Int) : ReturnResult<ListData<Activity>> {
+        return RetrofitService.getJuJuApi().getGroupBaseActivityIndex(id, page, size).await()
     }
 
     //...Todo

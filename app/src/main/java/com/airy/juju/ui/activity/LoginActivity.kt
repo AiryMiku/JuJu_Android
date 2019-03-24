@@ -20,8 +20,8 @@ class LoginActivity : BaseActivity() {
 
     private val REQUEST_SIGNUP = 0
 
-    override fun setContentViewId(): Int {
-        return com.airy.juju.R.layout.activity_login
+    override fun toSetContentView() {
+        setContentView(R.layout.activity_login)
     }
 
     override fun initViews() {

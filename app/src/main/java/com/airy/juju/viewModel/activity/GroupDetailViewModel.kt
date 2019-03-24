@@ -1,9 +1,11 @@
-package com.airy.juju.ui.fragment.home
+package com.airy.juju.viewModel.activity
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.Activity
 import com.airy.juju.bean.Group
+import com.airy.juju.bean.Id
 import com.airy.juju.bean.ListData
 import com.airy.juju.repository.GroupRepository
 import kotlinx.coroutines.CoroutineScope
@@ -14,55 +16,50 @@ import java.lang.Exception
 
 
 /**
- * Created by Airy on 2019/3/14
+ * Created by Airy on 2019/3/24
  * Mail: a532710813@gmail.com
  * Github: AiryMiku
  */
 
-class HomeViewModel
-//@Inject constructor(repository: GroupRepository) 以后再进行ioc
-    : ViewModel() {
+class GroupDetailViewModel(val group_id: Int) :ViewModel() {
 
-    // put your data here
-    val groups: MutableLiveData<ReturnResult<ListData<Group>>> = MutableLiveData()
+    val group: MutableLiveData<ReturnResult<Group>> = MutableLiveData()
+    val groupActivities: MutableLiveData<ReturnResult<ListData<Activity>>> = MutableLiveData()
     val repository = GroupRepository.getInstance()
-    var page: Int = 1
-    val size: Int = 99
-    var count: Int = 0
 
     init {
-        // when using ui to fetch data
-        fetchGroups()
+        refresh()
     }
 
     fun refresh() {
-        fetchGroups()
+        fetchGroup()
+        fetchGroupActivities()
     }
 
-    fun fetchGroups() {
+    fun fetchGroup() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val r = repository.getGroups(page, size)
+                val r = repository.getGroupBaseInfo(group_id)
                 withContext(Dispatchers.Main) {
-                    groups.value = r
-                    count = r.data.count
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    fun fetchMoreGroups() {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                if (count > page * size) {
-                    page += 1
-                    fetchGroups()
+                    group.value = r
                 }
             }catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
+
+    fun fetchGroupActivities() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.getGroupBaseActivityIndex(group_id, 1, 99)
+                withContext(Dispatchers.Main) {
+                    groupActivities.value = r
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 }

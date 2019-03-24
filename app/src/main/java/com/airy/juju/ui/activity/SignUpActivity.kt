@@ -10,6 +10,11 @@ import kotlinx.android.synthetic.main.activity_sign_up.*
 
 class SignUpActivity : BaseActivity() {
 
+
+    override fun toSetContentView() {
+        setContentView(R.layout.activity_sign_up)
+    }
+
     override fun initViews() {
         super.initViews()
 
@@ -23,14 +28,6 @@ class SignUpActivity : BaseActivity() {
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
         }
 
-    }
-
-    override fun loadData() {
-        super.loadData()
-    }
-
-    override fun setContentViewId(): Int {
-        return R.layout.activity_sign_up
     }
 
     fun signup() {

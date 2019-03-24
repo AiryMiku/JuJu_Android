@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : BaseActivity() {
 
-    override fun setContentViewId(): Int {
-        return R.layout.activity_welcome
+    override fun toSetContentView() {
+        setContentView(R.layout.activity_welcome)
     }
 
     override fun initViews() {

@@ -16,6 +16,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.activity.CreateActivityActivity">
+        </activity>
+        <activity android:name=".ui.activity.CreateGroupActivity">
+        </activity>
         <activity android:name=".ui.activity.ActivityDetailActivity">
         </activity>
         <activity android:name=".ui.activity.GroupDetailActivity">

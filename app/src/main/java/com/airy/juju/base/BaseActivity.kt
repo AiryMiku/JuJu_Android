@@ -21,7 +21,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(setContentViewId())
+        toSetContentView()
         loadData()
         initViews()
     }
@@ -32,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     open fun loadData(){}
 
-    abstract fun setContentViewId(): Int
+    abstract fun toSetContentView()
 
     fun makeToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
