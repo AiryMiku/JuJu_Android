@@ -1,4 +1,4 @@
-package com.airy.juju.ui.adapter
+package com.airy.juju.ui.adapter.listView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -15,7 +15,9 @@ import com.airy.juju.databinding.ListItemGroupBinding
  * Github: AiryMiku
  */
 
-class GroupsAdapter(private val fragment: Fragment, private val onClickCallback: (Group) -> Unit) : ListAdapter<Group, GroupsAdapter.ViewHolder>(TaskDiffCallback()) {
+class GroupsAdapter(private val fragment: Fragment, private val onClickCallback: (Group) -> Unit) : ListAdapter<Group, GroupsAdapter.ViewHolder>(
+    TaskDiffCallback()
+) {
 
     class ViewHolder(val binding: ListItemGroupBinding) : RecyclerView.ViewHolder(binding.root)
 

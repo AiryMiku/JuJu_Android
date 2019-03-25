@@ -18,7 +18,7 @@
             tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.activity.CreateActivityActivity">
         </activity>
-        <activity android:name=".ui.activity.CreateGroupActivity">
+        <activity android:name=".ui.activity.CreateOrModifyGroupActivity">
         </activity>
         <activity android:name=".ui.activity.ActivityDetailActivity">
         </activity>

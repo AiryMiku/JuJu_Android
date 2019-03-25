@@ -3,13 +3,11 @@ package com.airy.juju.ui.activity
 
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
-import com.airy.juju.ui.adapter.MainFragmentAdapter
+import com.airy.juju.ui.adapter.fragment.MainFragmentAdapter
 import com.airy.juju.ui.fragment.chat.ChatFragment
 import com.airy.juju.ui.fragment.home.HomeFragment
 import com.airy.juju.ui.fragment.me.MeFragment

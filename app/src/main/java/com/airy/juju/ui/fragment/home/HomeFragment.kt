@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentHomeBinding
 import com.airy.juju.ui.activity.GroupDetailActivity
-import com.airy.juju.ui.adapter.GroupsAdapter
+import com.airy.juju.ui.adapter.listView.GroupsAdapter
 
 
 class HomeFragment : BaseFragment() {

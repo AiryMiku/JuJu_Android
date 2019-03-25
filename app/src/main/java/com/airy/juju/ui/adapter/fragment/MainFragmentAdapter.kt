@@ -1,4 +1,4 @@
-package com.airy.juju.ui.adapter
+package com.airy.juju.ui.adapter.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

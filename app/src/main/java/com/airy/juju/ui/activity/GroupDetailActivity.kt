@@ -2,21 +2,15 @@ package com.airy.juju.ui.activity
 
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.view.ViewTreeObserver
-import android.widget.AbsListView
-import android.widget.Adapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.databinding.ActivityGroupDetailBinding
-import com.airy.juju.ui.adapter.ActivitiesAdapter
+import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
 import com.airy.juju.viewModel.activity.GroupDetailViewModel
 import com.airy.juju.viewModel.factroy.GroupDetailViewModelFactory
-import kotlinx.android.synthetic.main.activity_group_detail.*
 import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class GroupDetailActivity : BaseActivity() {
@@ -55,8 +49,8 @@ class GroupDetailActivity : BaseActivity() {
         }
 
         // rv
-        adapter = ActivitiesAdapter {
-            activity -> makeToast(activity.title)
+        adapter = ActivitiesAdapter { activity ->
+            makeToast(activity.title)
         }
         binding.list.adapter = adapter
     }

@@ -1,4 +1,4 @@
-package com.airy.juju.ui.adapter
+package com.airy.juju.ui.adapter.listView
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -30,12 +30,12 @@ class ActivitiesAdapter(private val onClickCallback: (Activity) -> Unit)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivitiesAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ListItemActivityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ActivitiesAdapter.ViewHolder(binding)
+        return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ActivitiesAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val activity = getItem(position)
         holder.binding.activity = activity
         holder.binding.root.setOnClickListener {

@@ -25,7 +25,7 @@ class HomeViewModel
 
     // put your data here
     val groups: MutableLiveData<ReturnResult<ListData<Group>>> = MutableLiveData()
-    val repository = GroupRepository.getInstance()
+    private val repository = GroupRepository.getInstance()
     var page: Int = 1
     val size: Int = 99
     var count: Int = 0

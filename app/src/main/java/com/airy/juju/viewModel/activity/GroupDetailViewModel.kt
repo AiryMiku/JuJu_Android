@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.airy.juju.api.ReturnResult
 import com.airy.juju.bean.Activity
 import com.airy.juju.bean.Group
-import com.airy.juju.bean.Id
 import com.airy.juju.bean.ListData
 import com.airy.juju.repository.GroupRepository
 import kotlinx.coroutines.CoroutineScope
@@ -21,11 +20,11 @@ import java.lang.Exception
  * Github: AiryMiku
  */
 
-class GroupDetailViewModel(val group_id: Int) :ViewModel() {
+class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
 
     val group: MutableLiveData<ReturnResult<Group>> = MutableLiveData()
     val groupActivities: MutableLiveData<ReturnResult<ListData<Activity>>> = MutableLiveData()
-    val repository = GroupRepository.getInstance()
+    private val repository = GroupRepository.getInstance()
 
     init {
         refresh()
@@ -39,7 +38,7 @@ class GroupDetailViewModel(val group_id: Int) :ViewModel() {
     fun fetchGroup() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val r = repository.getGroupBaseInfo(group_id)
+                val r = repository.getGroupBaseInfo(groupId)
                 withContext(Dispatchers.Main) {
                     group.value = r
                 }
@@ -52,7 +51,7 @@ class GroupDetailViewModel(val group_id: Int) :ViewModel() {
     fun fetchGroupActivities() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val r = repository.getGroupBaseActivityIndex(group_id, 1, 99)
+                val r = repository.getGroupBaseActivityIndex(groupId, 1, 99)
                 withContext(Dispatchers.Main) {
                     groupActivities.value = r
                 }
