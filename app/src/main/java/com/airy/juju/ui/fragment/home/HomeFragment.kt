@@ -44,7 +44,7 @@ class HomeFragment : BaseFragment() {
 
     private fun initRecycleView() {
         adapter = GroupsAdapter(this) {
-            makeToast(it.name)
+            makeToast("GroupID -> "+it.id)
             val intent = Intent(context, GroupDetailActivity::class.java)
             intent.putExtra(GroupDetailActivity.GROUP_ID_KEY, it.id)
             startActivity(intent)

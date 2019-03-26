@@ -12,54 +12,61 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="56dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp">
+            android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputLayout
+        <include layout="@layout/layout_app_bar"/>
+
+        <LinearLayout
+                android:id="@+id/linear_layout"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_group_name"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:text="@{group.name}"
-                      android:hint="请输入群组名称"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_introduction"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:text="@{group.introduction}"
-                      android:hint="请输入群组简介" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp">
 
 
-        <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/create"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:padding="12dp"
-                android:text="创建群组"/>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+                <EditText android:id="@+id/input_group_name"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="@{group.name}"
+                          android:hint="请输入群组名称"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/modify"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:padding="12dp"
-                android:text="修改群组"/>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+                <EditText android:id="@+id/input_introduction"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="@{group.introduction}"
+                          android:hint="请输入群组简介" />
+            </com.google.android.material.textfield.TextInputLayout>
 
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/create"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:padding="12dp"
+                    android:text="创建群组"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/modify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:padding="12dp"
+                    android:text="修改群组"/>
+
+        </LinearLayout>
     </LinearLayout>
-
 </layout>

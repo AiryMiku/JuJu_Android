@@ -6,11 +6,7 @@ import com.airy.juju.bean.Group
 import com.airy.juju.bean.Id
 import com.airy.juju.bean.ListData
 import kotlinx.coroutines.Deferred
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
-
+import retrofit2.http.*
 
 
 /**
@@ -19,18 +15,22 @@ import retrofit2.http.QueryMap
  * Github: AiryMiku
  */
 
+@JvmSuppressWildcards // Map<String, Any> it be compiled into [java.util.Map<java.lang.String, ?>]
 interface JuJuApi {
 
 
     // group
+    @FormUrlEncoded
     @POST("/group/create/")
-    fun createGroup(@QueryMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
+    fun createGroup(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
 
+    @FormUrlEncoded
     @POST("/group/delete/")
-    fun deleteGroup(@QueryMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun deleteGroup(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
+    @FormUrlEncoded
     @POST("/group/modify/")
-    fun modifyGroup(@QueryMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
+    fun modifyGroup(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @GET("/group/indexAll/")
     fun getGroups(@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
@@ -42,16 +42,18 @@ interface JuJuApi {
     fun getGroupBaseActivityIndex(@Query("group_id") id: Int,@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
 
 
-
     // activity
+    @FormUrlEncoded
     @POST("/activity/create/")
-    fun createActivity(@QueryMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
+    fun createActivity(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
 
+    @FormUrlEncoded
     @POST("/activity/delete/")
-    fun deleteActivity(@QueryMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun deleteActivity(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
+    @FormUrlEncoded
     @POST("/activity/modify/")
-    fun modifyActivity(@QueryMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
+    fun modifyActivity(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
 
     @GET("/activity/indexAll/")
     fun getActivities(@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
@@ -59,8 +61,9 @@ interface JuJuApi {
     @GET("/activity/info/")
     fun getActivityInfo(@Query("activity_id") id: Int): Deferred<ReturnResult<Activity>>
 
+    @FormUrlEncoded
     @POST("/activity/leaveComment/")
-    fun leaveComment(@QueryMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun leaveComment(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
 
     // search

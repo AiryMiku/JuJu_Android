@@ -2,10 +2,12 @@ package com.airy.juju.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.airy.juju.R
+import com.google.android.material.snackbar.Snackbar
 
 
 /**
@@ -50,6 +52,10 @@ abstract class BaseActivity : AppCompatActivity() {
 
     fun setToolBarTitle(title: String) {
         toolbar.title = title
+    }
+
+    fun makeSnackar(layout: View,message: String) {
+        Snackbar.make(layout, message, Snackbar.LENGTH_SHORT).show()
     }
 
 

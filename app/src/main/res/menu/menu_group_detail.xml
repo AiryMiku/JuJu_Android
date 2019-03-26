@@ -6,6 +6,7 @@
 
     <item android:id="@+id/group_manager" android:title="群组管理">
         <menu>
+            <item android:id="@+id/send_notice" android:title="编辑公告"/>
             <item android:id="@+id/modify" android:title="修改群组"/>
             <item android:id="@+id/delte" android:title="删除群组"/>
         </menu>

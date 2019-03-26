@@ -36,5 +36,9 @@ class GroupRepository {
         return RetrofitService.getJuJuApi().getGroupBaseActivityIndex(id, page, size).await()
     }
 
+    suspend fun modifyGroup(params: Map<String,Any>) :ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().modifyGroup(params).await()
+    }
+
     //...Todo
 }
