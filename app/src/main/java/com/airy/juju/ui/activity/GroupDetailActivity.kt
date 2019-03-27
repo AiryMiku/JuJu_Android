@@ -112,7 +112,7 @@ class GroupDetailActivity : BaseActivity() {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setTitle("编辑什么样的公告呢？")
         val editText = EditText(this)
-        editText.setText(binding.group.notice)
+        editText.setText(binding.group?.notice)
         dialogBuilder.setView(editText)
         dialogBuilder
             .setPositiveButton("发送") { _, _ -> // dialog, which

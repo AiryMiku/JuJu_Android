@@ -18,7 +18,8 @@ data class Activity(
     val place: String,
     val start_time: String,
     val end_time: String,
-    val like_number: Int
+    val like_number: Int,
+    var group_name: String
 ) : Serializable, Parcelable {
     constructor(source: Parcel) : this(
         source.readInt(),
@@ -27,7 +28,8 @@ data class Activity(
         source.readString(),
         source.readString(),
         source.readString(),
-        source.readInt()
+        source.readInt(),
+        source.readString()
     )
 
     override fun describeContents() = 0
@@ -40,6 +42,7 @@ data class Activity(
         writeString(start_time)
         writeString(end_time)
         writeInt(like_number)
+        writeString(group_name)
     }
 
     companion object {
