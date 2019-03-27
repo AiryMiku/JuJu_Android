@@ -10,6 +10,7 @@ import com.airy.juju.base.BaseActivity
 import com.airy.juju.ui.adapter.listView.CommentsAdapter
 import com.airy.juju.viewModel.activity.ActivityDetailViewModel
 import com.airy.juju.viewModel.factroy.ActivityDetailViewModeFactory
+import com.airy.juju.databinding.ActivityActivityDetailBinding
 import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class ActivityDetailActivity : BaseActivity() {
@@ -19,7 +20,7 @@ class ActivityDetailActivity : BaseActivity() {
         const val ACTIVITY_ID_KEY = "ACTIVITY_ID_KEY"
     }
 
-    private lateinit var binding: com.airy.juju.databinding.ActivityActivityDetailBinding
+    private lateinit var binding: ActivityActivityDetailBinding
     private lateinit var viewModel: ActivityDetailViewModel
     private lateinit var adapter: CommentsAdapter
     private var id: Int = 0
