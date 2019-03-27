@@ -17,7 +17,6 @@
                 android:id="@+id/item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="100dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:padding="8dp">
@@ -35,25 +34,14 @@
                     android:textSize="18sp"
                     tools:text="活动标题"/>
 
-            <!--所属群组名字-->
-            <TextView
-                    android:id="@+id/group_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/title"
-                    android:text="@{activity.start_time}"
-                    android:textStyle="italic"
-                    tools:text="这里是群组名字"/>
-
             <!--活动时间-->
             <TextView
                     android:id="@+id/start_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/group_name"
-                    android:text="@{activity.start_time}"
+                    app:layout_constraintTop_toBottomOf="@id/title"
+                    android:text='@{activity.start_time+" - "+activity.end_time}'
                     android:textColor="@color/black"
                     tools:text="这里是时间"/>
 
@@ -62,8 +50,8 @@
                     android:id="@+id/place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    app:layout_constraintTop_toBottomOf="@id/group_name"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/start_time"
                     app:layout_constraintStart_toEndOf="@id/start_time"
                     android:text="@{activity.place}"
                     android:textColor="@color/black"

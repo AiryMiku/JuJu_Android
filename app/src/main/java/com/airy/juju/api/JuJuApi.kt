@@ -1,10 +1,7 @@
 package com.airy.juju.api
 
 import androidx.lifecycle.LiveData
-import com.airy.juju.bean.Activity
-import com.airy.juju.bean.Group
-import com.airy.juju.bean.Id
-import com.airy.juju.bean.ListData
+import com.airy.juju.bean.*
 import kotlinx.coroutines.Deferred
 import retrofit2.http.*
 
@@ -41,6 +38,19 @@ interface JuJuApi {
     @GET("/group/baseActivityIndex/")
     fun getGroupBaseActivityIndex(@Query("group_id") id: Int,@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
 
+    @GET("/group/memberIndex/")
+    fun getGroupMembersIndex(@Query("group_id") id: Int,@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
+
+    @FormUrlEncoded
+    @POST("/group/follow/")
+    fun followGroup(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
+    @FormUrlEncoded
+    @POST("/group/disFollow/")
+    fun disfollowGroup(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
+
+
 
     // activity
     @FormUrlEncoded
@@ -56,7 +66,7 @@ interface JuJuApi {
     fun modifyActivity(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
 
     @GET("/activity/indexAll/")
-    fun getActivities(@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
+    fun getActivities(@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
 
     @GET("/activity/info/")
     fun getActivityInfo(@Query("activity_id") id: Int): Deferred<ReturnResult<Activity>>
@@ -65,10 +75,23 @@ interface JuJuApi {
     @POST("/activity/leaveComment/")
     fun leaveComment(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
+    @FormUrlEncoded
+    @POST("/activity/deleteComment/")
+    fun deleteComment(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
+    @GET("/activity/indexComment/")
+    fun getComments(@Query("activity_id") id: Int, @Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Comment>>>
 
     // search
 
 
     // playground
+
+
+    // user
+
+
+    @GET("/group/indexFollow/")
+    fun getGroupsFollowIndex(@Query("user_id") id: Int,@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
 
 }

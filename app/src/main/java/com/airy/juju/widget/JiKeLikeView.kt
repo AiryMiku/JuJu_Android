@@ -2,12 +2,14 @@ package com.airy.juju.widget
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.databinding.BindingAdapter
 import com.airy.juju.R
 import com.airy.juju.util.DensityUtil
 
@@ -232,6 +234,7 @@ open class JiKeLikeView : View {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -304,7 +307,7 @@ open class JiKeLikeView : View {
 
         textMaxMove = DensityUtil.dp2px(context, 20f).toFloat()
 
-        var startY: Float = if (isLike) {   // decide where the num move
+        val startY: Float = if (isLike) {   // decide where the num move
             textMaxMove
         } else {
             -textMaxMove
@@ -353,5 +356,16 @@ open class JiKeLikeView : View {
         this.shingCircleAlpha = shingCircleAlpha
         invalidate()
 
+    }
+
+
+    fun getLikeNumber(): Int{
+        return this.likeNumber
+    }
+
+
+     fun setLikeNumber(v: Int) {
+        this.likeNumber = v
+         invalidate()
     }
 }

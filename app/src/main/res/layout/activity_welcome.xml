@@ -7,6 +7,8 @@
     <include layout="@layout/layout_app_bar"/>
 
     <Button
+            android:background="@drawable/btn_style"
+            android:textColor="@drawable/btn_text_color"
             android:id="@+id/btn_wel_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

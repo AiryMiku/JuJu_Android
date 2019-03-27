@@ -4,6 +4,7 @@ import com.airy.juju.api.RetrofitService
 import com.airy.juju.api.ReturnResult
 import com.airy.juju.bean.Activity
 import com.airy.juju.bean.Group
+import com.airy.juju.bean.Id
 import com.airy.juju.bean.ListData
 
 
@@ -15,6 +16,7 @@ import com.airy.juju.bean.ListData
 
 //@Singleton
 class GroupRepository {
+
     companion object {
         @Volatile
         private var instance: GroupRepository? = null
@@ -36,8 +38,24 @@ class GroupRepository {
         return RetrofitService.getJuJuApi().getGroupBaseActivityIndex(id, page, size).await()
     }
 
+    suspend fun createGroup(params: Map<String, Any>) :ReturnResult<Id> {
+        return RetrofitService.getJuJuApi().createGroup(params).await()
+    }
+
     suspend fun modifyGroup(params: Map<String,Any>) :ReturnResult<Any> {
         return RetrofitService.getJuJuApi().modifyGroup(params).await()
+    }
+
+    suspend fun deleteGroup(params: Map<String, Any>) :ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().deleteGroup(params).await()
+    }
+
+    suspend fun followGroup(params: Map<String, Any>) :ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().followGroup(params).await()
+    }
+
+    suspend fun disfollowGroup(params: Map<String, Any>) :ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().disfollowGroup(params).await()
     }
 
     //...Todo

@@ -31,7 +31,7 @@
                 <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
 
                     <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                                     android:layout_height="wrap_content"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@id/title"
-                                    android:text="@{activity.start_time}"
+                                    android:text="@{activity.group_name}"
                                     android:textStyle="italic"
                                     tools:text="这里是群组名字"/>
 
@@ -88,14 +88,44 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="10dp"
-                                    app:layout_constraintTop_toBottomOf="@id/group_name"
+                                    app:layout_constraintTop_toTopOf="@id/start_time"
                                     app:layout_constraintStart_toEndOf="@id/start_time"
                                     android:text="@{activity.place}"
                                     android:textColor="@color/black"
                                     tools:text="这里是地点"/>
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            <!--活动内容-->
+                            <TextView
+                                    android:id="@+id/content"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintTop_toBottomOf="@id/start_time"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    android:text="@{activity.content}"
+                                    android:textColor="@color/black"
+                                    tools:text="这里是内容"/>
 
+                            <Button
+                                android:id="@+id/btn_follow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_marginTop="10dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/content"
+                                android:background="@drawable/btn_style"
+                                android:textColor="@drawable/btn_text_color"
+                                android:text="关注"
+                                tools:text="关注"/>
+
+                            <com.airy.juju.widget.JiKeLikeView
+                                    android:id="@+id/like"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/content"
+                                    app:like_num="9999"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.cardview.widget.CardView>
 
                     <!--评论列表-->
@@ -104,7 +134,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:listitem=""/>
+                            tools:listitem="@layout/list_item_comment"/>
 
                 </LinearLayout>
             </ScrollView>
