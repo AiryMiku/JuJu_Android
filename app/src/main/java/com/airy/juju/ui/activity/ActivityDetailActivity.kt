@@ -2,14 +2,11 @@ package com.airy.juju.ui.activity
 
 import android.view.Menu
 import android.view.MenuItem
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
-import com.airy.juju.databinding.ActivityActivityDetailBinding
 import com.airy.juju.ui.adapter.listView.CommentsAdapter
 import com.airy.juju.viewModel.activity.ActivityDetailViewModel
 import com.airy.juju.viewModel.factroy.ActivityDetailViewModeFactory
@@ -22,7 +19,7 @@ class ActivityDetailActivity : BaseActivity() {
         const val ACTIVITY_ID_KEY = "ACTIVITY_ID_KEY"
     }
 
-    private lateinit var binding: ActivityActivityDetailBinding
+    private lateinit var binding: com.airy.juju.databinding.ActivityActivityDetailBinding
     private lateinit var viewModel: ActivityDetailViewModel
     private lateinit var adapter: CommentsAdapter
     private var id: Int = 0
