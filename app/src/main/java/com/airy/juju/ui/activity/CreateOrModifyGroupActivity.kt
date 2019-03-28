@@ -1,10 +1,12 @@
 package com.airy.juju.ui.activity
 
+import android.content.Intent
 import android.view.MenuItem
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.airy.juju.Common
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.databinding.ActivityCreateOrModifyGroupBinding
@@ -13,12 +15,6 @@ import com.airy.juju.viewModel.factroy.CreateOrModifyGroupViewModelFactory
 import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class CreateOrModifyGroupActivity : BaseActivity() {
-
-    companion object {
-        val TYPE_KEY: String = "TYPE_KEY"
-        val CREATE_KEY: String = "CREATE_KEY"
-        val MODIFY_KEY: String = "MODIFY_KEY"
-    }
 
     private lateinit var binding: ActivityCreateOrModifyGroupBinding
     private lateinit var viewModel: CreateOrModifyGroupViewModel
@@ -53,7 +49,7 @@ class CreateOrModifyGroupActivity : BaseActivity() {
         }
         typeControl()
 
-        id = intent.getIntExtra(GroupDetailActivity.GROUP_ID_KEY,0)
+        id = intent.getIntExtra(Common.ParamTranferKey.GROUP_ID_KEY,0)
         viewModel = ViewModelProviders.of(this, CreateOrModifyGroupViewModelFactory(id)).get(CreateOrModifyGroupViewModel::class.java)
 
         subscribeUI()
@@ -68,12 +64,12 @@ class CreateOrModifyGroupActivity : BaseActivity() {
 
     private fun typeControl(){
         val itn = intent
-        val type = itn.getStringExtra(TYPE_KEY)
+        val type = itn.getStringExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY)
         when(type) {
-            CREATE_KEY -> {
+            Common.ActivityCreateOrModifyKey.CREATE_KEY -> {
                 binding.linearLayout.removeView(binding.modify)
             }
-            MODIFY_KEY -> {
+            Common.ActivityCreateOrModifyKey.MODIFY_KEY -> {
                 binding.linearLayout.removeView(binding.create)
             }
         }

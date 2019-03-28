@@ -49,9 +49,6 @@ interface JuJuApi {
     @POST("/group/disFollow/")
     fun disfollowGroup(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
-
-
-
     // activity
     @FormUrlEncoded
     @POST("/activity/create/")

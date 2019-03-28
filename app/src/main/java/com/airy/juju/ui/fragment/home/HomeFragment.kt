@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airy.juju.Common
 
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentHomeBinding
@@ -46,7 +47,7 @@ class HomeFragment : BaseFragment() {
         adapter = GroupsAdapter(this) {
             makeToast("GroupID -> "+it.id)
             val intent = Intent(context, GroupDetailActivity::class.java)
-            intent.putExtra(GroupDetailActivity.GROUP_ID_KEY, it.id)
+            intent.putExtra(Common.ParamTranferKey.GROUP_ID_KEY, it.id)
             startActivity(intent)
         }
         binding.list.addOnScrollListener(object :RecyclerView.OnScrollListener(){

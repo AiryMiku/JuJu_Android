@@ -1,10 +1,13 @@
 package com.airy.juju.ui.activity
 
+import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.airy.juju.Common
+import com.airy.juju.Common.ParamTranferKey.ACTIVITY_ID_KEY
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.ui.adapter.listView.CommentsAdapter
@@ -14,11 +17,6 @@ import com.airy.juju.databinding.ActivityActivityDetailBinding
 import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class ActivityDetailActivity : BaseActivity() {
-
-
-    companion object {
-        const val ACTIVITY_ID_KEY = "ACTIVITY_ID_KEY"
-    }
 
     private lateinit var binding: ActivityActivityDetailBinding
     private lateinit var viewModel: ActivityDetailViewModel
@@ -59,11 +57,16 @@ class ActivityDetailActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
             android.R.id.home -> finish()
+
             R.id.delete -> {
 
             }
-            R.id.modify -> {
 
+            R.id.modify -> {
+                val intent = Intent(this, CreateOrModifyActivityActivity::class.java)
+                intent.putExtra(Common.ParamTranferKey.GROUP_ID_KEY, id)
+                intent.putExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY, Common.ActivityCreateOrModifyKey.MODIFY_KEY)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)

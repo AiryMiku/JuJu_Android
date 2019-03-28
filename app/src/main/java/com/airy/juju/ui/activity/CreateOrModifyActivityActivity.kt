@@ -3,18 +3,13 @@ package com.airy.juju.ui.activity
 import android.view.MenuItem
 import android.view.View
 import androidx.databinding.DataBindingUtil
+import com.airy.juju.Common
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.databinding.ActivityCreateOrModifyActivityBinding
 import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class CreateOrModifyActivityActivity : BaseActivity() {
-
-    companion object {
-        val TYPE_KEY: String = "TYPE_KEY"
-        val CREATE_KEY: String = "CREATE_KEY"
-        val MODIFY_KEY: String = "MODIFY_KEY"
-    }
 
 //    private var isModify: Boolean = false
     private lateinit var binding: ActivityCreateOrModifyActivityBinding
@@ -47,12 +42,12 @@ class CreateOrModifyActivityActivity : BaseActivity() {
 
     private fun typeControl(){
         val itn = intent
-        val type = itn.getStringExtra(TYPE_KEY)
+        val type = itn.getStringExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY)
         when(type) {
-            CREATE_KEY -> {
+            Common.ActivityCreateOrModifyKey.CREATE_KEY -> {
                 binding.linearLayout.removeView(binding.modify)
             }
-            MODIFY_KEY -> {
+            Common.ActivityCreateOrModifyKey.MODIFY_KEY -> {
                 binding.linearLayout.removeView(binding.create)
             }
         }

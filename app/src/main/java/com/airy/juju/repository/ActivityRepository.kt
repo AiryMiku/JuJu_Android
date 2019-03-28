@@ -41,6 +41,10 @@ class ActivityRepository {
         return RetrofitService.getJuJuApi().getComments(id, page, size).await()
     }
 
+    suspend fun deleteActivity(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().deleteActivity(params).await()
+    }
+
 
     // todo
 

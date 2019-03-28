@@ -1,8 +1,6 @@
 package com.airy.juju.ui.activity
 
-import android.content.DialogInterface
 import android.content.Intent
-import android.text.Editable
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.EditText
@@ -10,20 +8,19 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.airy.juju.Common
+import com.airy.juju.Common.ParamTranferKey.ACTIVITY_ID_KEY
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.databinding.ActivityGroupDetailBinding
 import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
+import com.airy.juju.util.UIUtil
 import com.airy.juju.viewModel.activity.GroupDetailViewModel
 import com.airy.juju.viewModel.factroy.GroupDetailViewModelFactory
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class GroupDetailActivity : BaseActivity() {
 
-    companion object {
-        const val GROUP_ID_KEY = "GROUP_ID_KEY"
-    }
     private lateinit var binding: ActivityGroupDetailBinding
     private lateinit var viewModel: GroupDetailViewModel
     private lateinit var adapter: ActivitiesAdapter
@@ -51,13 +48,25 @@ class GroupDetailActivity : BaseActivity() {
         adapter = ActivitiesAdapter { activity ->
             makeToast("Activity ID -> "+activity.id)
             val intent = Intent(this, ActivityDetailActivity::class.java)
-            intent.putExtra(ActivityDetailActivity.ACTIVITY_ID_KEY, activity.id)
+            intent.putExtra(ACTIVITY_ID_KEY, activity.id)
             startActivity(intent)
         }
         binding.list.adapter = adapter
 
-        id = intent.getIntExtra(GROUP_ID_KEY,0)
+        id = intent.getIntExtra(Common.ParamTranferKey.GROUP_ID_KEY,0)
         viewModel = ViewModelProviders.of(this, GroupDetailViewModelFactory(id)).get(GroupDetailViewModel::class.java)
+
+        // follow
+        binding.btnFollow.setOnClickListener {
+            when(binding.btnFollow.text) {
+                "关注" -> {
+                    binding.btnFollow.text = "已关注"
+                }
+                "已关注" -> {
+                    binding.btnFollow.text = "关注"
+                }
+            }
+        }
 
         initRefresh()
         subscribeUI()
@@ -72,20 +81,26 @@ class GroupDetailActivity : BaseActivity() {
         when(item?.itemId) {
             android.R.id.home -> finish()
 
-            R.id.create -> {
-                val intent = Intent(this, CreateOrModifyGroupActivity::class.java)
-                intent.putExtra(CreateOrModifyGroupActivity.TYPE_KEY, CreateOrModifyGroupActivity.CREATE_KEY)
+            R.id.create_actitity -> {
+                val intent = Intent(this, CreateOrModifyActivityActivity::class.java)
+                intent.putExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY, Common.ActivityCreateOrModifyKey.CREATE_KEY)
                 startActivity(intent)
             }
 
             R.id.modify -> {
                 val intent = Intent(this, CreateOrModifyGroupActivity::class.java)
-                intent.putExtra(GROUP_ID_KEY, id)
-                intent.putExtra(CreateOrModifyGroupActivity.TYPE_KEY, CreateOrModifyGroupActivity.MODIFY_KEY)
+                intent.putExtra(Common.ParamTranferKey.GROUP_ID_KEY, id)
+                intent.putExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY, Common.ActivityCreateOrModifyKey.MODIFY_KEY)
                 startActivity(intent)
             }
-
             R.id.send_notice -> showSendNoticeDialog()
+            R.id.delete -> {
+                showDeleteDialog()
+            }
+
+            R.id.invite_people -> {}
+            R.id.remove_people -> {}
+            R.id.set_admin -> {}
         }
         return super.onOptionsItemSelected(item)
     }
@@ -121,6 +136,21 @@ class GroupDetailActivity : BaseActivity() {
         dialogBuilder
             .setNegativeButton("取消") { _, _ ->
                 makeSnackar(binding.linearLayout, "您取消了编辑公告")
+            }
+        dialogBuilder.show()
+    }
+
+    private fun showDeleteDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setTitle("删除群组确认")
+        dialogBuilder.setMessage("真的真的要删除群组？")
+        dialogBuilder
+            .setPositiveButton("确认") { _, _ -> // dialog, which
+                makeSnackar(binding.linearLayout, "成功删除")
+            }
+        dialogBuilder
+            .setNegativeButton("取消") { _, _ ->
+                makeSnackar(binding.linearLayout, "取消了删除")
             }
         dialogBuilder.show()
     }
