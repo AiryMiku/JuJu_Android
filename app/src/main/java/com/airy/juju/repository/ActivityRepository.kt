@@ -33,12 +33,16 @@ class ActivityRepository {
         return RetrofitService.getJuJuApi().getActivities(page, size).await()
     }
 
+    suspend fun getComments(id: Int, page: Int, size: Int): ReturnResult<ListData<Comment>> {
+        return RetrofitService.getJuJuApi().getComments(id, page, size).await()
+    }
+
     suspend fun createActivity(params: Map<String, Any>): ReturnResult<Id> {
         return RetrofitService.getJuJuApi().createActivity(params).await()
     }
 
-    suspend fun getComments(id: Int, page: Int, size: Int): ReturnResult<ListData<Comment>> {
-        return RetrofitService.getJuJuApi().getComments(id, page, size).await()
+    suspend fun modifyActivity(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().modifyActivity(params).await()
     }
 
     suspend fun deleteActivity(params: Map<String, Any>): ReturnResult<Any> {

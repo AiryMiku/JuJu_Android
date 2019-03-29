@@ -368,4 +368,12 @@ open class JiKeLikeView : View {
         this.likeNumber = v
          invalidate()
     }
+
+    fun isLike(): Boolean {
+        return this.isLike
+    }
+
+    fun likeIt(){
+        this.isLike = true
+    }
 }

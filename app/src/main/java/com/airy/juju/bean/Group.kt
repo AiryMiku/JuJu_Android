@@ -17,7 +17,8 @@ data class Group(
     val name: String,
     val notice: String,
     val introduction: String,
-    val create_time: String
+    val create_time: String,
+    var is_follow: Boolean
 ) : Serializable, Parcelable {
     constructor(source: Parcel) : this(
         source.readInt(),
@@ -25,7 +26,8 @@ data class Group(
         source.readString(),
         source.readString(),
         source.readString(),
-        source.readString()
+        source.readString(),
+        1 == source.readInt()
     )
 
     override fun describeContents() = 0
@@ -37,6 +39,7 @@ data class Group(
         writeString(notice)
         writeString(introduction)
         writeString(create_time)
+        writeInt((if (is_follow) 1 else 0))
     }
 
     companion object {

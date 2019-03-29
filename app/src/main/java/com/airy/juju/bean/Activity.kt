@@ -19,7 +19,8 @@ data class Activity(
     val start_time: String,
     val end_time: String,
     val like_number: Int,
-    var group_name: String
+    var group_name: String,
+    var is_follow: Boolean
 ) : Serializable, Parcelable {
     constructor(source: Parcel) : this(
         source.readInt(),
@@ -29,7 +30,8 @@ data class Activity(
         source.readString(),
         source.readString(),
         source.readInt(),
-        source.readString()
+        source.readString(),
+        1 == source.readInt()
     )
 
     override fun describeContents() = 0
@@ -43,6 +45,7 @@ data class Activity(
         writeString(end_time)
         writeInt(like_number)
         writeString(group_name)
+        writeInt((if (is_follow) 1 else 0))
     }
 
     companion object {

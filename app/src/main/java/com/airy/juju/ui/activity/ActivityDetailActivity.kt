@@ -3,6 +3,8 @@ package com.airy.juju.ui.activity
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -27,6 +29,11 @@ class ActivityDetailActivity : BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_activity_detail)
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.refresh()
+    }
+
     override fun initViews() {
         super.initViews()
         setSupportActionBar(toolbar)
@@ -44,6 +51,11 @@ class ActivityDetailActivity : BaseActivity() {
             makeToast("Comment ID -> "+it.id)
         }
         binding.list.adapter = adapter
+
+        // like
+        binding.like.setOnClickListener {
+
+        }
 
         initRefresh()
         subscribeUI()
@@ -64,9 +76,13 @@ class ActivityDetailActivity : BaseActivity() {
 
             R.id.modify -> {
                 val intent = Intent(this, CreateOrModifyActivityActivity::class.java)
-                intent.putExtra(Common.ParamTranferKey.GROUP_ID_KEY, id)
+                intent.putExtra(Common.ParamTranferKey.ACTIVITY_ID_KEY, id)
                 intent.putExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY, Common.ActivityCreateOrModifyKey.MODIFY_KEY)
                 startActivity(intent)
+            }
+
+            R.id.leave_comment -> {
+                showCommentDialog()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -94,6 +110,23 @@ class ActivityDetailActivity : BaseActivity() {
         binding.like.setOnClickListener {
             makeToast("点赞")
         }
+    }
+
+    private fun showCommentDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setTitle("想说点什么？")
+        val editText = EditText(this)
+        editText.hint = "友好发言，创建美好互联网环境~"
+        dialogBuilder.setView(editText)
+        dialogBuilder
+            .setPositiveButton("发送") { _, _ -> // dialog, which
+//                makeSnackar(binding.linearLayout, "评论成功")
+            }
+        dialogBuilder
+            .setNegativeButton("取消") { _, _ ->
+                makeSnackar(binding.linearLayout, "取消了评论")
+            }
+        dialogBuilder.show()
     }
 
 }

@@ -11,7 +11,7 @@ object Common {
 
     object SharedPreferenceKey {
         const val USER_ID = "userId"
-        const val USER_TOKEN = "userToken"
+        const val ACCESS_TOKEN = "accessToken"
     }
 
     object ActivityCreateOrModifyKey {

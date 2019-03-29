@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.airy.juju.api.ReturnResult
-import com.airy.juju.bean.Activity
-import com.airy.juju.bean.Group
-import com.airy.juju.bean.Id
-import com.airy.juju.bean.ListData
+import com.airy.juju.bean.*
 import com.airy.juju.repository.GroupRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,9 +29,9 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
 
     val group: MutableLiveData<ReturnResult<Group>> = MutableLiveData()
     val groupActivities: MutableLiveData<ReturnResult<ListData<Activity>>> = MutableLiveData()
-    val deleteResult: MutableLiveData<ReturnResult<Any>> = MutableLiveData()
-    val createResult: MutableLiveData<ReturnResult<Id>> = MutableLiveData()
-    val followResult: MutableLiveData<Any> = MutableLiveData()
+    val deleteResult: MutableLiveData<Boolean> = MutableLiveData()
+    val followResult: MutableLiveData<ReturnResult<Any>> = MutableLiveData()
+    val isFollowResult: MutableLiveData<ReturnResult<IsFollow>> = MutableLiveData()
 
     init {
         refresh()
@@ -72,27 +69,15 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
         }
     }
 
-    fun createGroup(params: Map<String, Any>) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val r = repository.createGroup(params)
-                withContext(Dispatchers.Main) {
-                    createResult.value = r
-                }
-            }catch (e :Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
     fun deleteGroup(params: Map<String, Any>) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val r = repository.deleteGroup(params)
                 withContext(Dispatchers.Main) {
-                    deleteResult.value = r
+                    deleteResult.value = true
                 }
             }catch (e :Exception) {
+                deleteResult.value = false
                 e.printStackTrace()
             }
         }
@@ -142,6 +127,19 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
                 val r = repository.disfollowGroup(params)
                 withContext(Dispatchers.Main) {
                     followResult.value = r
+                }
+            }catch (e :Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun isFollow(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.isFollowGroup(params)
+                withContext(Dispatchers.Main) {
+                    isFollowResult.value = r
                 }
             }catch (e :Exception) {
                 e.printStackTrace()

@@ -60,10 +60,10 @@ class GroupDetailActivity : BaseActivity() {
         binding.btnFollow.setOnClickListener {
             when(binding.btnFollow.text) {
                 "关注" -> {
-                    binding.btnFollow.text = "已关注"
+//                    viewModel.follow()
                 }
                 "已关注" -> {
-                    binding.btnFollow.text = "关注"
+//                    viewModel.disfollow()
                 }
             }
         }
@@ -83,6 +83,7 @@ class GroupDetailActivity : BaseActivity() {
 
             R.id.create_actitity -> {
                 val intent = Intent(this, CreateOrModifyActivityActivity::class.java)
+                intent.putExtra(Common.ParamTranferKey.GROUP_ID_KEY, id)
                 intent.putExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY, Common.ActivityCreateOrModifyKey.CREATE_KEY)
                 startActivity(intent)
             }
@@ -116,10 +117,21 @@ class GroupDetailActivity : BaseActivity() {
         viewModel.group.observe(this, Observer {
             binding.group = it.data
             binding.refresh.isRefreshing = false
+            if (it.data.is_follow) {
+                binding.btnFollow.text = "已关注"
+            }
         })
         viewModel.groupActivities.observe(this, Observer {
             adapter.submitList(it.data.list)
             binding.refresh.isRefreshing = false
+        })
+
+        viewModel.isFollowResult.observe(this, Observer {
+            if (it.data.is_follow) {
+                binding.btnFollow.text = "已关注"
+            } else {
+                binding.btnFollow.text = "关注"
+            }
         })
     }
 
@@ -146,6 +158,9 @@ class GroupDetailActivity : BaseActivity() {
         dialogBuilder.setMessage("真的真的要删除群组？")
         dialogBuilder
             .setPositiveButton("确认") { _, _ -> // dialog, which
+                val param = HashMap<String, Any>()
+                param["group_id"] = id
+                viewModel.deleteGroup(param)
                 makeSnackar(binding.linearLayout, "成功删除")
             }
         dialogBuilder
@@ -153,5 +168,10 @@ class GroupDetailActivity : BaseActivity() {
                 makeSnackar(binding.linearLayout, "取消了删除")
             }
         dialogBuilder.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.refresh()
     }
 }

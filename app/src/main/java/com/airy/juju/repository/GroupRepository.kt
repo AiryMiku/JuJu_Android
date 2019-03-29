@@ -2,10 +2,7 @@ package com.airy.juju.repository
 
 import com.airy.juju.api.RetrofitService
 import com.airy.juju.api.ReturnResult
-import com.airy.juju.bean.Activity
-import com.airy.juju.bean.Group
-import com.airy.juju.bean.Id
-import com.airy.juju.bean.ListData
+import com.airy.juju.bean.*
 
 
 /**
@@ -56,6 +53,10 @@ class GroupRepository {
 
     suspend fun disfollowGroup(params: Map<String, Any>) :ReturnResult<Any> {
         return RetrofitService.getJuJuApi().disfollowGroup(params).await()
+    }
+
+    suspend fun isFollowGroup(params: Map<String, Any>): ReturnResult<IsFollow> {
+        return RetrofitService.getJuJuApi().isFollowGroup(params).await()
     }
 
     //...Todo
