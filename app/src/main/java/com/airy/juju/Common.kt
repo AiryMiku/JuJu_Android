@@ -10,8 +10,8 @@ package com.airy.juju
 object Common {
 
     object SharedPreferenceKey {
-        const val USER_ID = "userId"
-        const val ACCESS_TOKEN = "accessToken"
+        const val USER_ID = "USERID"
+        const val ACCESS_TOKEN = "ACCESSTOKEN"
     }
 
     object ActivityCreateOrModifyKey {
@@ -23,6 +23,19 @@ object Common {
     object ParamTranferKey {
         const val GROUP_ID_KEY = "GROUP_ID_KEY"
         const val ACTIVITY_ID_KEY = "ACTIVITY_ID_KEY"
+    }
+
+    object ItemListTypeKey {
+        const val TYPE_KEY: String = "TYPE_KEY"
+        const val MY_GROUP = "MY_GROUP"
+        const val MY_ACTIVITY = "MY_ACTIVITY"
+    }
+
+    object TabFragmentTypeKey {
+        const val TYPE_KEY: String = "TYPE_KEY"
+        const val GROUP = "GROUP"
+        const val ACTIVITY = "ACTIVITY"
+        const val USER = "USER"
     }
 
 }

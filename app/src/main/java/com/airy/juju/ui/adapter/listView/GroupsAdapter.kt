@@ -15,7 +15,7 @@ import com.airy.juju.databinding.ListItemGroupBinding
  * Github: AiryMiku
  */
 
-class GroupsAdapter(private val fragment: Fragment, private val onClickCallback: (Group) -> Unit) : ListAdapter<Group, GroupsAdapter.ViewHolder>(
+class GroupsAdapter(private val onClickCallback: (Group) -> Unit) : ListAdapter<Group, GroupsAdapter.ViewHolder>(
     TaskDiffCallback()
 ) {
 

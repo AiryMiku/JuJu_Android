@@ -24,39 +24,43 @@ class GroupRepository {
     }
 
     suspend fun getGroups(page: Int, size: Int) : ReturnResult<ListData<Group>> {
-        return RetrofitService.getJuJuApi().getGroups(page, size).await()
+        return RetrofitService.getJuJuApi().getGroupsAsync(page, size).await()
     }
 
     suspend fun getGroupBaseInfo(id: Int) : ReturnResult<Group> {
-        return RetrofitService.getJuJuApi().getGroupBaseInfo(id).await()
+        return RetrofitService.getJuJuApi().getGroupBaseInfoAsync(id).await()
     }
 
     suspend fun getGroupBaseActivityIndex(id: Int, page: Int, size: Int) : ReturnResult<ListData<Activity>> {
-        return RetrofitService.getJuJuApi().getGroupBaseActivityIndex(id, page, size).await()
+        return RetrofitService.getJuJuApi().getGroupBaseActivityIndexAsync(id, page, size).await()
+    }
+
+    suspend fun getFollowGroup(params: Map<String, Any>): ReturnResult<ListData<Group>> {
+        return RetrofitService.getJuJuApi().getFollowGroupsAsync(params).await()
     }
 
     suspend fun createGroup(params: Map<String, Any>) :ReturnResult<Id> {
-        return RetrofitService.getJuJuApi().createGroup(params).await()
+        return RetrofitService.getJuJuApi().createGroupAsync(params).await()
     }
 
     suspend fun modifyGroup(params: Map<String,Any>) :ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().modifyGroup(params).await()
+        return RetrofitService.getJuJuApi().modifyGroupAsync(params).await()
     }
 
     suspend fun deleteGroup(params: Map<String, Any>) :ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().deleteGroup(params).await()
+        return RetrofitService.getJuJuApi().deleteGroupAsync(params).await()
     }
 
     suspend fun followGroup(params: Map<String, Any>) :ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().followGroup(params).await()
+        return RetrofitService.getJuJuApi().followGroupAsync(params).await()
     }
 
     suspend fun disfollowGroup(params: Map<String, Any>) :ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().disfollowGroup(params).await()
+        return RetrofitService.getJuJuApi().disfollowGroupAsync(params).await()
     }
 
     suspend fun isFollowGroup(params: Map<String, Any>): ReturnResult<IsFollow> {
-        return RetrofitService.getJuJuApi().isFollowGroup(params).await()
+        return RetrofitService.getJuJuApi().isFollowGroupAsync(params).await()
     }
 
     //...Todo

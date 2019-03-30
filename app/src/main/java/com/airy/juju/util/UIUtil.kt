@@ -14,14 +14,20 @@ class UIUtil {
 
     companion object {
 
-//        fun showSimpleConfirmDialog(context: Context, title: String, meaasge: String, confirmCallback: ()->Unit, cancelCallback: ()->Unit) {
-////            val dialogBuilder = AlertDialog.Builder(context)
-////            dialogBuilder.setTitle(title)
-////            dialogBuilder.setMessage(meaasge)
-////            dialogBuilder.setPositiveButton("确认") { _,_ -> confirmCallback }
-////            dialogBuilder.setNegativeButton("取消") { _, _ -> cancelCallback }
-////            dialogBuilder.create()
-////            dialogBuilder.show()
-////        } 不可用
+        fun showSimpleConfirmDialog(
+            context: Context,
+            title: String,
+            meaasge: String,
+            confirmCallback: () -> Any,
+            cancelCallback: () -> Any
+        ) {
+            val dialogBuilder = AlertDialog.Builder(context)
+            dialogBuilder.setTitle(title)
+            dialogBuilder.setMessage(meaasge)
+            dialogBuilder.setPositiveButton("确认") { _, _ -> confirmCallback() }
+            dialogBuilder.setNegativeButton("取消") { _, _ -> cancelCallback() }
+            dialogBuilder.create()
+            dialogBuilder.show()
+        }
     }
 }

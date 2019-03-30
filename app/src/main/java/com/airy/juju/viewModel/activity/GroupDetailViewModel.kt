@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.airy.juju.api.ReturnResult
 import com.airy.juju.bean.*
 import com.airy.juju.repository.GroupRepository
+import com.airy.juju.util.UserCenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,6 +41,7 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
     fun refresh() {
         fetchGroup()
         fetchGroupActivities()
+        isFollow()
     }
 
     fun fetchGroup() {
@@ -134,9 +136,12 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
         }
     }
 
-    fun isFollow(params: Map<String, Any>) {
+    fun isFollow() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                val params = HashMap<String, Any>()
+                params["group_id"] = groupId
+                params["require_user_id"] = UserCenter.getUserId()
                 val r = repository.isFollowGroup(params)
                 withContext(Dispatchers.Main) {
                     isFollowResult.value = r

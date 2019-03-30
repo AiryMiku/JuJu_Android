@@ -15,6 +15,7 @@ import com.airy.juju.base.BaseActivity
 import com.airy.juju.databinding.ActivityGroupDetailBinding
 import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
 import com.airy.juju.util.UIUtil
+import com.airy.juju.util.UserCenter
 import com.airy.juju.viewModel.activity.GroupDetailViewModel
 import com.airy.juju.viewModel.factroy.GroupDetailViewModelFactory
 import kotlinx.android.synthetic.main.layout_app_bar.*
@@ -111,6 +112,7 @@ class GroupDetailActivity : BaseActivity() {
             binding.refresh.isRefreshing = true
             viewModel.refresh()
         }
+
     }
 
     private fun subscribeUI() {

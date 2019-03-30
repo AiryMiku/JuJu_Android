@@ -6,8 +6,16 @@ import kotlinx.android.synthetic.main.activity_login.*
 import android.app.ProgressDialog
 import android.util.Log
 import android.content.Intent
-
-
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.airy.juju.repository.UserRepository
+import com.airy.juju.util.UserCenter
+import com.airy.juju.viewModel.activity.LoginAndSignUpViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 
 /**
@@ -18,7 +26,12 @@ import android.content.Intent
 
 class LoginActivity : BaseActivity() {
 
-    private val REQUEST_SIGNUP = 0
+    private lateinit var viewMode: LoginAndSignUpViewModel
+    private lateinit var progressDialog: ProgressDialog
+
+    companion object {
+        const val REQUEST_SIGNUP = 0
+    }
 
     override fun toSetContentView() {
         setContentView(R.layout.activity_login)
@@ -27,6 +40,7 @@ class LoginActivity : BaseActivity() {
     override fun initViews() {
         super.initViews()
 
+        viewMode = ViewModelProviders.of(this).get(LoginAndSignUpViewModel::class.java)
         btn_login.setOnClickListener {
             login()
         }
@@ -37,10 +51,22 @@ class LoginActivity : BaseActivity() {
             finish()
             overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out)
         }
+
+        subsrcibeUI()
     }
 
+    private fun subsrcibeUI() {
+        viewMode.loginResult.observe(this , Observer {
+            if (it) {
+                onLoginSuccess()
+            } else {
+                onLoginFailed()
+            }
+            progressDialog.dismiss()
+        })
+    }
 
-    fun login() {
+    private fun login() {
         Log.d(TAG, "Login")
 
         if (!validate()) {
@@ -50,7 +76,7 @@ class LoginActivity : BaseActivity() {
 
         btn_login.isEnabled = false
 
-        val progressDialog = ProgressDialog(
+        progressDialog = ProgressDialog(
             this@LoginActivity,
             R.style.AppTheme_Dark_Dialog
         )
@@ -58,22 +84,17 @@ class LoginActivity : BaseActivity() {
         progressDialog.setMessage("登录中...")
         progressDialog.show()
 
-        val account = login_input_account.text.toString()
+        val accountName = login_input_account.text.toString()
         val password = login_input_password.text.toString()
 
-        // TODO: Implement your own authentication logic here.
+        val params = HashMap<String, Any>()
+        params["account_name"] = accountName
+        params["password"] = password
 
-        android.os.Handler().postDelayed(
-            {
-                // On complete call either onLoginSuccess or onLoginFailed
-                onLoginSuccess()
-                // onLoginFailed();
-                progressDialog.dismiss()
-            }, 3000
-        )
+        viewMode.login(params)
     }
 
-    fun validate(): Boolean {
+    private fun validate(): Boolean {
         var valid = true
 
         val account = login_input_account.text.toString()
@@ -92,13 +113,13 @@ class LoginActivity : BaseActivity() {
         } else {
             login_input_password.error = null
         }
-
         return valid
     }
 
     fun onLoginSuccess() {
         btn_login.isEnabled = true
-        finish()
+        makeToast("登录成功")
+//        finish()
     }
 
     fun onLoginFailed() {

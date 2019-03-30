@@ -16,6 +16,7 @@ import com.airy.juju.ui.adapter.listView.CommentsAdapter
 import com.airy.juju.viewModel.activity.ActivityDetailViewModel
 import com.airy.juju.viewModel.factroy.ActivityDetailViewModeFactory
 import com.airy.juju.databinding.ActivityActivityDetailBinding
+import com.airy.juju.util.UIUtil
 import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class ActivityDetailActivity : BaseActivity() {
@@ -71,7 +72,14 @@ class ActivityDetailActivity : BaseActivity() {
             android.R.id.home -> finish()
 
             R.id.delete -> {
-
+                UIUtil.showSimpleConfirmDialog(this,
+                    "删除活动",
+                    "真的真的要删除活动吗？",{
+                        makeSnackar(binding.linearLayout, "删除了活动")
+                        finish()
+                    },{
+                        makeSnackar(binding.linearLayout, "您取消了删除")
+                    })
             }
 
             R.id.modify -> {

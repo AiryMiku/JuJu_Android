@@ -47,5 +47,7 @@ class MeFragment: BaseFragment() {
             startActivity(intent)
         }
 
+
+
     }
 }

@@ -29,7 +29,7 @@ class MainActivity : BaseActivity() {
 
     override fun initViews() {
         super.initViews()
-        initToolBar()
+        initToolBar(false,false,true)
         initBottomNavigationBar()
         initViewPager()
     }

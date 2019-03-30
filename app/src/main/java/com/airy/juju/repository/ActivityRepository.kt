@@ -26,27 +26,31 @@ class ActivityRepository {
     }
 
     suspend fun getActivity(id: Int): ReturnResult<Activity> {
-        return RetrofitService.getJuJuApi().getActivityInfo(id).await()
+        return RetrofitService.getJuJuApi().getActivityInfoAsync(id).await()
     }
 
     suspend fun getActvities(page: Int, size: Int): ReturnResult<ListData<Activity>> {
-        return RetrofitService.getJuJuApi().getActivities(page, size).await()
+        return RetrofitService.getJuJuApi().getActivitiesAsync(page, size).await()
+    }
+
+    suspend fun getAttendActivities(params: Map<String, Any>): ReturnResult<ListData<Activity>> {
+        return RetrofitService.getJuJuApi().getAttendActivitiesAsync(params).await()
     }
 
     suspend fun getComments(id: Int, page: Int, size: Int): ReturnResult<ListData<Comment>> {
-        return RetrofitService.getJuJuApi().getComments(id, page, size).await()
+        return RetrofitService.getJuJuApi().getCommentsAsync(id, page, size).await()
     }
 
     suspend fun createActivity(params: Map<String, Any>): ReturnResult<Id> {
-        return RetrofitService.getJuJuApi().createActivity(params).await()
+        return RetrofitService.getJuJuApi().createActivityAsync(params).await()
     }
 
     suspend fun modifyActivity(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().modifyActivity(params).await()
+        return RetrofitService.getJuJuApi().modifyActivityAsync(params).await()
     }
 
     suspend fun deleteActivity(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().deleteActivity(params).await()
+        return RetrofitService.getJuJuApi().deleteActivityAsync(params).await()
     }
 
 

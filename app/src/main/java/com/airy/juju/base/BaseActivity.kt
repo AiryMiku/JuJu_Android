@@ -47,9 +47,15 @@ abstract class BaseActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    open fun initToolBar() {
+    fun initToolBar(homeButton: Boolean, backArrow: Boolean, showTitle: Boolean) {
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(homeButton)
+            actionBar.setDisplayHomeAsUpEnabled(backArrow)
+            actionBar.setDisplayShowTitleEnabled(showTitle)
+        }
     }
 
     fun setToolBarTitle(title: String) {

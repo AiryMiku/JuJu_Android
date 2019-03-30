@@ -4,8 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListAdapter
+import androidx.lifecycle.ViewModelProviders
+import com.airy.juju.Common
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentTabBinding
+import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
+import com.airy.juju.ui.adapter.listView.GroupsAdapter
+import com.airy.juju.ui.adapter.listView.UsersAdapter
 
 
 /**
@@ -16,34 +22,24 @@ import com.airy.juju.databinding.FragmentTabBinding
 
 class TabFragment :BaseFragment() {
 
-//    private lateinit var viewModel
+    private lateinit var viewModel: TabViewModel
     private lateinit var binding: FragmentTabBinding
-//    private lateinit var adapter
-
-
-    private lateinit var args:String
-    private var userId: Int? = null
+    private lateinit var activitiesAdapter: ActivitiesAdapter
+    private lateinit var groupsAdapter: GroupsAdapter
+    private lateinit var usersAdapter: UsersAdapter
+    private lateinit var type: String
 
     companion object {
 
-        val TAG = "TAG"
-        val ID = "ID"
-
-        fun newInstance(tag: String,userId: Int): TabFragment {
+        fun newInstance(type: String): TabFragment {
             val args = Bundle()
-            args.putString(TAG, tag)
-            args.putInt(ID, userId)
+            args.putString(Common.TabFragmentTypeKey.TYPE_KEY, type)
             val fragment = TabFragment()
             fragment.arguments = args
             return fragment
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        args = arguments!!.getString(TabFragment.TAG)
-        userId = arguments!!.getInt(TabFragment.ID)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTabBinding.inflate(inflater, container, false)
@@ -52,5 +48,44 @@ class TabFragment :BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val args = arguments
+        if (args != null){
+            type = args.getString(Common.TabFragmentTypeKey.TYPE_KEY)
+        }
+        init()
+    }
+
+    private fun init() {
+        viewModel = ViewModelProviders.of(this).get(TabViewModel::class.java)
+
+        when(type) {
+            Common.TabFragmentTypeKey.ACTIVITY -> {
+                initActivity()
+            }
+            Common.TabFragmentTypeKey.GROUP -> {
+                initGroup()
+            }
+            Common.TabFragmentTypeKey.USER -> {
+                initUser()
+            }
+        }
+    }
+
+    private fun initActivity() {
+        activitiesAdapter = ActivitiesAdapter {
+
+        }
+    }
+
+    private fun initGroup() {
+        groupsAdapter = GroupsAdapter {
+
+        }
+    }
+
+    private fun initUser() {
+        usersAdapter = UsersAdapter {
+
+        }
     }
 }
