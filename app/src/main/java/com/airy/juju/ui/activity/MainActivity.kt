@@ -105,7 +105,7 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
             R.id.search -> {
-
+                activityIntentTo(SearchActivity::class.java)
             }
         }
         return super.onOptionsItemSelected(item)

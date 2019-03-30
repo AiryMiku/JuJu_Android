@@ -31,8 +31,9 @@ object Common {
         const val MY_ACTIVITY = "MY_ACTIVITY"
     }
 
-    object TabFragmentTypeKey {
+    object SearchKey {
         const val TYPE_KEY: String = "TYPE_KEY"
+        const val KEY_WORD = "KEY_WORD"
         const val GROUP = "GROUP"
         const val ACTIVITY = "ACTIVITY"
         const val USER = "USER"
