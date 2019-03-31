@@ -19,6 +19,8 @@ import com.airy.juju.ui.adapter.listView.GroupsAdapter
 
 class HomeFragment : BaseFragment() {
 
+
+
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapter: GroupsAdapter
@@ -27,20 +29,23 @@ class HomeFragment : BaseFragment() {
         fun newInstance() = HomeFragment()
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-       binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-       return binding.root
+    override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun initPrepare() {
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
         initRecycleView()
-        initRefresh()
         subscribeUI()
+    }
+
+    override fun onInvisible() {
+
+    }
+
+    override fun initData() {
+        initRefresh()
     }
 
     private fun initRecycleView() {

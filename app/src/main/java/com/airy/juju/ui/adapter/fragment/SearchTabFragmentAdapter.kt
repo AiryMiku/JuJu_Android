@@ -48,7 +48,4 @@ class SearchTabFragmentAdapter (fm: FragmentManager) : FragmentPagerAdapter(fm) 
         return "未指定"
     }
 
-    fun Search(keyword: String){
-
-    }
 }

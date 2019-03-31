@@ -1,6 +1,5 @@
 package com.airy.juju.api
 
-import androidx.lifecycle.LiveData
 import com.airy.juju.bean.*
 import kotlinx.coroutines.Deferred
 import retrofit2.http.*
@@ -96,7 +95,7 @@ interface JuJuApi {
                             @Query("page") page: Int,
                             @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
 
-    @GET("/search/")
+    @GET("/search/group/")
     fun searchGroupAsync(@Query("key_word") key_word: String,
                          @Query("page") page: Int,
                          @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>

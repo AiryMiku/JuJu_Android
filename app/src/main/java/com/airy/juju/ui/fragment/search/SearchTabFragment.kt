@@ -1,17 +1,24 @@
 package com.airy.juju.ui.fragment.search
 
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.airy.juju.Common
+import com.airy.juju.R
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentTabBinding
+import com.airy.juju.eventBus.MessageEvent
 import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
 import com.airy.juju.ui.adapter.listView.GroupsAdapter
 import com.airy.juju.ui.adapter.listView.UsersAdapter
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 /**
@@ -28,7 +35,6 @@ class SearchTabFragment :BaseFragment() {
     private lateinit var groupsAdapter: GroupsAdapter
     private lateinit var usersAdapter: UsersAdapter
     private lateinit var type: String
-    private lateinit var keyword: String
 
     companion object {
 
@@ -41,25 +47,29 @@ class SearchTabFragment :BaseFragment() {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSearchEvent(messageEvent: MessageEvent) {
+        val keyword = messageEvent.message
+        startSearch(keyword)
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun initPrepare() {
+        viewModel = ViewModelProviders.of(this).get(SearchTabViewModel::class.java)
+        initType()
+    }
+
+    override fun onInvisible() {
+        Log.d("Search", "onInvisible")
+    }
+
+    override fun initData() {}
+
+    override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentTabBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val args = arguments
-        if (args != null) {
-            type = args.getString(Common.SearchKey.TYPE_KEY)
-            keyword = args.getString(Common.SearchKey.KEY_WORD)
-        }
-        initView()
-    }
-
-    private fun initView() {
-        viewModel = ViewModelProviders.of(this).get(SearchTabViewModel::class.java)
-
+    private fun initType() {
         when(type) {
             Common.SearchKey.ACTIVITY -> {
                 initActivity()
@@ -77,6 +87,7 @@ class SearchTabFragment :BaseFragment() {
         activitiesAdapter = ActivitiesAdapter {
 
         }
+        binding.list.adapter = activitiesAdapter
         viewModel.activities.observe(this, Observer {
             activitiesAdapter.submitList(it.data.list)
         })
@@ -86,6 +97,7 @@ class SearchTabFragment :BaseFragment() {
         groupsAdapter = GroupsAdapter {
 
         }
+        binding.list.adapter = groupsAdapter
         viewModel.groups.observe(this, Observer {
             groupsAdapter.submitList(it.data.list)
         })
@@ -95,12 +107,13 @@ class SearchTabFragment :BaseFragment() {
         usersAdapter = UsersAdapter {
 
         }
+        binding.list.adapter = usersAdapter
         viewModel.users.observe(this, Observer {
             usersAdapter.submitList(it.data.list)
         })
     }
 
-    fun startSearch(keyword: String) {
+    private fun startSearch(keyword: String) {
         when(type) {
             Common.SearchKey.ACTIVITY -> {
                 viewModel.searchActivitys(keyword)
@@ -112,5 +125,19 @@ class SearchTabFragment :BaseFragment() {
                 viewModel.searchUsers(keyword)
             }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val args = arguments
+        if (args != null) {
+            type = args.getString(Common.SearchKey.TYPE_KEY)
+        }
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBus.getDefault().unregister(this)
     }
 }

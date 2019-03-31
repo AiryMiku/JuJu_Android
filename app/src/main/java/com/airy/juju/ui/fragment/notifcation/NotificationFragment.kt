@@ -22,15 +22,17 @@ class NotificationFragment: BaseFragment() {
         fun newInstance() = NotificationFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentNotificationBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun initPrepare() {
+    }
 
+    override fun onInvisible() {
+    }
+
+    override fun initData() {
     }
 }

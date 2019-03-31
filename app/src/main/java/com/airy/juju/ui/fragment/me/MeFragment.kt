@@ -20,6 +20,9 @@ import com.airy.juju.ui.activity.CreateOrModifyGroupActivity
 
 class MeFragment: BaseFragment() {
 
+
+
+
     private lateinit var binding: FragmentMeBinding
     private lateinit var viewModel: MeViewModel
 
@@ -27,27 +30,28 @@ class MeFragment: BaseFragment() {
         fun getInstance() = MeFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel = ViewModelProviders.of(this).get(MeViewModel::class.java)
+    }
+
+    override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMeBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel = ViewModelProviders.of(this).get(MeViewModel::class.java)
-        initViews()
-    }
-
-    private fun initViews() {
+    override fun initPrepare() {
         binding.createGroup.setOnClickListener {
             val intent = Intent(activity, CreateOrModifyGroupActivity::class.java)
             intent.putExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY, Common.ActivityCreateOrModifyKey.CREATE_KEY)
             startActivity(intent)
         }
-
-
-
     }
+
+    override fun onInvisible() {
+    }
+
+    override fun initData() {
+    }
+
 }

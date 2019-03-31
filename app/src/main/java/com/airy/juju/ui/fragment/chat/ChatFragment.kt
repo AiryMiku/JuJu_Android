@@ -16,22 +16,22 @@ import com.airy.juju.databinding.FragmentChatBinding
 
 class ChatFragment :BaseFragment() {
 
-    private lateinit var binding: FragmentChatBinding
-
     companion object {
         fun newInstance() = ChatFragment()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    private lateinit var binding: FragmentChatBinding
+
+    override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChatBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+    override fun initPrepare() {
     }
 
+    override fun onInvisible() {
+    }
+
+    override fun initData() {
+    }
 }

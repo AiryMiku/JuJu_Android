@@ -1,13 +1,15 @@
 package com.airy.juju.ui.activity
 
 
+import android.app.ProgressDialog
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
-import androidx.viewpager.widget.ViewPager
-import com.airy.juju.Common
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.databinding.ActivitySearchBinding
+import com.airy.juju.eventBus.MessageEvent
 import com.airy.juju.ui.adapter.fragment.SearchTabFragmentAdapter
+import org.greenrobot.eventbus.EventBus
 
 class SearchActivity : BaseActivity() {
 
@@ -19,25 +21,24 @@ class SearchActivity : BaseActivity() {
 
     override fun initViews() {
         super.initViews()
-
         val adapter = SearchTabFragmentAdapter(supportFragmentManager)
         binding.viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
-        binding.viewPager.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
-            override fun onPageScrollStateChanged(state: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+
+        binding.search.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    EventBus.getDefault().post(MessageEvent(query))
+                }
+                return true
             }
 
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
             }
-
-            override fun onPageSelected(position: Int) {
-
-            }
-
         })
-
     }
+
 }
