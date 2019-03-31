@@ -20,4 +20,6 @@
         </menu>
     </item>
 
+    <item android:id="@+id/show_member" android:title="查看人员"/>
+
 </menu>

@@ -1,7 +1,6 @@
 package com.airy.juju.ui.activity
 
 
-import android.app.ProgressDialog
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import com.airy.juju.R
@@ -25,8 +24,8 @@ class SearchActivity : BaseActivity() {
         binding.viewPager.adapter = adapter
         binding.tabLayout.setupWithViewPager(binding.viewPager)
 
-
-
+        binding.search.queryHint = "请输入要搜索的关键字"
+        binding.search.setIconifiedByDefault(false)
         binding.search.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
@@ -39,6 +38,7 @@ class SearchActivity : BaseActivity() {
                 return false
             }
         })
+        binding.search.onActionViewExpanded()
     }
 
 }

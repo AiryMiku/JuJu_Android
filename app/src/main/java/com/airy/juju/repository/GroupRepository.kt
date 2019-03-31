@@ -39,6 +39,10 @@ class GroupRepository {
         return RetrofitService.getJuJuApi().getFollowGroupsAsync(params).await()
     }
 
+    suspend fun getGroupMembers(params: Map<String, Any>): ReturnResult<ListData<User>> {
+        return RetrofitService.getJuJuApi().getGroupMembersIndexAsync(params).await()
+    }
+
     suspend fun createGroup(params: Map<String, Any>) :ReturnResult<Id> {
         return RetrofitService.getJuJuApi().createGroupAsync(params).await()
     }

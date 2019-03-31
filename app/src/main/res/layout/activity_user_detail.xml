@@ -6,41 +6,143 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.activity.UserDetailActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+        <variable name="user" type="com.airy.juju.bean.User"/>
+    </data>
+
+    <LinearLayout
+            android:id="@+id/linear_layout"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+            android:layout_height="match_parent">
 
-        <ImageView
-                android:id="@+id/user_avatar"
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher_round"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+        <include layout="@layout/layout_app_bar"/>
 
-        <LinearLayout
-                android:orientation="vertical"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refresh"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/user_avatar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:layout_height="match_parent">
 
-            <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tab_layout"
+            <ScrollView
+                    android:id="@+id/scroll_view"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="match_parent">
 
-            <androidx.viewpager.widget.ViewPager
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        </LinearLayout>
+                    <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardUseCompatPadding="true">
 
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/item"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="80dp"
+                                android:padding="8dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <!--头像-->
+                            <ImageView
+                                    android:id="@+id/user_avatar"
+                                    android:layout_width="35dp"
+                                    android:layout_height="35dp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:src="@mipmap/ic_launcher"
+                                    android:src="@mipmap/ic_launcher"
+                                    android:contentDescription="@string/group_avatar"/>
+
+                            <!--群组名称-->
+                            <TextView
+                                    android:id="@+id/nickname"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="5dp"
+                                    app:layout_constraintTop_toBottomOf="@+id/user_avatar"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    android:text="@{user.nickname}"
+                                    android:textColor="@color/black"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    tools:text="昵称"/>
+
+                            <Button
+                                    android:id="@+id/btn_follow"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="35dp"
+                                    android:layout_marginTop="5dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    android:background="@drawable/btn_style"
+                                    android:textColor="@drawable/btn_text_color"
+                                    android:text="关注"
+                                    tools:text="关注"/>
+
+                            <Button
+                                    android:id="@+id/btn_message"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="35dp"
+                                    android:layout_marginTop="20dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/btn_follow"
+                                    android:background="@drawable/btn_style"
+                                    android:textColor="@drawable/btn_text_color"
+                                    android:text="消息"
+                                    tools:text="消息"/>
+
+                            <!--签名-->
+                            <TextView
+                                    android:id="@+id/status"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="300dp"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/nickname"
+                                    android:text="@{user.status}"
+                                    tools:text="生活就像海洋，只有意志坚强的人才能到达彼岸"/>
+
+                            <!--生日-->
+                            <TextView
+                                    android:id="@+id/birth"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@{user.birth}"
+                                    android:textSize="12sp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/status"
+                                    tools:text="2099年5月11日" />
+
+                            <TextView
+                                    android:id="@+id/sex"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    app:layout_constraintStart_toEndOf="@id/nickname"
+                                    app:layout_constraintTop_toTopOf="@id/nickname"
+                                    app:layout_constraintBottom_toBottomOf="@id/nickname"
+                                    android:text=""
+                                    tools:text="性别"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_layout"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/view_pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
 </layout>

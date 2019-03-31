@@ -9,6 +9,7 @@ import com.airy.juju.base.BaseActivity
 import com.airy.juju.databinding.ActivityItemListBinding
 import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
 import com.airy.juju.ui.adapter.listView.GroupsAdapter
+import com.airy.juju.ui.adapter.listView.UsersAdapter
 import com.airy.juju.util.UserCenter
 import com.airy.juju.viewModel.activity.ItemListViewModel
 
@@ -16,6 +17,7 @@ class ItemListActivity : BaseActivity() {
 
     private lateinit var activitiesAdapter: ActivitiesAdapter
     private lateinit var groupsAdapter: GroupsAdapter
+    private lateinit var usersAdapter: UsersAdapter
     private lateinit var viewModel: ItemListViewModel
     private lateinit var binding: ActivityItemListBinding
 
@@ -63,6 +65,19 @@ class ItemListActivity : BaseActivity() {
                 params["size"] = 99
                 viewModel.fetchFollowGroups(params)
             }
+            Common.ItemListTypeKey.USER -> {
+                setToolBarTitle("人员列表")
+                usersAdapter = UsersAdapter {
+
+                }
+                binding.list.adapter = usersAdapter
+                val params = HashMap<String, Any>()
+                val groupId = intent.getIntExtra(Common.ParamTranferKey.GROUP_ID_KEY, 0)
+                params["group_id"] = groupId
+                params["page"] = 1
+                params["size"] = 99
+                viewModel.fetchMemberInGroup(params)
+            }
         }
     }
 
@@ -73,6 +88,10 @@ class ItemListActivity : BaseActivity() {
 
         viewModel.groups.observe(this, Observer {
             groupsAdapter.submitList(it.data.list)
+        })
+
+        viewModel.users.observe(this, Observer {
+            usersAdapter.submitList(it.data.list)
         })
     }
 }

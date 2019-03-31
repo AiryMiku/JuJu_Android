@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.airy.juju.Common
 import com.airy.juju.R
 import com.airy.juju.base.BaseFragment
-import com.airy.juju.databinding.FragmentTabBinding
+import com.airy.juju.databinding.FragmentSearchTabBinding
 import com.airy.juju.eventBus.MessageEvent
 import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
 import com.airy.juju.ui.adapter.listView.GroupsAdapter
@@ -30,11 +30,12 @@ import org.greenrobot.eventbus.ThreadMode
 class SearchTabFragment :BaseFragment() {
 
     private lateinit var viewModel: SearchTabViewModel
-    private lateinit var binding: FragmentTabBinding
+    private lateinit var binding: FragmentSearchTabBinding
     private lateinit var activitiesAdapter: ActivitiesAdapter
     private lateinit var groupsAdapter: GroupsAdapter
     private lateinit var usersAdapter: UsersAdapter
     private lateinit var type: String
+    private lateinit var keyword: String
 
     companion object {
 
@@ -49,13 +50,17 @@ class SearchTabFragment :BaseFragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onSearchEvent(messageEvent: MessageEvent) {
-        val keyword = messageEvent.message
+        keyword = messageEvent.message
         startSearch(keyword)
+        binding.refresh.isRefreshing = true
     }
 
     override fun initPrepare() {
         viewModel = ViewModelProviders.of(this).get(SearchTabViewModel::class.java)
         initType()
+        binding.refresh.setOnRefreshListener {
+            startSearch(keyword)
+        }
     }
 
     override fun onInvisible() {
@@ -65,7 +70,7 @@ class SearchTabFragment :BaseFragment() {
     override fun initData() {}
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentTabBinding.inflate(inflater, container, false)
+        binding = FragmentSearchTabBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -90,6 +95,7 @@ class SearchTabFragment :BaseFragment() {
         binding.list.adapter = activitiesAdapter
         viewModel.activities.observe(this, Observer {
             activitiesAdapter.submitList(it.data.list)
+            binding.refresh.isRefreshing = false
         })
     }
 
@@ -100,6 +106,7 @@ class SearchTabFragment :BaseFragment() {
         binding.list.adapter = groupsAdapter
         viewModel.groups.observe(this, Observer {
             groupsAdapter.submitList(it.data.list)
+            binding.refresh.isRefreshing = false
         })
     }
 
@@ -110,6 +117,7 @@ class SearchTabFragment :BaseFragment() {
         binding.list.adapter = usersAdapter
         viewModel.users.observe(this, Observer {
             usersAdapter.submitList(it.data.list)
+            binding.refresh.isRefreshing = false
         })
     }
 

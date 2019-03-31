@@ -13,10 +13,18 @@ import java.io.Serializable
 
 data class User(
     val id: Int,
-    val nickname: String
+    val nickname: String,
+    val sex: Int,
+    val birth: String,
+    val phone: String,
+    val status: String
 ) : Serializable, Parcelable {
     constructor(source: Parcel) : this(
         source.readInt(),
+        source.readString(),
+        source.readInt(),
+        source.readString(),
+        source.readString(),
         source.readString()
     )
 
@@ -25,6 +33,10 @@ data class User(
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeInt(id)
         writeString(nickname)
+        writeInt(sex)
+        writeString(birth)
+        writeString(phone)
+        writeString(status)
     }
 
     companion object {

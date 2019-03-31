@@ -103,6 +103,12 @@ class GroupDetailActivity : BaseActivity() {
             R.id.invite_people -> {}
             R.id.remove_people -> {}
             R.id.set_admin -> {}
+            R.id.show_member -> {
+                val itn = Intent(this, ItemListActivity::class.java)
+                itn.putExtra(Common.ItemListTypeKey.TYPE_KEY, Common.ItemListTypeKey.USER)
+                itn.putExtra(Common.ParamTranferKey.GROUP_ID_KEY, id)
+                startActivity(itn)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

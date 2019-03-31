@@ -36,8 +36,9 @@ interface JuJuApi {
     @GET("/group/baseActivityIndex/")
     fun getGroupBaseActivityIndexAsync(@Query("group_id") id: Int, @Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
 
-    @GET("/group/memberIndex/")
-    fun getGroupMembersIndexAsync(@Query("group_id") id: Int, @Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
+    @FormUrlEncoded
+    @POST("/group/memberIndex/")
+    fun getGroupMembersIndexAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<User>>>
 
     @FormUrlEncoded
     @POST("/group/indexFollow/")
@@ -120,5 +121,6 @@ interface JuJuApi {
     @POST("/user/register/")
     fun userSignUpAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
-
+    @GET("/user/get_infomation/")
+    fun getUser(@Query("user_id") userId: Int): Deferred<ReturnResult<User>>
 }

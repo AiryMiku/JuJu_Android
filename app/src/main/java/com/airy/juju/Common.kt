@@ -29,6 +29,7 @@ object Common {
         const val TYPE_KEY: String = "TYPE_KEY"
         const val MY_GROUP = "MY_GROUP"
         const val MY_ACTIVITY = "MY_ACTIVITY"
+        const val USER = "USER"
     }
 
     object SearchKey {
