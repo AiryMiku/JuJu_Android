@@ -1,13 +1,12 @@
 package com.airy.juju.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import com.airy.juju.R
+import com.airy.juju.base.BaseActivity
 
-class ChatActivity : AppCompatActivity() {
+class ChatActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun toSetContentView() {
         setContentView(R.layout.activity_chat)
     }
+
 }
