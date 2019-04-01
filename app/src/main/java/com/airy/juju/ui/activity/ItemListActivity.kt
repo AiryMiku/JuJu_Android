@@ -3,6 +3,8 @@ package com.airy.juju.ui.activity
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import com.airy.juju.Common
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
@@ -28,9 +30,13 @@ class ItemListActivity : BaseActivity() {
     override fun initViews() {
         super.initViews()
         initToolBar(true,true,true)
-
         typeControl()
         subscribeUI()
+    }
+
+    override fun loadData() {
+        super.loadData()
+        viewModel = ViewModelProviders.of(this).get(ItemListViewModel::class.java)
     }
 
     private fun typeControl() {
@@ -68,7 +74,10 @@ class ItemListActivity : BaseActivity() {
             Common.ItemListTypeKey.USER -> {
                 setToolBarTitle("人员列表")
                 usersAdapter = UsersAdapter {
-
+                    makeToast("userId -> "+it.id)
+                    val intent = Intent(this, UserDetailActivity::class.java)
+                    intent.putExtra(Common.ParamTranferKey.USER_ID_KEY, it.id)
+                    startActivity(intent)
                 }
                 binding.list.adapter = usersAdapter
                 val params = HashMap<String, Any>()

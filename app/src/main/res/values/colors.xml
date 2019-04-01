@@ -3,7 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="timeLineBlue">#1E90FF</color>
+    <color name="PlayGroundBlue">#1E90FF</color>
+    <color name="GroupGreen">#008577</color>
     <color name="notificationOrange">#EE7600</color>
     <color name="ChatPink">#EE799F</color>
     <color name="MeCickPink">#F63F61</color>

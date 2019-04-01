@@ -1,6 +1,7 @@
 package com.airy.juju.ui.fragment.search
 
 import android.app.ProgressDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +14,9 @@ import com.airy.juju.R
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentSearchTabBinding
 import com.airy.juju.eventBus.MessageEvent
+import com.airy.juju.ui.activity.ActivityDetailActivity
+import com.airy.juju.ui.activity.GroupDetailActivity
+import com.airy.juju.ui.activity.UserDetailActivity
 import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
 import com.airy.juju.ui.adapter.listView.GroupsAdapter
 import com.airy.juju.ui.adapter.listView.UsersAdapter
@@ -90,7 +94,9 @@ class SearchTabFragment :BaseFragment() {
 
     private fun initActivity() {
         activitiesAdapter = ActivitiesAdapter {
-
+            val intent = Intent(activity, ActivityDetailActivity::class.java)
+            intent.putExtra(Common.ParamTranferKey.ACTIVITY_ID_KEY, it.id)
+            startActivity(intent)
         }
         binding.list.adapter = activitiesAdapter
         viewModel.activities.observe(this, Observer {
@@ -101,7 +107,9 @@ class SearchTabFragment :BaseFragment() {
 
     private fun initGroup() {
         groupsAdapter = GroupsAdapter {
-
+            val intent = Intent(activity, GroupDetailActivity::class.java)
+            intent.putExtra(Common.ParamTranferKey.GROUP_ID_KEY, it.id)
+            startActivity(intent)
         }
         binding.list.adapter = groupsAdapter
         viewModel.groups.observe(this, Observer {
@@ -112,7 +120,10 @@ class SearchTabFragment :BaseFragment() {
 
     private fun initUser() {
         usersAdapter = UsersAdapter {
-
+            makeToast("userId -> "+it.id)
+            val intent = Intent(activity, UserDetailActivity::class.java)
+            intent.putExtra(Common.ParamTranferKey.USER_ID_KEY, it.id)
+            startActivity(intent)
         }
         binding.list.adapter = usersAdapter
         viewModel.users.observe(this, Observer {

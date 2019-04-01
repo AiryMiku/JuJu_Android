@@ -10,6 +10,8 @@ import com.airy.juju.Common
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentMeBinding
 import com.airy.juju.ui.activity.CreateOrModifyGroupActivity
+import com.airy.juju.ui.activity.ItemListActivity
+import com.airy.juju.ui.activity.ModifyMyinfoActivity
 
 
 /**
@@ -20,16 +22,12 @@ import com.airy.juju.ui.activity.CreateOrModifyGroupActivity
 
 class MeFragment: BaseFragment() {
 
-
-
-
     private lateinit var binding: FragmentMeBinding
     private lateinit var viewModel: MeViewModel
 
     companion object {
-        fun getInstance() = MeFragment()
+        fun newInstance() = MeFragment()
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this).get(MeViewModel::class.java)
@@ -41,17 +39,32 @@ class MeFragment: BaseFragment() {
     }
 
     override fun initPrepare() {
+        binding.myGroup.setOnClickListener {
+            val intent = Intent(activity, ItemListActivity::class.java)
+            intent.putExtra(Common.ItemListTypeKey.TYPE_KEY, Common.ItemListTypeKey.MY_GROUP)
+            startActivity(intent)
+        }
+        binding.myActivity.setOnClickListener {
+            val intent = Intent(activity, ItemListActivity::class.java)
+            intent.putExtra(Common.ItemListTypeKey.TYPE_KEY, Common.ItemListTypeKey.MY_ACTIVITY)
+            startActivity(intent)
+        }
         binding.createGroup.setOnClickListener {
             val intent = Intent(activity, CreateOrModifyGroupActivity::class.java)
             intent.putExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY, Common.ActivityCreateOrModifyKey.CREATE_KEY)
             startActivity(intent)
         }
+        binding.modifyInfo.setOnClickListener {
+            val intent = Intent(activity, ModifyMyinfoActivity::class.java)
+            startActivity(intent)
+        }
+        binding.modifyPassword.setOnClickListener {
+
+        }
     }
 
-    override fun onInvisible() {
-    }
+    override fun onInvisible() {}
 
-    override fun initData() {
-    }
+    override fun initData() {}
 
 }

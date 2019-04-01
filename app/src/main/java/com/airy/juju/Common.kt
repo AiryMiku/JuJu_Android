@@ -10,8 +10,8 @@ package com.airy.juju
 object Common {
 
     object SharedPreferenceKey {
-        const val USER_ID = "USERID"
-        const val ACCESS_TOKEN = "ACCESSTOKEN"
+        const val USER_ID: String = "USERID"
+        const val ACCESS_TOKEN: String = "ACCESSTOKEN"
     }
 
     object ActivityCreateOrModifyKey {
@@ -21,23 +21,32 @@ object Common {
     }
 
     object ParamTranferKey {
-        const val GROUP_ID_KEY = "GROUP_ID_KEY"
-        const val ACTIVITY_ID_KEY = "ACTIVITY_ID_KEY"
+        const val GROUP_ID_KEY: String = "GROUP_ID_KEY"
+        const val ACTIVITY_ID_KEY: String = "ACTIVITY_ID_KEY"
+        const val USER_ID_KEY = "USER_ID_KEY"
     }
 
     object ItemListTypeKey {
         const val TYPE_KEY: String = "TYPE_KEY"
-        const val MY_GROUP = "MY_GROUP"
-        const val MY_ACTIVITY = "MY_ACTIVITY"
-        const val USER = "USER"
+        const val MY_GROUP: String = "MY_GROUP"
+        const val MY_ACTIVITY: String = "MY_ACTIVITY"
+        const val USER: String = "USER"
     }
 
     object SearchKey {
         const val TYPE_KEY: String = "TYPE_KEY"
-        const val KEY_WORD = "KEY_WORD"
-        const val GROUP = "GROUP"
-        const val ACTIVITY = "ACTIVITY"
-        const val USER = "USER"
+        const val KEY_WORD: String = "KEY_WORD"
+        const val GROUP: String = "GROUP"
+        const val ACTIVITY: String = "ACTIVITY"
+        const val USER: String = "USER"
+    }
+
+    object MainActivityFragmentKey{
+        const val PLAYGROUND: String = "PLAYGROUND"
+        const val GROUP: String = "GROUP"
+        const val NOTIFICATION: String = "NOTIFICATION"
+        const val CHAT: String = "CHAT"
+        const val ME: String = "ME"
     }
 
 }

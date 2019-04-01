@@ -1,4 +1,4 @@
-package com.airy.juju.ui.fragment.home
+package com.airy.juju.ui.fragment.group
 
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
@@ -12,41 +12,36 @@ import androidx.recyclerview.widget.RecyclerView
 import com.airy.juju.Common
 
 import com.airy.juju.base.BaseFragment
-import com.airy.juju.databinding.FragmentHomeBinding
+import com.airy.juju.databinding.FragmentGroupBinding
 import com.airy.juju.ui.activity.GroupDetailActivity
 import com.airy.juju.ui.adapter.listView.GroupsAdapter
 
 
-class HomeFragment : BaseFragment() {
+class GroupFragment : BaseFragment() {
 
-
-
-    private lateinit var viewModel: HomeViewModel
-    private lateinit var binding: FragmentHomeBinding
+    private lateinit var viewModel: GroupViewModel
+    private lateinit var binding: FragmentGroupBinding
     private lateinit var adapter: GroupsAdapter
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() = GroupFragment()
     }
 
     override fun initView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        binding = FragmentGroupBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun initPrepare() {
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(GroupViewModel::class.java)
         initRecycleView()
+        initRefresh()
         subscribeUI()
     }
 
-    override fun onInvisible() {
+    override fun onInvisible() {}
 
-    }
-
-    override fun initData() {
-        initRefresh()
-    }
+    override fun initData() {}
 
     private fun initRecycleView() {
         adapter = GroupsAdapter {

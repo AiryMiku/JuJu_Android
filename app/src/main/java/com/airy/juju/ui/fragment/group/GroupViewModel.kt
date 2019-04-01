@@ -1,4 +1,4 @@
-package com.airy.juju.ui.fragment.home
+package com.airy.juju.ui.fragment.group
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,7 +19,7 @@ import java.lang.Exception
  * Github: AiryMiku
  */
 
-class HomeViewModel
+class GroupViewModel
 //@Inject constructor(repository: GroupRepository) 以后再进行ioc
     : ViewModel() {
 

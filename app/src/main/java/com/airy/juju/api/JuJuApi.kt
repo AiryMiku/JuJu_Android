@@ -28,13 +28,16 @@ interface JuJuApi {
     fun modifyGroupAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @GET("/group/indexAll/")
-    fun getGroupsAsync(@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
+    fun getGroupsAsync(@Query("page") page: Int,
+                       @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
 
     @GET("/group/baseInfo/")
     fun getGroupBaseInfoAsync(@Query("group_id") id: Int): Deferred<ReturnResult<Group>>
 
     @GET("/group/baseActivityIndex/")
-    fun getGroupBaseActivityIndexAsync(@Query("group_id") id: Int, @Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
+    fun getGroupBaseActivityIndexAsync(@Query("group_id") id: Int,
+                                       @Query("page") page: Int,
+                                       @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
 
     @FormUrlEncoded
     @POST("/group/memberIndex/")
@@ -70,7 +73,8 @@ interface JuJuApi {
     fun modifyActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @GET("/activity/indexAll/")
-    fun getActivitiesAsync(@Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
+    fun getActivitiesAsync(@Query("page") page: Int,
+                           @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
 
     @FormUrlEncoded
     @POST("/activity/indexAttend/")
@@ -88,7 +92,9 @@ interface JuJuApi {
     fun deleteCommentAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @GET("/activity/indexComment/")
-    fun getCommentsAsync(@Query("activity_id") id: Int, @Query("page") page: Int, @Query("size") size: Int): Deferred<ReturnResult<ListData<Comment>>>
+    fun getCommentsAsync(@Query("activity_id") id: Int,
+                         @Query("page") page: Int,
+                         @Query("size") size: Int): Deferred<ReturnResult<ListData<Comment>>>
 
     // search
     @GET("/search/activity/")
@@ -108,8 +114,7 @@ interface JuJuApi {
 
     // playground
     @GET("/playground/show/")
-    fun getPlaygroundAsync(@Query("key_word") key_word: String,
-                           @Query("page") page: Int,
+    fun getPlaygroundAsync(@Query("page") page: Int,
                            @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
 
     // user
@@ -121,6 +126,6 @@ interface JuJuApi {
     @POST("/user/register/")
     fun userSignUpAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
-    @GET("/user/get_infomation/")
-    fun getUser(@Query("user_id") userId: Int): Deferred<ReturnResult<User>>
+    @GET("/user/get_information_by_id/")
+    fun getUserAsync(@Query("user_id") userId: Int): Deferred<ReturnResult<User>>
 }

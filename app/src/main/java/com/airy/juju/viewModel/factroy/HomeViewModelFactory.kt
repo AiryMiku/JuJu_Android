@@ -1,10 +1,5 @@
 package com.airy.juju.viewModel.factroy
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.airy.juju.repository.GroupRepository
-import com.airy.juju.ui.fragment.home.HomeViewModel
-
 
 /**
  * Created by Airy on 2019/3/14
@@ -17,6 +12,6 @@ import com.airy.juju.ui.fragment.home.HomeViewModel
 //
 //    @Suppress("UNCHECKED_CAST")
 //    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-//        return HomeViewModel(groupRepository) as T
+//        return GroupViewModel(groupRepository) as T
 //    }
 //}

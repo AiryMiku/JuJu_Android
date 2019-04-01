@@ -3,6 +3,7 @@ package com.airy.juju.repository
 import com.airy.juju.api.RetrofitService
 import com.airy.juju.api.ReturnResult
 import com.airy.juju.bean.Token
+import com.airy.juju.bean.User
 
 
 /**
@@ -28,6 +29,10 @@ class UserRepository{
 
     suspend fun signUp(params: Map<String, Any>): ReturnResult<Any> {
         return RetrofitService.getJuJuApi().userSignUpAsync(params).await()
+    }
+
+    suspend fun getUserInfo(userId: Int): ReturnResult<User> {
+        return RetrofitService.getJuJuApi().getUserAsync(userId).await()
     }
 
 }
