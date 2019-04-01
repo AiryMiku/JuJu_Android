@@ -3,6 +3,7 @@ package com.airy.juju.ui.activity
 import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -60,7 +61,12 @@ class ModifyMyinfoActivity : BaseActivity() {
         subsrcibeUI()
     }
 
-
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
     private fun subsrcibeUI() {
         viewModel.user.observe(this, Observer {
@@ -105,7 +111,7 @@ class ModifyMyinfoActivity : BaseActivity() {
     }
 
     private fun showSexChoiceDialog(title: String) {
-        var sex: Int
+        var sex: Int = -1
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_sex_choice, null) as LinearLayout
         val radioGroup = dialogView.findViewById<RadioGroup>(R.id.radio_group)
         val btnSecret = radioGroup.findViewById<RadioButton>(R.id.radio_btn_secret)
@@ -118,6 +124,7 @@ class ModifyMyinfoActivity : BaseActivity() {
                 btnFemale.id -> sex = 0
                 btnMale.id -> sex = 1
             }
+            makeToast(sex.toString())
         }
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setTitle(title)
