@@ -39,5 +39,9 @@ class WelcomeActivity : BaseActivity() {
         btn_wel_5.setOnClickListener {
             activityIntentTo(ActivityDetailActivity::class.java)
         }
+
+        btn_wel_6.setOnClickListener {
+            activityIntentTo(ChatActivity::class.java)
+        }
     }
 }
