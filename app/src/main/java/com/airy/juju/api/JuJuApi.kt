@@ -171,8 +171,11 @@ interface JuJuApi {
 
     @FormUrlEncoded
     @POST("/user/modify_enable_visited_list/")
-    fun personalInfoVisableList(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun modifyPersonalInfoVisable(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
+    @FormUrlEncoded
+    @POST("/user/get_enable_visited_list/")
+    fun getPersonalInfoVisableList(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<PersonalPrivacy>>
 
 
 

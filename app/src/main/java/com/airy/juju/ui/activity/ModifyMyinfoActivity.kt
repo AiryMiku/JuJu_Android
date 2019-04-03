@@ -1,12 +1,15 @@
 package com.airy.juju.ui.activity
 
 import android.app.DatePickerDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SwitchCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -74,6 +77,27 @@ class ModifyMyinfoActivity : BaseActivity() {
                 params["access_token"] = UserCenter.getUserToken()
                 params["status"] = it
                 viewModel.modifyUserInfo(params)
+            }
+        }
+
+        binding.personalInfoPrivacy.setOnClickListener {
+            showPrivacySettingDialog()
+        }
+
+        binding.switchEnableSearch.setOnCheckedChangeListener {
+                buttonView, isChecked ->
+            buttonView.isChecked = isChecked
+        }
+
+        binding.switchFool.setOnCheckedChangeListener {
+                buttonView, isChecked ->
+            if (isChecked) {
+                buttonView.isChecked = true
+                makeToast("正在启动自爆程序，电池过热，做好准备")
+                makeToast("骗你的~")
+            } else {
+                buttonView.isChecked = false
+                makeToast("客官不再玩一次？")
             }
         }
         subsrcibeUI()
@@ -164,5 +188,31 @@ class ModifyMyinfoActivity : BaseActivity() {
                 makeSnackar(binding.linearLayout, "取消")
             }
         dialogBuilder.show()
+    }
+
+    private fun showPrivacySettingDialog() {
+//        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_privacy, null) as LinearLayout
+//        val cbBitrh = dialogView.findViewById<SwitchCompat>(R.id.birth)
+//        val cbPhone = dialogView.findViewById<SwitchCompat>(R.id.phone)
+//        val cbStatus = dialogView.findViewById<SwitchCompat>(R.id.status)
+        val choices: Array<String> = arrayOf("生日","电话","签名")
+        val bools = BooleanArray(3)
+        bools[0] = false
+        bools[1] = false
+        bools[2] = false
+        val dialog = AlertDialog.Builder(this)
+        dialog.setTitle("个人资料隐私设置")
+        dialog.setMultiChoiceItems(choices, bools) { dialog, which, isChecked ->
+            bools[which] = isChecked
+        }
+        dialog
+            .setPositiveButton("确认") { _, _ -> // dialog, which
+
+            }
+        dialog
+            .setNegativeButton("取消") { _, _ ->
+                makeSnackar(binding.linearLayout, "取消")
+            }
+        dialog.show()
     }
 }
