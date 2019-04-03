@@ -74,13 +74,6 @@ class CreateOrModifyActivityActivity : BaseActivity() {
         subscribeUI()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
-            android.R.id.home -> finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     private fun typeControl(){
         val itn = intent
         val type = itn.getStringExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY)

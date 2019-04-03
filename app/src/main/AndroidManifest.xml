@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".ui.activity.SearchActivity">
         </activity>
-        <activity android:name=".ui.activity.ItemListActivity">
+        <activity android:name=".ui.activity.ItemListActivity" android:theme="@style/AppThemeSearch">
         </activity>
         <activity android:name=".ui.activity.ChatActivity">
         </activity>

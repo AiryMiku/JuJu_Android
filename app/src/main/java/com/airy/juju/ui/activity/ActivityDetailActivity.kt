@@ -17,6 +17,7 @@ import com.airy.juju.viewModel.activity.ActivityDetailViewModel
 import com.airy.juju.viewModel.factroy.ActivityDetailViewModeFactory
 import com.airy.juju.databinding.ActivityActivityDetailBinding
 import com.airy.juju.util.UIUtil
+import com.airy.juju.util.UserCenter
 import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class ActivityDetailActivity : BaseActivity() {
@@ -46,16 +47,35 @@ class ActivityDetailActivity : BaseActivity() {
         }
 
         id = intent.getIntExtra(ACTIVITY_ID_KEY, 0)
-        viewModel = ViewModelProviders.of(this , ActivityDetailViewModeFactory(id)).get(ActivityDetailViewModel::class.java)
+        viewModel =
+            ViewModelProviders.of(this, ActivityDetailViewModeFactory(id)).get(ActivityDetailViewModel::class.java)
 
         adapter = CommentsAdapter {
-            makeToast("Comment ID -> "+it.id)
+            makeToast("Comment ID -> " + it.id)
         }
         binding.list.adapter = adapter
 
         // like
         binding.like.setOnClickListener {
+            makeToast("点赞")
+        }
 
+        // follow
+        binding.btnFollow.setOnClickListener {
+            when(binding.btnFollow.text) {
+                "关注" -> {
+                    val params = HashMap<String, Any>()
+                    params["activity_id"] = id
+                    params["require_user_id"] = UserCenter.getUserId()
+                    viewModel.follow(params)
+                }
+                "已关注" -> {
+                    val params = HashMap<String, Any>()
+                    params["activity_id"] = id
+                    params["require_user_id"] = UserCenter.getUserId()
+                    viewModel.disfollow(params)
+                }
+            }
         }
 
         initRefresh()
@@ -68,16 +88,14 @@ class ActivityDetailActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
-            android.R.id.home -> finish()
-
+        when (item?.itemId) {
             R.id.delete -> {
                 UIUtil.showSimpleConfirmDialog(this,
                     "删除活动",
-                    "真的真的要删除活动吗？",{
+                    "真的真的要删除活动吗？", {
                         makeSnackar(binding.linearLayout, "删除了活动")
                         finish()
-                    },{
+                    }, {
                         makeSnackar(binding.linearLayout, "您取消了删除")
                     })
             }
@@ -115,9 +133,40 @@ class ActivityDetailActivity : BaseActivity() {
             binding.refresh.isRefreshing = false
         })
 
-        binding.like.setOnClickListener {
-            makeToast("点赞")
-        }
+        viewModel.commentResult.observe(this, Observer {
+            if (it) {
+                makeToast("评论成功")
+                viewModel.refresh()
+            } else {
+                makeToast("评论失败")
+            }
+        })
+
+        viewModel.isFollowResult.observe(this, Observer {
+            if (it.data.is_follow) {
+                binding.btnFollow.text = "已关注"
+            } else {
+                binding.btnFollow.text = "关注"
+            }
+        })
+
+        viewModel.followResult.observe(this, Observer {
+            if (it) {
+                binding.btnFollow.text = "已关注"
+                makeToast("操作成功")
+            } else {
+                makeToast("操作失败")
+            }
+        })
+
+        viewModel.disFollowResult.observe(this, Observer {
+            if (it) {
+                binding.btnFollow.text = "关注"
+                makeToast("操作成功")
+            } else {
+                makeToast("操作失败")
+            }
+        })
     }
 
     private fun showCommentDialog() {
@@ -127,8 +176,13 @@ class ActivityDetailActivity : BaseActivity() {
         editText.hint = "友好发言，创建美好互联网环境~"
         dialogBuilder.setView(editText)
         dialogBuilder
-            .setPositiveButton("发送") { _, _ -> // dialog, which
-//                makeSnackar(binding.linearLayout, "评论成功")
+            .setPositiveButton("发送") { _, _ ->
+                // dialog, which
+                val params = HashMap<String, Any>()
+                params["activity_id"] = id
+                params["content"] = editText.text.toString()
+                params["require_user_id"] = UserCenter.getUserId()
+                viewModel.leaveComment(params)
             }
         dialogBuilder
             .setNegativeButton("取消") { _, _ ->

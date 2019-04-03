@@ -12,16 +12,19 @@ import java.io.Serializable
  */
 
 data class Token(
-    val token: String
+    val access_token: String,
+    val user_id: Int
 ) : Serializable, Parcelable {
     constructor(source: Parcel) : this(
-        source.readString()
+        source.readString(),
+        source.readInt()
     )
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeString(token)
+        writeString(access_token)
+        writeInt(user_id)
     }
 
     companion object {

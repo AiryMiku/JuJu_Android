@@ -2,10 +2,7 @@ package com.airy.juju.repository
 
 import com.airy.juju.api.RetrofitService
 import com.airy.juju.api.ReturnResult
-import com.airy.juju.bean.Activity
-import com.airy.juju.bean.Comment
-import com.airy.juju.bean.Id
-import com.airy.juju.bean.ListData
+import com.airy.juju.bean.*
 
 
 /**
@@ -53,6 +50,21 @@ class ActivityRepository {
         return RetrofitService.getJuJuApi().deleteActivityAsync(params).await()
     }
 
+    suspend fun leaveComment(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().leaveCommentAsync(params).await()
+    }
+
+    suspend fun followActivity(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().followActivityAsync(params).await()
+    }
+
+    suspend fun disFollowActivity(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().disFollowActivityAsync(params).await()
+    }
+
+    suspend fun isFollowActivity(params: Map<String, Any>): ReturnResult<IsFollow> {
+        return RetrofitService.getJuJuApi().isFollowActivityAsync(params).await()
+    }
 
     // todo
 

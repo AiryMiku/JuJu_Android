@@ -24,7 +24,7 @@ class ModifyMyInfoViewModel: ViewModel() {
     private val repository = UserRepository.getInstance()
 
     val user: MutableLiveData<ReturnResult<User>> = MutableLiveData()
-
+    val modifyResult: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         fetchUserInfo()
@@ -39,6 +39,22 @@ class ModifyMyInfoViewModel: ViewModel() {
                 }
             }catch (e: Exception) {
                 e.printStackTrace()
+            }
+        }
+    }
+
+    fun modifyUserInfo(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.modifyUserInfo(params)
+                withContext(Dispatchers.Main) {
+                    modifyResult.value = r.code == 0
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    modifyResult.value = false
+                }
             }
         }
     }

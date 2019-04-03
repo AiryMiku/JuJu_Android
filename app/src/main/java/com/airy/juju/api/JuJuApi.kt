@@ -96,6 +96,18 @@ interface JuJuApi {
                          @Query("page") page: Int,
                          @Query("size") size: Int): Deferred<ReturnResult<ListData<Comment>>>
 
+    @FormUrlEncoded
+    @POST("activity/follow/")
+    fun followActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
+    @FormUrlEncoded
+    @POST("activity/disFollow/")
+    fun disFollowActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
+    @FormUrlEncoded
+    @POST("activity/isFollow/")
+    fun isFollowActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
+
     // search
     @GET("/search/activity/")
     fun searchActivityAsync(@Query("key_word") key_word: String,
@@ -128,34 +140,38 @@ interface JuJuApi {
 
     @FormUrlEncoded
     @POST("/user/modify_password/")
-    fun changePassword(params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun changePassword(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @GET("/user/get_information_by_id/")
     fun getUserAsync(@Query("user_id") userId: Int): Deferred<ReturnResult<User>>
 
     @FormUrlEncoded
     @POST("/user/is_admin/")
-    fun isGroupAdmin(params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun isGroupAdmin(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
     @POST("/user/follow/")
-    fun followUser(params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun followUser(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
     @POST("/user/dis_follow/")
-    fun disFollowUser(params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun disFollowUser(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
     @POST("/user/is_follow/")
-    fun isFollowUser(params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
+    fun isFollowUser(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
+
+    @FormUrlEncoded
+    @POST("/user/modify_information/")
+    fun modifyUserInfoAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
     @POST("/user/modify_enable_searched/")
-    fun enableOrDisableuserSearchPrivate(params: Map<String, Any>): Deferred<ReturnResult<Any>> // ture or false
+    fun enableOrDisableuserSearchPrivate(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>> // ture or false
 
     @FormUrlEncoded
     @POST("/user/modify_enable_visited_list/")
-    fun personalInfoVisableList(params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun personalInfoVisableList(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
 
 

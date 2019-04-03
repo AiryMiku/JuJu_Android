@@ -12,6 +12,7 @@ import com.airy.juju.databinding.FragmentMeBinding
 import com.airy.juju.ui.activity.CreateOrModifyGroupActivity
 import com.airy.juju.ui.activity.ItemListActivity
 import com.airy.juju.ui.activity.ModifyMyinfoActivity
+import com.airy.juju.util.UserCenter
 
 
 /**
@@ -60,6 +61,11 @@ class MeFragment: BaseFragment() {
         }
         binding.modifyPassword.setOnClickListener {
 
+        }
+        binding.logout.setOnClickListener {
+            UserCenter.logout()
+            makeToast("登出系统")
+            activity?.finish()
         }
     }
 

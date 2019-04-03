@@ -12,6 +12,7 @@ import com.airy.juju.Common
 import com.airy.juju.Common.ParamTranferKey.ACTIVITY_ID_KEY
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
+import com.airy.juju.bean.User
 import com.airy.juju.databinding.ActivityGroupDetailBinding
 import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
 import com.airy.juju.util.UIUtil
@@ -61,10 +62,16 @@ class GroupDetailActivity : BaseActivity() {
         binding.btnFollow.setOnClickListener {
             when(binding.btnFollow.text) {
                 "关注" -> {
-//                    viewModel.follow()
+                    val params = HashMap<String, Any>()
+                    params["group_id"] = id
+                    params["require_user_id"] = UserCenter.getUserId()
+                    viewModel.follow(params)
                 }
                 "已关注" -> {
-//                    viewModel.disfollow()
+                    val params = HashMap<String, Any>()
+                    params["group_id"] = id
+                    params["require_user_id"] = UserCenter.getUserId()
+                    viewModel.disfollow(params)
                 }
             }
         }
@@ -80,8 +87,6 @@ class GroupDetailActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when(item?.itemId) {
-            android.R.id.home -> finish()
-
             R.id.create_actitity -> {
                 val intent = Intent(this, CreateOrModifyActivityActivity::class.java)
                 intent.putExtra(Common.ParamTranferKey.GROUP_ID_KEY, id)
@@ -141,6 +146,33 @@ class GroupDetailActivity : BaseActivity() {
                 binding.btnFollow.text = "关注"
             }
         })
+
+        viewModel.followResult.observe(this, Observer {
+            if (it) {
+                binding.btnFollow.text = "已关注"
+                makeToast("操作成功")
+            } else {
+                makeToast("操作失败")
+            }
+        })
+
+        viewModel.disFollowResult.observe(this, Observer {
+            if (it) {
+                binding.btnFollow.text = "关注"
+                makeToast("操作成功")
+            } else {
+                makeToast("操作失败")
+            }
+        })
+
+        viewModel.deleteResult.observe(this , Observer {
+            if (it) {
+                makeToast("操作成功")
+                finish()
+            } else {
+                makeToast("操作失败")
+            }
+        })
     }
 
     private fun showSendNoticeDialog() {
@@ -168,8 +200,8 @@ class GroupDetailActivity : BaseActivity() {
             .setPositiveButton("确认") { _, _ -> // dialog, which
                 val param = HashMap<String, Any>()
                 param["group_id"] = id
+                param["access_token"] = UserCenter.getUserToken()
                 viewModel.deleteGroup(param)
-                makeSnackar(binding.linearLayout, "成功删除")
             }
         dialogBuilder
             .setNegativeButton("取消") { _, _ ->

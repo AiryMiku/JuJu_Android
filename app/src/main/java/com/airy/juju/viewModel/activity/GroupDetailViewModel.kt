@@ -31,7 +31,8 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
     val group: MutableLiveData<ReturnResult<Group>> = MutableLiveData()
     val groupActivities: MutableLiveData<ReturnResult<ListData<Activity>>> = MutableLiveData()
     val deleteResult: MutableLiveData<Boolean> = MutableLiveData()
-    val followResult: MutableLiveData<ReturnResult<Any>> = MutableLiveData()
+    val followResult: MutableLiveData<Boolean> = MutableLiveData()
+    val disFollowResult: MutableLiveData<Boolean> = MutableLiveData()
     val isFollowResult: MutableLiveData<ReturnResult<IsFollow>> = MutableLiveData()
 
     init {
@@ -76,10 +77,12 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
             try {
                 val r = repository.deleteGroup(params)
                 withContext(Dispatchers.Main) {
-                    deleteResult.value = true
+                    deleteResult.value = r.code == 0
                 }
             }catch (e :Exception) {
-                deleteResult.value = false
+                withContext(Dispatchers.Main) {
+                    deleteResult.value = false
+                }
                 e.printStackTrace()
             }
         }
@@ -115,9 +118,12 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
             try {
                 val r = repository.followGroup(params)
                 withContext(Dispatchers.Main) {
-                    followResult.value = r
+                    followResult.value = r.code == 0
                 }
             }catch (e :Exception) {
+                withContext(Dispatchers.Main) {
+                    followResult.value = false
+                }
                 e.printStackTrace()
             }
         }
@@ -128,9 +134,12 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
             try {
                 val r = repository.disfollowGroup(params)
                 withContext(Dispatchers.Main) {
-                    followResult.value = r
+                    disFollowResult.value = r.code == 0
                 }
             }catch (e :Exception) {
+                withContext(Dispatchers.Main) {
+                    disFollowResult.value = false
+                }
                 e.printStackTrace()
             }
         }

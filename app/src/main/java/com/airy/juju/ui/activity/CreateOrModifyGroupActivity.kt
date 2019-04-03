@@ -44,29 +44,45 @@ class CreateOrModifyGroupActivity : BaseActivity() {
         viewModel = ViewModelProviders.of(this, CreateOrModifyGroupViewModelFactory(id)).get(CreateOrModifyGroupViewModel::class.java)
 
         binding.modify.setOnClickListener {
-            val params = HashMap<String,Any>()
-            params["group_id"] = id
-            params["name"] = binding.inputGroupName.text
-            params["introduction"] = binding.inputIntroduction.text
-            viewModel.modifyGroup(params)
+            if (validate()) {
+                val params = HashMap<String,Any>()
+                params["group_id"] = id
+                params["name"] = binding.inputGroupName.text
+                params["introduction"] = binding.inputIntroduction.text
+                viewModel.modifyGroup(params)
+            }
         }
         binding.create.setOnClickListener {
-            val params = HashMap<String,Any>()
-            params["group_id"] = id
-            params["name"] = binding.inputGroupName.text
-            params["introduction"] = binding.inputIntroduction.text
-            viewModel.createGroup(params)
+            if (validate()) {
+                val params = HashMap<String,Any>()
+                params["group_id"] = id
+                params["name"] = binding.inputGroupName.text
+                params["introduction"] = binding.inputIntroduction.text
+                viewModel.createGroup(params)
+            }
         }
 
         typeControl()
         subscribeUI()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
-            android.R.id.home -> finish()
+    private fun validate(): Boolean {
+        val name = binding.inputGroupName.text
+        val intro = binding.inputIntroduction.text
+        if (name.isEmpty() && intro.isEmpty()) {
+            binding.inputGroupName.error = "必填，不为空"
+            binding.inputIntroduction.error = "必填，不为空"
+            return false
         }
-        return super.onOptionsItemSelected(item)
+        if (name.isEmpty()) {
+            binding.inputGroupName.error = "必填，不为空"
+            return false
+        }
+        if (intro.isEmpty()) {
+            binding.inputIntroduction.error = "必填，不为空"
+            return false
+        }
+        return true
     }
 
     private fun typeControl(){
@@ -116,7 +132,5 @@ class CreateOrModifyGroupActivity : BaseActivity() {
         })
 
     }
-
-
 
 }

@@ -24,5 +24,8 @@ class JuJuApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         contextSingle = applicationContext
+
+        val crashHandler = CrashHandler.getInstance()
+        crashHandler.init(this)
     }
 }

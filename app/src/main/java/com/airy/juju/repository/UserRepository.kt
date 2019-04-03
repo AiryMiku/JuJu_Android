@@ -35,4 +35,8 @@ class UserRepository{
         return RetrofitService.getJuJuApi().getUserAsync(userId).await()
     }
 
+    suspend fun modifyUserInfo(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().modifyUserInfoAsync(params).await()
+    }
+
 }

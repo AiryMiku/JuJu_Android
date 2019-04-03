@@ -8,6 +8,7 @@ import android.util.Log
 import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.airy.juju.bean.User
 import com.airy.juju.repository.UserRepository
 import com.airy.juju.util.UserCenter
 import com.airy.juju.viewModel.activity.LoginAndSignUpViewModel
@@ -56,9 +57,11 @@ class LoginActivity : BaseActivity() {
     }
 
     private fun subsrcibeUI() {
-        viewMode.loginResult.observe(this , Observer {
-            if (it) {
+        viewMode.token.observe(this , Observer {
+            if (it.code == 0) {
                 onLoginSuccess()
+                UserCenter.saveLogin(this, it.data.user_id, it.data.access_token)
+                makeToast("user id->"+it.data.user_id+"token->"+it.data.access_token)
             } else {
                 onLoginFailed()
             }
@@ -119,7 +122,8 @@ class LoginActivity : BaseActivity() {
     fun onLoginSuccess() {
         btn_login.isEnabled = true
         makeToast("登录成功")
-//        finish()
+        activityIntentTo(MainActivity::class.java)
+        finish()
     }
 
     fun onLoginFailed() {

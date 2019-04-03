@@ -2,6 +2,8 @@ package com.airy.juju.viewModel.activity
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.Token
 import com.airy.juju.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +21,7 @@ import java.lang.Exception
 class LoginAndSignUpViewModel: ViewModel() {
 
     val repository = UserRepository.getInstance()
-    val loginResult: MutableLiveData<Boolean> = MutableLiveData()
+    val token: MutableLiveData<ReturnResult<Token>> = MutableLiveData()
     val signUpResult: MutableLiveData<Boolean> = MutableLiveData()
 
     fun login(params: HashMap<String, Any>) {
@@ -27,11 +29,10 @@ class LoginAndSignUpViewModel: ViewModel() {
             try {
                 val r = repository.login(params)
                 withContext(Dispatchers.Main) {
-                    loginResult.value = r.code == 0
+                    token.value = r
                 }
             }catch (e : Exception) {
                 e.printStackTrace()
-                loginResult.value = false
             }
         }
     }
@@ -45,7 +46,9 @@ class LoginAndSignUpViewModel: ViewModel() {
                 }
             }catch (e : Exception) {
                 e.printStackTrace()
-                signUpResult.value = false
+                withContext(Dispatchers.Main) {
+                    signUpResult.value = false
+                }
             }
         }
     }

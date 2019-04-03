@@ -1,9 +1,7 @@
 package com.airy.juju.ui.activity
 
 import android.app.DatePickerDialog
-import android.content.DialogInterface
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -15,8 +13,10 @@ import androidx.lifecycle.ViewModelProviders
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.databinding.ActivityModifyMyinfoBinding
+import com.airy.juju.util.UserCenter
 import com.airy.juju.viewModel.activity.ModifyMyInfoViewModel
 import java.util.*
+import kotlin.collections.HashMap
 
 class ModifyMyinfoActivity : BaseActivity() {
 
@@ -39,33 +39,44 @@ class ModifyMyinfoActivity : BaseActivity() {
         setToolBarTitle("修改个人资料")
         binding.nickname.setOnClickListener {
             showEditDialog("编辑昵称", binding.nickname.text.toString()) {
-                makeToast("Success")
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                params["nickname"] = it
+                viewModel.modifyUserInfo(params)
             }
         }
         binding.sex.setOnClickListener {
             showSexChoiceDialog("选择性别")
         }
         binding.birth.setOnClickListener {
-            showDateTimeByPicker()
+            showDateTimeByPicker{
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                params["birth"] = it
+                viewModel.modifyUserInfo(params)
+            }
         }
         binding.phone.setOnClickListener {
             showEditDialog("编辑电话", binding.phone.text.toString()) {
-                makeToast("Success")
+                if (it.length <= 13) {
+                    val params = HashMap<String, Any>()
+                    params["access_token"] = UserCenter.getUserToken()
+                    params["phone"] = it
+                    viewModel.modifyUserInfo(params)
+                } else {
+                    makeToast("电话长度超过13")
+                }
             }
         }
         binding.status.setOnClickListener {
             showEditDialog("编辑签名", binding.status.text.toString()) {
-                makeToast("Success")
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                params["status"] = it
+                viewModel.modifyUserInfo(params)
             }
         }
         subsrcibeUI()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId) {
-            android.R.id.home -> finish()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun subsrcibeUI() {
@@ -77,9 +88,18 @@ class ModifyMyinfoActivity : BaseActivity() {
                 1 -> binding.sex.text = "男"
             }
         })
+
+        viewModel.modifyResult.observe(this, Observer {
+            if (it) {
+                makeSnackar(binding.linearLayout, "修改成功")
+            } else {
+                makeSnackar(binding.linearLayout, "修改失败")
+            }
+            viewModel.fetchUserInfo()
+        })
     }
 
-    private fun showEditDialog(title: String, content: String, confirmCallBack: ()->Unit) {
+    private fun showEditDialog(title: String, content: String, confirmCallBack: (String)->Unit) {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setTitle(title)
         val editText = EditText(this)
@@ -87,7 +107,7 @@ class ModifyMyinfoActivity : BaseActivity() {
         dialogBuilder.setView(editText)
         dialogBuilder
             .setPositiveButton("确认") { _, _ -> // dialog, which
-                confirmCallBack()
+                confirmCallBack(editText.text.toString())
             }
         dialogBuilder
             .setNegativeButton("取消") { _, _ ->
@@ -96,16 +116,15 @@ class ModifyMyinfoActivity : BaseActivity() {
         dialogBuilder.show()
     }
 
-    private fun showDateTimeByPicker() {
+    private fun showDateTimeByPicker(confirmCallBack: (String) -> Unit) {
         val c = Calendar.getInstance()
         val mYear = c.get(Calendar.YEAR)
         val mMonth = c.get(Calendar.MONTH)
         val mDay = c.get(Calendar.DAY_OF_MONTH)
-
         val dateDialog = DatePickerDialog(this, DatePickerDialog.OnDateSetListener {
                 _, year, month, dayOfMonth ->
             val dateString = "$year-"+(month+1)+"-$dayOfMonth"
-            // todo
+            confirmCallBack(dateString)
         }, mYear, mMonth, mDay)
         dateDialog.show()
     }
@@ -117,6 +136,11 @@ class ModifyMyinfoActivity : BaseActivity() {
         val btnSecret = radioGroup.findViewById<RadioButton>(R.id.radio_btn_secret)
         val btnFemale = radioGroup.findViewById<RadioButton>(R.id.radio_btn_female)
         val btnMale = radioGroup.findViewById<RadioButton>(R.id.radio_btn_male)
+        when(binding.user?.sex) {
+            -1 -> btnSecret.isChecked = true
+            0 -> btnFemale.isChecked = true
+            1 -> btnMale.isChecked = true
+        }
         radioGroup.setOnCheckedChangeListener {
                 group, checkedId ->
             when(checkedId) {
@@ -124,14 +148,16 @@ class ModifyMyinfoActivity : BaseActivity() {
                 btnFemale.id -> sex = 0
                 btnMale.id -> sex = 1
             }
-            makeToast(sex.toString())
         }
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setTitle(title)
         dialogBuilder.setView(dialogView)
         dialogBuilder
             .setPositiveButton("确认") { _, _ -> // dialog, which
-
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                params["sex"] = sex
+                viewModel.modifyUserInfo(params)
             }
         dialogBuilder
             .setNegativeButton("取消") { _, _ ->
