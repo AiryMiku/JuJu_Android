@@ -21,7 +21,7 @@ import com.airy.juju.viewModel.activity.ModifyMyInfoViewModel
 import java.util.*
 import kotlin.collections.HashMap
 
-class ModifyMyinfoActivity : BaseActivity() {
+class ModifyMyInfoActivity : BaseActivity() {
 
     private lateinit var binding: ActivityModifyMyinfoBinding
     private lateinit var viewModel: ModifyMyInfoViewModel
@@ -191,15 +191,18 @@ class ModifyMyinfoActivity : BaseActivity() {
     }
 
     private fun showPrivacySettingDialog() {
-//        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_privacy, null) as LinearLayout
-//        val cbBitrh = dialogView.findViewById<SwitchCompat>(R.id.birth)
-//        val cbPhone = dialogView.findViewById<SwitchCompat>(R.id.phone)
-//        val cbStatus = dialogView.findViewById<SwitchCompat>(R.id.status)
         val choices: Array<String> = arrayOf("生日","电话","签名")
         val bools = BooleanArray(3)
-        bools[0] = false
-        bools[1] = false
-        bools[2] = false
+        val privacy = viewModel.personalInfoPrivacy.value?.data
+        if (privacy != null) {
+            bools[0] = privacy.birth == 1
+            bools[1] = privacy.phone == 1
+            bools[2] = privacy.status == 1
+        } else {
+            bools[0] = false
+            bools[1] = false
+            bools[2] = false
+        }
         val dialog = AlertDialog.Builder(this)
         dialog.setTitle("个人资料隐私设置")
         dialog.setMultiChoiceItems(choices, bools) { dialog, which, isChecked ->

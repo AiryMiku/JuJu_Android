@@ -11,7 +11,7 @@ import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentMeBinding
 import com.airy.juju.ui.activity.CreateOrModifyGroupActivity
 import com.airy.juju.ui.activity.ItemListActivity
-import com.airy.juju.ui.activity.ModifyMyinfoActivity
+import com.airy.juju.ui.activity.ModifyMyInfoActivity
 import com.airy.juju.util.UserCenter
 
 
@@ -56,7 +56,7 @@ class MeFragment: BaseFragment() {
             startActivity(intent)
         }
         binding.modifyInfo.setOnClickListener {
-            val intent = Intent(activity, ModifyMyinfoActivity::class.java)
+            val intent = Intent(activity, ModifyMyInfoActivity::class.java)
             startActivity(intent)
         }
         binding.modifyPassword.setOnClickListener {

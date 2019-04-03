@@ -17,7 +17,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.ModifyMyinfoActivity">
+        <activity android:name=".ui.activity.ModifyMyInfoActivity">
         </activity>
         <activity android:name=".ui.activity.SearchActivity">
         </activity>

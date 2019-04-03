@@ -3,6 +3,7 @@ package com.airy.juju.viewModel.activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.PersonalPrivacy
 import com.airy.juju.bean.User
 import com.airy.juju.repository.UserRepository
 import com.airy.juju.util.UserCenter
@@ -25,9 +26,12 @@ class ModifyMyInfoViewModel: ViewModel() {
 
     val user: MutableLiveData<ReturnResult<User>> = MutableLiveData()
     val modifyResult: MutableLiveData<Boolean> = MutableLiveData()
+    val personalInfoPrivacy: MutableLiveData<ReturnResult<PersonalPrivacy>> = MutableLiveData()
+    val modifyPrivacyResult: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         fetchUserInfo()
+        fetchPersonalPrivacy()
     }
 
     fun fetchUserInfo() {
@@ -55,6 +59,21 @@ class ModifyMyInfoViewModel: ViewModel() {
                 withContext(Dispatchers.Main) {
                     modifyResult.value = false
                 }
+            }
+        }
+    }
+
+    fun fetchPersonalPrivacy() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                val r = repository.getPersonalPrivacy(params)
+                withContext(Dispatchers.Main) {
+                    personalInfoPrivacy.value = r
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

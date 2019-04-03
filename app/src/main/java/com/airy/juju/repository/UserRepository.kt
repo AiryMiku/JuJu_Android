@@ -2,6 +2,7 @@ package com.airy.juju.repository
 
 import com.airy.juju.api.RetrofitService
 import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.PersonalPrivacy
 import com.airy.juju.bean.Token
 import com.airy.juju.bean.User
 
@@ -37,6 +38,10 @@ class UserRepository{
 
     suspend fun modifyUserInfo(params: Map<String, Any>): ReturnResult<Any> {
         return RetrofitService.getJuJuApi().modifyUserInfoAsync(params).await()
+    }
+
+    suspend fun getPersonalPrivacy(params: Map<String, Any>): ReturnResult<PersonalPrivacy> {
+        return RetrofitService.getJuJuApi().getPersonalPrivacyAsync(params).await()
     }
 
 }
