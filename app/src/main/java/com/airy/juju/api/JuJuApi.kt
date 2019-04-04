@@ -166,17 +166,19 @@ interface JuJuApi {
     fun modifyUserInfoAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
+    @POST("/user/is_enable_searched/")
+    fun isEnableSearchAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsEnableSearch>>
+
+    @FormUrlEncoded
     @POST("/user/modify_enable_searched/")
-    fun enableOrDisableuserSearchPrivate(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>> // ture or false
+    fun enableOrDisableuserSearchPrivateAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>> // ture or false
 
     @FormUrlEncoded
     @POST("/user/modify_enable_visited_list/")
-    fun modifyPersonalInfoVisable(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun modifyPersonalInfoPrivacyAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
     @POST("/user/get_enable_visited_list/")
     fun getPersonalPrivacyAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<PersonalPrivacy>>
-
-
 
 }

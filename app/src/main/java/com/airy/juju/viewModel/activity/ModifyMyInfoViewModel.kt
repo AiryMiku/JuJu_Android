@@ -3,6 +3,7 @@ package com.airy.juju.viewModel.activity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.IsEnableSearch
 import com.airy.juju.bean.PersonalPrivacy
 import com.airy.juju.bean.User
 import com.airy.juju.repository.UserRepository
@@ -27,11 +28,18 @@ class ModifyMyInfoViewModel: ViewModel() {
     val user: MutableLiveData<ReturnResult<User>> = MutableLiveData()
     val modifyResult: MutableLiveData<Boolean> = MutableLiveData()
     val personalInfoPrivacy: MutableLiveData<ReturnResult<PersonalPrivacy>> = MutableLiveData()
+    val enableSearch: MutableLiveData<ReturnResult<IsEnableSearch>> = MutableLiveData()
     val modifyPrivacyResult: MutableLiveData<Boolean> = MutableLiveData()
+    val modifyEnableSearchResult: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
+        refresh()
+    }
+
+    fun refresh() {
         fetchUserInfo()
         fetchPersonalPrivacy()
+        fetchEnableSearched()
     }
 
     fun fetchUserInfo() {
@@ -73,6 +81,53 @@ class ModifyMyInfoViewModel: ViewModel() {
                     personalInfoPrivacy.value = r
                 }
             }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun fetchEnableSearched() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                val r = repository.isEnableSearched(params)
+                withContext(Dispatchers.Main) {
+                    enableSearch.value = r
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun modifyPersonalPrivacy(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.modifyPersonalPrivacy(params)
+                withContext(Dispatchers.Main) {
+                    modifyPrivacyResult.value = r.code == 0
+                }
+            }catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    modifyPrivacyResult.value = false
+                }
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun modifyEnableSearch(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.modifyEnableSearched(params)
+                withContext(Dispatchers.Main) {
+                    modifyEnableSearchResult.value = r.code == 0
+                }
+            }catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    modifyEnableSearchResult.value = false
+                }
                 e.printStackTrace()
             }
         }

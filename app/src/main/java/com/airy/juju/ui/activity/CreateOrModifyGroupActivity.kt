@@ -10,6 +10,7 @@ import com.airy.juju.Common
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.databinding.ActivityCreateOrModifyGroupBinding
+import com.airy.juju.util.UserCenter
 import com.airy.juju.viewModel.activity.CreateOrModifyGroupViewModel
 import com.airy.juju.viewModel.factroy.CreateOrModifyGroupViewModelFactory
 import kotlinx.android.synthetic.main.layout_app_bar.*
@@ -34,12 +35,6 @@ class CreateOrModifyGroupActivity : BaseActivity() {
         appBar.setDisplayHomeAsUpEnabled(true)
         appBar.setDisplayShowTitleEnabled(true)
 
-        binding.create.setOnClickListener {
-            val params = HashMap<String,Any>()
-            params["name"] = binding.inputGroupName.text
-            params["introduction"] = binding.inputIntroduction.text
-            viewModel.createGroup(params)
-        }
         id = intent.getIntExtra(Common.ParamTranferKey.GROUP_ID_KEY,0)
         viewModel = ViewModelProviders.of(this, CreateOrModifyGroupViewModelFactory(id)).get(CreateOrModifyGroupViewModel::class.java)
 
@@ -55,9 +50,9 @@ class CreateOrModifyGroupActivity : BaseActivity() {
         binding.create.setOnClickListener {
             if (validate()) {
                 val params = HashMap<String,Any>()
-                params["group_id"] = id
                 params["name"] = binding.inputGroupName.text
                 params["introduction"] = binding.inputIntroduction.text
+                params["access_token"] = UserCenter.getUserToken()
                 viewModel.createGroup(params)
             }
         }

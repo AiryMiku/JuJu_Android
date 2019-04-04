@@ -1,8 +1,6 @@
 package com.airy.juju.ui.activity
 
 import android.app.DatePickerDialog
-import android.app.Dialog
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -33,7 +31,6 @@ class ModifyMyInfoActivity : BaseActivity() {
     override fun loadData() {
         super.loadData()
         viewModel = ViewModelProviders.of(this).get(ModifyMyInfoViewModel::class.java)
-        viewModel.fetchUserInfo()
     }
 
     override fun initViews() {
@@ -84,9 +81,11 @@ class ModifyMyInfoActivity : BaseActivity() {
             showPrivacySettingDialog()
         }
 
-        binding.switchEnableSearch.setOnCheckedChangeListener {
-                buttonView, isChecked ->
-            buttonView.isChecked = isChecked
+        binding.switchEnableSearch.setOnClickListener {
+            val params = HashMap<String, Any>()
+            params["access_token"] = UserCenter.getUserToken()
+            params["enable_searched"] =  if ((it as SwitchCompat).isChecked) 1 else 0
+            viewModel.modifyEnableSearch(params)
         }
 
         binding.switchFool.setOnCheckedChangeListener {
@@ -119,7 +118,29 @@ class ModifyMyInfoActivity : BaseActivity() {
             } else {
                 makeSnackar(binding.linearLayout, "修改失败")
             }
-            viewModel.fetchUserInfo()
+            viewModel.refresh()
+        })
+
+        viewModel.enableSearch.observe(this, Observer {
+            binding.switchEnableSearch.isChecked = it.data.is_enable_searched
+        })
+
+        viewModel.modifyEnableSearchResult.observe(this, Observer {
+            if (it) {
+                makeSnackar(binding.linearLayout, "修改成功")
+            } else {
+                makeSnackar(binding.linearLayout, "修改失败")
+            }
+            viewModel.refresh()
+        })
+
+        viewModel.modifyPrivacyResult.observe(this, Observer {
+            if (it) {
+                makeSnackar(binding.linearLayout, "修改成功")
+            } else {
+                makeSnackar(binding.linearLayout, "修改失败")
+            }
+            viewModel.refresh()
         })
     }
 
@@ -166,7 +187,7 @@ class ModifyMyInfoActivity : BaseActivity() {
             1 -> btnMale.isChecked = true
         }
         radioGroup.setOnCheckedChangeListener {
-                group, checkedId ->
+                _, checkedId ->
             when(checkedId) {
                 btnSecret.id -> sex = -1
                 btnFemale.id -> sex = 0
@@ -193,6 +214,7 @@ class ModifyMyInfoActivity : BaseActivity() {
     private fun showPrivacySettingDialog() {
         val choices: Array<String> = arrayOf("生日","电话","签名")
         val bools = BooleanArray(3)
+        viewModel.fetchPersonalPrivacy()
         val privacy = viewModel.personalInfoPrivacy.value?.data
         if (privacy != null) {
             bools[0] = privacy.birth == 1
@@ -210,7 +232,12 @@ class ModifyMyInfoActivity : BaseActivity() {
         }
         dialog
             .setPositiveButton("确认") { _, _ -> // dialog, which
-
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                params["birth"] = if (bools[0]) 1 else 0
+                params["phone"] = if (bools[1]) 1 else 0
+                params["status"] = if (bools[2]) 1 else 0
+                viewModel.modifyPersonalPrivacy(params)
             }
         dialog
             .setNegativeButton("取消") { _, _ ->
