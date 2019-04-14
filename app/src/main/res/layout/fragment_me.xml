@@ -97,6 +97,23 @@
                     android:background="@color/iron"/>
 
             <TextView
+                    android:id="@+id/my_follo_users"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="关注的人"/>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/iron"/>
+
+            <TextView
                     android:id="@+id/create_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -12,16 +12,22 @@ import java.io.Serializable
  */
 
 data class Notification(
-    val id: Int
+    val id: Int,
+    val title: String,
+    val time: String
 ) : Serializable, Parcelable {
     constructor(source: Parcel) : this(
-        source.readInt()
+        source.readInt(),
+        source.readString(),
+        source.readString()
     )
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeInt(id)
+        writeString(title)
+        writeString(time)
     }
 
     companion object {

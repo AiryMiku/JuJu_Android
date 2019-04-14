@@ -31,9 +31,7 @@ abstract class BaseActivity : AppCompatActivity() {
         initViews()
     }
 
-    open fun initViews() {
-
-    }
+    open fun initViews() {}
 
     open fun loadData(){}
 

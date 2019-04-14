@@ -31,11 +31,11 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text=""
+                    android:text="@{notifiaction.title}"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="16sp"
-                    tools:text="用户昵称"/>
+                    tools:text="你有新的通知"/>
 
             <!--评论时间-->
             <TextView
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/content"
-                    android:text=""
+                    android:text="@{notifiaction.time}"
                     android:textStyle="italic"
                     tools:text="2099年12月25日 11：11：11"/>
 

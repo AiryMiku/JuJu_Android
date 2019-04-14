@@ -36,6 +36,10 @@ data class Message(
         writeString(content)
     }
 
+    override fun toString(): String {
+        return "Message(id=$id, type=$type, from_id=$from_id, to_id=$to_id, content='$content')"
+    }
+
     companion object {
         @JvmField
         val CREATOR: Parcelable.Creator<Message> = object : Parcelable.Creator<Message> {
@@ -43,4 +47,6 @@ data class Message(
             override fun newArray(size: Int): Array<Message?> = arrayOfNulls(size)
         }
     }
+
+
 }

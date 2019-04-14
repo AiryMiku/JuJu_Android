@@ -1,5 +1,6 @@
 package com.airy.juju.ui.adapter.listView
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +18,7 @@ import com.airy.juju.util.UserCenter
  * Github: AiryMiku
  */
 
-class MessagesAdapter
-    (private val onLongClickCallack: (Message) -> Boolean):
+class MessagesAdapter(private val onLongClickCallack: (Message)->Unit):
         ListAdapter<Message, MessagesAdapter.ViewHolder>(TaskDiffCallback()) {
 
     class ViewHolder(val binding: ListItemMessageBinding) : RecyclerView.ViewHolder(binding.root)
@@ -41,6 +41,7 @@ class MessagesAdapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val message = getItem(position)
         holder.binding.message = message
+        Log.d("MsgAdapter", message.toString())
         when(message.type) {
             0 -> {
                 holder.binding.right.visibility = View.VISIBLE
@@ -48,17 +49,18 @@ class MessagesAdapter
             }
             1 -> {
                 if (message.to_id == UserCenter.getUserId()) {
-                    holder.binding.right.visibility = View.GONE
-                    holder.binding.left.visibility = View.VISIBLE
-                } else {
                     holder.binding.right.visibility = View.VISIBLE
                     holder.binding.left.visibility = View.GONE
+                } else {
+                    holder.binding.right.visibility = View.GONE
+                    holder.binding.left.visibility = View.VISIBLE
                 }
             }
 
         }
         holder.binding.root.setOnLongClickListener {
             onLongClickCallack(message)
+            return@setOnLongClickListener true
         }
     }
 
