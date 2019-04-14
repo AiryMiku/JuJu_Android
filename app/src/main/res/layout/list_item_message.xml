@@ -23,6 +23,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:textColor="@color/black"
                 android:background="@drawable/chat_message_text_left_shape"
+                android:visibility="gone"
                 tools:text="我是左边的消息"/>
 
         <TextView
