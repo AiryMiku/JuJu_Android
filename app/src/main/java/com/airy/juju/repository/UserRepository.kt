@@ -2,10 +2,7 @@ package com.airy.juju.repository
 
 import com.airy.juju.api.RetrofitService
 import com.airy.juju.api.ReturnResult
-import com.airy.juju.bean.IsEnableSearch
-import com.airy.juju.bean.PersonalPrivacy
-import com.airy.juju.bean.Token
-import com.airy.juju.bean.User
+import com.airy.juju.bean.*
 
 
 /**
@@ -55,5 +52,17 @@ class UserRepository{
 
     suspend fun modifyEnableSearched(params: Map<String, Any>): ReturnResult<Any> {
         return RetrofitService.getJuJuApi().enableOrDisableuserSearchPrivateAsync(params).await()
+    }
+
+    suspend fun followUser(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().followUserAsync(params).await()
+    }
+
+    suspend fun disfollowUser(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().disFollowUserAsync(params).await()
+    }
+
+    suspend fun isfollowUser(params: Map<String, Any>): ReturnResult<IsFollow> {
+        return RetrofitService.getJuJuApi().isFollowUserAsync(params).await()
     }
 }

@@ -74,7 +74,6 @@ class ItemListActivity : BaseActivity() {
             Common.ItemListTypeKey.USER -> {
                 setToolBarTitle("人员列表")
                 usersAdapter = UsersAdapter {
-                    makeToast("userId -> "+it.id)
                     val intent = Intent(this, UserDetailActivity::class.java)
                     intent.putExtra(Common.ParamTranferKey.USER_ID_KEY, it.id)
                     startActivity(intent)
@@ -86,6 +85,16 @@ class ItemListActivity : BaseActivity() {
                 params["page"] = 1
                 params["size"] = 99
                 viewModel.fetchMemberInGroup(params)
+            }
+            Common.ItemListTypeKey.MY_FOLLOW_USER -> {
+                setToolBarTitle("关注的人")
+                usersAdapter = UsersAdapter {
+                    val intent = Intent(this, UserDetailActivity::class.java)
+                    intent.putExtra(Common.ParamTranferKey.USER_ID_KEY, it.id)
+                    startActivity(intent)
+                }
+                binding.list.adapter = usersAdapter
+                //todo
             }
         }
     }

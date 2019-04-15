@@ -30,6 +30,7 @@ object Common {
         const val TYPE_KEY: String = "TYPE_KEY"
         const val MY_GROUP: String = "MY_GROUP"
         const val MY_ACTIVITY: String = "MY_ACTIVITY"
+        const val MY_FOLLOW_USER: String = "MY_FOLLOW_USER"
         const val USER: String = "USER"
     }
 

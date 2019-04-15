@@ -14,7 +14,7 @@ import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import com.airy.juju.ui.adapter.listView.CommentsAdapter
 import com.airy.juju.viewModel.activity.ActivityDetailViewModel
-import com.airy.juju.viewModel.factroy.ActivityDetailViewModeFactory
+import com.airy.juju.viewModel.factroy.ActivityDetailViewModelFactory
 import com.airy.juju.databinding.ActivityActivityDetailBinding
 import com.airy.juju.util.UIUtil
 import com.airy.juju.util.UserCenter
@@ -48,7 +48,7 @@ class ActivityDetailActivity : BaseActivity() {
 
         id = intent.getIntExtra(ACTIVITY_ID_KEY, 0)
         viewModel =
-            ViewModelProviders.of(this, ActivityDetailViewModeFactory(id)).get(ActivityDetailViewModel::class.java)
+            ViewModelProviders.of(this, ActivityDetailViewModelFactory(id)).get(ActivityDetailViewModel::class.java)
 
         adapter = CommentsAdapter {
             makeToast("Comment ID -> " + it.id)

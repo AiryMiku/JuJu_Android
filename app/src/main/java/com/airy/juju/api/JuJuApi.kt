@@ -140,26 +140,26 @@ interface JuJuApi {
 
     @FormUrlEncoded
     @POST("/user/modify_password/")
-    fun changePassword(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun changePasswordAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @GET("/user/get_information_by_id/")
     fun getUserAsync(@Query("user_id") userId: Int): Deferred<ReturnResult<User>>
 
     @FormUrlEncoded
     @POST("/user/is_admin/")
-    fun isGroupAdmin(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun isGroupAdminAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
     @POST("/user/follow/")
-    fun followUser(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun followUserAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
     @POST("/user/dis_follow/")
-    fun disFollowUser(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun disFollowUserAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
     @POST("/user/is_follow/")
-    fun isFollowUser(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
+    fun isFollowUserAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
 
     @FormUrlEncoded
     @POST("/user/modify_information/")

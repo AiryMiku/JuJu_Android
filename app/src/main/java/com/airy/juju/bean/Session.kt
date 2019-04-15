@@ -12,16 +12,34 @@ import java.io.Serializable
  */
 
 data class Session(
-    val id: Int
+    val id: Int,
+    val type: Int,
+    val left_id: Int,
+    val right_id: Int,
+    val last_message: String,
+    val title: String,
+    val latest_update_time: String
 ) : Serializable, Parcelable {
     constructor(source: Parcel) : this(
-        source.readInt()
+        source.readInt(),
+        source.readInt(),
+        source.readInt(),
+        source.readInt(),
+        source.readString(),
+        source.readString(),
+        source.readString()
     )
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeInt(id)
+        writeInt(type)
+        writeInt(left_id)
+        writeInt(right_id)
+        writeString(last_message)
+        writeString(title)
+        writeString(latest_update_time)
     }
 
     companion object {
