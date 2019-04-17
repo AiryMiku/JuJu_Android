@@ -94,6 +94,7 @@ class ActivityDetailActivity : BaseActivity() {
                     "删除活动",
                     "真的真的要删除活动吗？", {
                         makeSnackar(binding.linearLayout, "删除了活动")
+                        viewModel.deleteGroup()
                         finish()
                     }, {
                         makeSnackar(binding.linearLayout, "您取消了删除")

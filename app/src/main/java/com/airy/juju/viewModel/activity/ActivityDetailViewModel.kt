@@ -32,6 +32,7 @@ class ActivityDetailViewModel(private val activityId: Int) :ViewModel() {
     val followResult: MutableLiveData<Boolean> = MutableLiveData()
     val disFollowResult: MutableLiveData<Boolean> = MutableLiveData()
     val isFollowResult: MutableLiveData<ReturnResult<IsFollow>> = MutableLiveData()
+    val deleteResult: MutableLiveData<Boolean> = MutableLiveData()
 
     companion object {
         val TAG = "ActivityDetailViewModel"
@@ -132,6 +133,25 @@ class ActivityDetailViewModel(private val activityId: Int) :ViewModel() {
                     isFollowResult.value = r
                 }
             }catch (e : Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun deleteGroup() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val params = HashMap<String, Any>()
+                params["activity_id"] = activityId
+                params["access_token"] = UserCenter.getUserToken()
+                val r = repository.deleteActivity(params)
+                withContext(Dispatchers.Main) {
+                    deleteResult.value = r.code == 0
+                }
+            }catch (e : Exception) {
+                withContext(Dispatchers.Main) {
+                    deleteResult.value = false
+                }
                 e.printStackTrace()
             }
         }

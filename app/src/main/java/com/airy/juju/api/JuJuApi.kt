@@ -108,6 +108,14 @@ interface JuJuApi {
     @POST("activity/isFollow/")
     fun isFollowActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
 
+    @FormUrlEncoded
+    @POST("activity/like/")
+    fun likeActivity(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
+    @FormUrlEncoded
+    @POST("activity/dislike/")
+    fun dislikeActivity(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
     // search
     @GET("/search/activity/")
     fun searchActivityAsync(@Query("key_word") key_word: String,
