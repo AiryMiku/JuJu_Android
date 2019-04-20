@@ -1,6 +1,16 @@
 package com.airy.juju.ui.fragment.chat
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.ListData
+import com.airy.juju.bean.Session
+import com.airy.juju.repository.ChatRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 
 /**
@@ -9,11 +19,22 @@ import androidx.lifecycle.ViewModel
  * Github: AiryMiku
  */
 
-class ChatViewModel
-    : ViewModel() {
+class ChatViewModel : ViewModel() {
 
-    init {
+    val repository = ChatRepository.getInstance()
 
+    val sessions: MutableLiveData<ReturnResult<ListData<Session>>> = MutableLiveData()
+
+    fun getSessions(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.getSessions(params)
+                withContext(Dispatchers.Main) {
+                    sessions.value = r
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
-
 }

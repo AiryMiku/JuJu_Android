@@ -189,4 +189,23 @@ interface JuJuApi {
     @POST("/user/get_enable_visited_list/")
     fun getPersonalPrivacyAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<PersonalPrivacy>>
 
+    // message
+    @FormUrlEncoded
+    @POST("/message/create_session/")
+    fun createSessionAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
+    @FormUrlEncoded
+    @POST("/message/create_message/")
+    fun createMessageAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
+    @FormUrlEncoded
+    @POST("/message/get_message_list_by_session_id/")
+    fun getSessionMessagesAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Message>>>
+
+    @FormUrlEncoded
+    @POST("/message/get_session_list/")
+    fun getSessionsAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Session>>>
+
+    // notification
+
 }

@@ -1,5 +1,11 @@
 package com.airy.juju.repository
 
+import com.airy.juju.api.RetrofitService
+import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.ListData
+import com.airy.juju.bean.Message
+import com.airy.juju.bean.Session
+
 
 /**
  * Created by Airy on 2019/3/27
@@ -7,4 +13,31 @@ package com.airy.juju.repository
  * Github: AiryMiku
  */
 
-class ChatRepository
+class ChatRepository {
+
+    companion object {
+        @Volatile
+        private var instance: ChatRepository? = null
+
+        fun getInstance(): ChatRepository = instance ?: synchronized(this) {
+            instance ?: ChatRepository().also { instance = it }
+        }
+    }
+
+    suspend fun createSession(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().createSessionAsync(params).await()
+    }
+
+    suspend fun getSessions(params: Map<String, Any>): ReturnResult<ListData<Session>> {
+        return RetrofitService.getJuJuApi().getSessionsAsync(params).await()
+    }
+
+    suspend fun createMessage(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().createMessageAsync(params).await()
+    }
+
+    suspend fun getSessionMessages(params: Map<String, Any>): ReturnResult<ListData<Message>> {
+        return RetrofitService.getJuJuApi().getSessionMessagesAsync(params).await()
+    }
+
+}

@@ -2,8 +2,15 @@ package com.airy.juju.viewModel.activity
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.airy.juju.api.ReturnResult
 import com.airy.juju.bean.ListData
 import com.airy.juju.bean.Message
+import com.airy.juju.repository.ChatRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 
 /**
@@ -14,6 +21,35 @@ import com.airy.juju.bean.Message
 
 class ChatViewModel: ViewModel() {
 
-    val messages: MutableLiveData<ListData<Message>> = MutableLiveData()
+    val repository = ChatRepository.getInstance()
 
+    val messages: MutableLiveData<ReturnResult<ListData<Message>>> = MutableLiveData()
+    val postMessageResult: MutableLiveData<Boolean> = MutableLiveData()
+
+    fun getMessages(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.getSessionMessages(params)
+                withContext(Dispatchers.Main) {
+                    messages.value = r
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun postMessage(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.createMessage(params)
+                withContext(Dispatchers.Main) {
+                    postMessageResult.value = r.code == 0
+                }
+            }catch (e: Exception) {
+                postMessageResult.value = false
+                e.printStackTrace()
+            }
+        }
+    }
 }
