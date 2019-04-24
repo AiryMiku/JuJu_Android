@@ -24,8 +24,8 @@ class ChatRepository {
         }
     }
 
-    suspend fun createSession(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().createSessionAsync(params).await()
+    suspend fun getSession(params: Map<String, Any>): ReturnResult<Session> {
+        return RetrofitService.getJuJuApi().getSessionAsync(params).await()
     }
 
     suspend fun getSessions(params: Map<String, Any>): ReturnResult<ListData<Session>> {

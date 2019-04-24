@@ -65,4 +65,8 @@ class UserRepository{
     suspend fun isfollowUser(params: Map<String, Any>): ReturnResult<IsFollow> {
         return RetrofitService.getJuJuApi().isFollowUserAsync(params).await()
     }
+
+    suspend fun getFollowUsers(params: Map<String, Any>): ReturnResult<ListData<User>> {
+        return RetrofitService.getJuJuApi().getFollowUsersAsync(params).await()
+    }
 }

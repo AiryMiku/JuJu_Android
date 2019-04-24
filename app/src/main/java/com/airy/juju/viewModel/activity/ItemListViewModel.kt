@@ -9,12 +9,12 @@ import com.airy.juju.bean.ListData
 import com.airy.juju.bean.User
 import com.airy.juju.repository.ActivityRepository
 import com.airy.juju.repository.GroupRepository
+import com.airy.juju.repository.UserRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
-import kotlin.contracts.contract
 
 
 /**
@@ -29,8 +29,9 @@ class ItemListViewModel: ViewModel() {
     val groups: MutableLiveData<ReturnResult<ListData<Group>>> = MutableLiveData()
     val users: MutableLiveData<ReturnResult<ListData<User>>> = MutableLiveData()
 
-    val groupRepository = GroupRepository.getInstance()
-    val activityRepository = ActivityRepository.getInstance()
+    private val groupRepository = GroupRepository.getInstance()
+    private val activityRepository = ActivityRepository.getInstance()
+    private val userRepository = UserRepository.getInstance()
 
     fun fetchFollowGroups(params: Map<String, Any>) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -62,6 +63,19 @@ class ItemListViewModel: ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val r = groupRepository.getGroupMembers(params)
+                withContext(Dispatchers.Main) {
+                    users.value = r
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun fetchFollowUsers(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = userRepository.getFollowUsers(params)
                 withContext(Dispatchers.Main) {
                     users.value = r
                 }

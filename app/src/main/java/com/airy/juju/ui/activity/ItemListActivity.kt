@@ -94,7 +94,11 @@ class ItemListActivity : BaseActivity() {
                     startActivity(intent)
                 }
                 binding.list.adapter = usersAdapter
-                //todo
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                params["page"] = 1
+                params["size"] = 99
+                viewModel.fetchFollowUsers(params)
             }
         }
     }

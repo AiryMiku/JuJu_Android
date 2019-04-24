@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.airy.juju.api.ReturnResult
 import com.airy.juju.bean.ListData
 import com.airy.juju.bean.Message
+import com.airy.juju.bean.Session
 import com.airy.juju.repository.ChatRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,10 +22,24 @@ import java.lang.Exception
 
 class ChatViewModel: ViewModel() {
 
-    val repository = ChatRepository.getInstance()
+   private val repository = ChatRepository.getInstance()
 
     val messages: MutableLiveData<ReturnResult<ListData<Message>>> = MutableLiveData()
     val postMessageResult: MutableLiveData<Boolean> = MutableLiveData()
+    val session: MutableLiveData<ReturnResult<Session>> = MutableLiveData()
+
+    fun getSession(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.getSession(params)
+                withContext(Dispatchers.Main) {
+                    session.value = r
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 
     fun getMessages(params: Map<String, Any>) {
         CoroutineScope(Dispatchers.IO).launch {

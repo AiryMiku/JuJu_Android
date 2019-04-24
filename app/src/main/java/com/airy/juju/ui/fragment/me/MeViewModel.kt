@@ -1,6 +1,16 @@
 package com.airy.juju.ui.fragment.me
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.airy.juju.api.ReturnResult
+import com.airy.juju.bean.User
+import com.airy.juju.repository.UserRepository
+import com.airy.juju.util.UserCenter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.lang.Exception
 
 
 /**
@@ -12,7 +22,23 @@ import androidx.lifecycle.ViewModel
 class MeViewModel
     : ViewModel() {
 
-    init {
+    val user: MutableLiveData<ReturnResult<User>> = MutableLiveData()
 
+    private val repository = UserRepository.getInstance()
+    init {
+        fetchMyUserInfo()
+    }
+
+    fun fetchMyUserInfo() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.getUserInfo(UserCenter.getUserId())
+                withContext(Dispatchers.Main) {
+                    user.value = r
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }

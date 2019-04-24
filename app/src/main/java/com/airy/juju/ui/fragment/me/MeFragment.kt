@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.airy.juju.Common
 import com.airy.juju.base.BaseFragment
@@ -50,6 +51,11 @@ class MeFragment: BaseFragment() {
             intent.putExtra(Common.ItemListTypeKey.TYPE_KEY, Common.ItemListTypeKey.MY_ACTIVITY)
             startActivity(intent)
         }
+        binding.myFollowUsers.setOnClickListener {
+            val intent = Intent(activity, ItemListActivity::class.java)
+            intent.putExtra(Common.ItemListTypeKey.TYPE_KEY, Common.ItemListTypeKey.MY_FOLLOW_USER)
+            startActivity(intent)
+        }
         binding.createGroup.setOnClickListener {
             val intent = Intent(activity, CreateOrModifyGroupActivity::class.java)
             intent.putExtra(Common.ActivityCreateOrModifyKey.TYPE_KEY, Common.ActivityCreateOrModifyKey.CREATE_KEY)
@@ -60,13 +66,22 @@ class MeFragment: BaseFragment() {
             startActivity(intent)
         }
         binding.modifyPassword.setOnClickListener {
-
+            //todo
         }
         binding.logout.setOnClickListener {
             UserCenter.logout()
             makeToast("登出系统")
             activity?.finish()
         }
+        subsrcibeUI()
+    }
+
+    private fun subsrcibeUI() {
+        viewModel.user.observe(this, Observer {
+            if (it.code == 0) {
+                binding.userName.text = it.data.nickname
+            }
+        })
     }
 
     override fun onInvisible() {}

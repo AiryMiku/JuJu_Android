@@ -35,8 +35,10 @@ class UserDetailActivity : BaseActivity() {
             binding.refresh.isRefreshing = true
             viewModel.refresh()
         }
+        // hidden self
         if (id == UserCenter.getUserId()) {
             binding.btnFollow.visibility = View.GONE
+            binding.btnMessage.visibility = View.GONE
         }
         // follow
         binding.btnFollow.setOnClickListener {
