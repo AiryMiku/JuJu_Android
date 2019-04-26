@@ -24,6 +24,7 @@ object Common {
         const val GROUP_ID_KEY: String = "GROUP_ID_KEY"
         const val ACTIVITY_ID_KEY: String = "ACTIVITY_ID_KEY"
         const val USER_ID_KEY = "USER_ID_KEY"
+        const val SESSION_ID_KEY = "SESSION_ID_KEY"
     }
 
     object ItemListTypeKey {
@@ -42,12 +43,18 @@ object Common {
         const val USER: String = "USER"
     }
 
-    object MainActivityFragmentKey{
+    object MainActivityFragmentKey {
         const val PLAYGROUND: String = "PLAYGROUND"
         const val GROUP: String = "GROUP"
         const val NOTIFICATION: String = "NOTIFICATION"
         const val CHAT: String = "CHAT"
         const val ME: String = "ME"
+    }
+
+    object ChatEnterType {
+        const val KEY = "CHAT_ENTER_TYPE_KEY"
+        const val FROM_SESSION_LIST = "FROM_SESSION_LIST"
+        const val FROM_MESSAGE_BUTTON = "FROM_MESSAGE_BUTTON"
     }
 
 }

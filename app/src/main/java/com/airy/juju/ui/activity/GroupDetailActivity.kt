@@ -173,6 +173,14 @@ class GroupDetailActivity : BaseActivity() {
                 makeToast("操作失败")
             }
         })
+
+        viewModel.modifyNoticeResult.observe(this, Observer {
+            if (it) {
+                makeSnackar(binding.linearLayout, "编辑公告成功")
+            } else {
+                makeSnackar(binding.linearLayout, "编辑公告失败")
+            }
+        })
     }
 
     private fun showSendNoticeDialog() {
@@ -183,7 +191,10 @@ class GroupDetailActivity : BaseActivity() {
         dialogBuilder.setView(editText)
         dialogBuilder
             .setPositiveButton("发送") { _, _ -> // dialog, which
-                makeSnackar(binding.linearLayout, "编辑公告成功")
+                val params = HashMap<String, Any>()
+                params["group_id"] = id
+                params["notice"] = editText.text.toString()
+                viewModel.modifyNotice(params)
             }
         dialogBuilder
             .setNegativeButton("取消") { _, _ ->

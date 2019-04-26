@@ -66,6 +66,4 @@ class GroupRepository {
     suspend fun isFollowGroup(params: Map<String, Any>): ReturnResult<IsFollow> {
         return RetrofitService.getJuJuApi().isFollowGroupAsync(params).await()
     }
-
-    //...Todo
 }

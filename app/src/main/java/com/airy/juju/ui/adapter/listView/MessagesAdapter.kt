@@ -42,22 +42,30 @@ class MessagesAdapter(private val onLongClickCallack: (Message)->Unit):
         val message = getItem(position)
         holder.binding.message = message
         Log.d("MsgAdapter", message.toString())
-        when(message.type) {
-            0 -> {
-                holder.binding.right.visibility = View.VISIBLE
-                holder.binding.left.visibility = View.GONE
-            }
-            1 -> {
-                if (message.to_id == UserCenter.getUserId()) {
-                    holder.binding.right.visibility = View.VISIBLE
-                    holder.binding.left.visibility = View.GONE
-                } else {
-                    holder.binding.right.visibility = View.GONE
-                    holder.binding.left.visibility = View.VISIBLE
-                }
-            }
-
+        if (message.from_id == UserCenter.getUserId()) {
+            holder.binding.left.visibility = View.GONE
+            holder.binding.right.visibility = View.VISIBLE
+        } else {
+            holder.binding.left.visibility = View.VISIBLE
+            holder.binding.right.visibility = View.GONE
         }
+//        mayby useful?
+//        when(message.type) {
+//            0 -> {
+//                holder.binding.right.visibility = View.VISIBLE
+//                holder.binding.left.visibility = View.GONE
+//            }
+//            1 -> {
+//                if (message.to_id == UserCenter.getUserId()) {
+//                    holder.binding.right.visibility = View.VISIBLE
+//                    holder.binding.left.visibility = View.GONE
+//                } else {
+//                    holder.binding.right.visibility = View.GONE
+//                    holder.binding.left.visibility = View.VISIBLE
+//                }
+//            }
+//
+//        }
         holder.binding.root.setOnLongClickListener {
             onLongClickCallack(message)
             return@setOnLongClickListener true

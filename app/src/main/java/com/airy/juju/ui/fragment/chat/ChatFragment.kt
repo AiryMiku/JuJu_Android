@@ -1,14 +1,17 @@
 package com.airy.juju.ui.fragment.chat
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.airy.juju.Common
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.bean.Session
 import com.airy.juju.databinding.FragmentChatBinding
+import com.airy.juju.ui.activity.ChatActivity
 import com.airy.juju.ui.adapter.listView.SessionsAdapter
 
 
@@ -34,11 +37,18 @@ class ChatFragment :BaseFragment() {
     }
     override fun initPrepare() {
         viewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
-        adapter = SessionsAdapter {  }
+        adapter = SessionsAdapter {
+            val itn = Intent(activity, ChatActivity::class.java)
+            itn.putExtra(Common.ChatEnterType.KEY, Common.ChatEnterType.FROM_SESSION_LIST)
+            itn.putExtra(Common.ParamTranferKey.SESSION_ID_KEY, it.id)
+            startActivity(itn)
+        }
         binding.list.adapter = adapter
 
-        fakeData()
-//        viewModel.getSessions()
+//        fakeData()
+        binding.refresh.setOnRefreshListener {
+            viewModel.getSessions()
+        }
         subscribeUI()
     }
 
@@ -53,6 +63,7 @@ class ChatFragment :BaseFragment() {
             if (it.code == 0) {
                 adapter.submitList(it.data.list)
             }
+            binding.refresh.isRefreshing = false
         })
     }
 

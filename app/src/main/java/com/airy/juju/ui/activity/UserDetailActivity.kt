@@ -1,5 +1,6 @@
 package com.airy.juju.ui.activity
 
+import android.content.Intent
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -59,7 +60,10 @@ class UserDetailActivity : BaseActivity() {
         }
         // message
         binding.btnMessage.setOnClickListener {
-
+            val itn = Intent(this, ChatActivity::class.java)
+            itn.putExtra(Common.ChatEnterType.KEY, Common.ChatEnterType.FROM_MESSAGE_BUTTON)
+            itn.putExtra(Common.ParamTranferKey.USER_ID_KEY, id)
+            startActivity(itn)
         }
         subsrcibeUI()
     }

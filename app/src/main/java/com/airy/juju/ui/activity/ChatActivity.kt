@@ -30,6 +30,8 @@ class ChatActivity : BaseActivity() {
         adapter = MessagesAdapter { }
         binding.list.adapter = adapter
 
+
+
         binding.refresh.setOnRefreshListener {
             refresh()
             binding.refresh.isRefreshing = true
@@ -40,14 +42,15 @@ class ChatActivity : BaseActivity() {
                 val params = HashMap<String, Any>()
                 params["access_token"] = UserCenter.getUserToken()
                 params["session_id"] = sessionId
-                params["content"] = binding.msg.text
+                params["content"] = binding.msg.text.toString()
                 viewModel.postMessage(params)
             } else {
                 makeToast("不可发送空消息哦😯")
             }
         }
-        fakeData()
-        //        initSession()
+//        fakeData()
+        initSession()
+        refresh()
         subsrcibeUI()
     }
 
@@ -55,23 +58,27 @@ class ChatActivity : BaseActivity() {
         viewModel.session.observe(this, Observer {
             if (it.code == 0) {
                 sessionId = it.data.id
-                setToolBarTitle(it.data.title)
+                setToolBarTitle("正在与${it.data.title}消息中")
+                makeToast("message btn, id: $sessionId")
             }
         })
 
         viewModel.messages.observe(this, Observer {
             if (it.code == 0) {
                 adapter.submitList(it.data.list)
+                adapter.notifyItemInserted(it.data.count)
+                binding.list.smoothScrollToPosition(it.data.count)
+            } else {
+                makeToast("pull messsages failed")
             }
             binding.refresh.isRefreshing = false
         })
 
         viewModel.postMessageResult.observe(this, Observer {
-            if (it) {
-                adapter.notifyItemInserted(adapter.itemCount - 1)
-                binding.list.smoothScrollToPosition(adapter.itemCount - 1)
-                binding.msg.text.clear()
+            if (it==true) {
                 makeToast("Post Msg Success")
+                binding.msg.text.clear()
+                refresh()
             }
         })
     }
@@ -101,18 +108,27 @@ class ChatActivity : BaseActivity() {
     }
 
     private fun initSession() {
-        val params = HashMap<String, Any>()
-        params["access_token"] = UserCenter.getUserToken()
-        params["type"] = 1 // 个人
-        params["left_id"] = UserCenter.getUserId() // sender
-        params["right_id"] = intent.getIntExtra(Common.ParamTranferKey.USER_ID_KEY, 0) //reciver
-        viewModel.getSession(params)
+        val type = intent.getStringExtra(Common.ChatEnterType.KEY)
+        if (type == Common.ChatEnterType.FROM_MESSAGE_BUTTON) {
+            val params = HashMap<String, Any>()
+            params["access_token"] = UserCenter.getUserToken()
+            params["type"] = 1 // 个人
+            params["left_id"] = UserCenter.getUserId() // sender
+            params["right_id"] = intent.getIntExtra(Common.ParamTranferKey.USER_ID_KEY, 0) //reciver
+            viewModel.getSession(params)
+
+        } else if (type == Common.ChatEnterType.FROM_SESSION_LIST) {
+            sessionId = intent.getIntExtra(Common.ParamTranferKey.SESSION_ID_KEY, 0)
+            makeToast("session list, id: $sessionId")
+        }
     }
 
     private fun refresh() {
         val params = HashMap<String, Any>()
         params["access_token"] = UserCenter.getUserToken()
         params["session_id"] = sessionId
+        params["page"] = 1
+        params["size"] = 1000
         viewModel.getMessages(params)
     }
 

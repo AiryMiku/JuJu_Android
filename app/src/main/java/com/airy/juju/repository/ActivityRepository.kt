@@ -65,7 +65,4 @@ class ActivityRepository {
     suspend fun isFollowActivity(params: Map<String, Any>): ReturnResult<IsFollow> {
         return RetrofitService.getJuJuApi().isFollowActivityAsync(params).await()
     }
-
-    // todo
-
 }

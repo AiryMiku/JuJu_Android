@@ -34,6 +34,7 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
     val followResult: MutableLiveData<Boolean> = MutableLiveData()
     val disFollowResult: MutableLiveData<Boolean> = MutableLiveData()
     val isFollowResult: MutableLiveData<ReturnResult<IsFollow>> = MutableLiveData()
+    val modifyNoticeResult: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         refresh()
@@ -161,6 +162,18 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
         }
     }
 
-
+    fun modifyNotice(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.modifyGroup(params)
+                withContext(Dispatchers.Main) {
+                    modifyNoticeResult.value = r.code == 0
+                }
+            }catch (e :Exception) {
+                modifyNoticeResult.value = false
+                e.printStackTrace()
+            }
+        }
+    }
 
 }
