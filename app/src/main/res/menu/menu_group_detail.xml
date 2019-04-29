@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/create_actitity" android:title="发布活动"/>
 
@@ -15,8 +14,8 @@
     <item android:id="@+id/people_manager" android:title="人员管理">
         <menu>
             <item android:id="@+id/invite_people" android:title="邀请人员"/>
-            <item android:id="@+id/remove_people" android:title="移除人员"/>
-            <item android:id="@+id/set_admin" android:title="设置管理员"/>
+            <!--<item android:id="@+id/remove_people" android:title="移除人员"/>-->
+            <!--<item android:id="@+id/set_admin" android:title="设置管理员"/>-->
         </menu>
     </item>
 

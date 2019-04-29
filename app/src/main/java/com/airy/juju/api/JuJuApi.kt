@@ -59,6 +59,10 @@ interface JuJuApi {
     @POST("/group/isFollow/")
     fun isFollowGroupAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
 
+    @FormUrlEncoded
+    @POST("/group/remove_member/")
+    fun removeGroupMemberAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+
     // activity
     @FormUrlEncoded
     @POST("/activity/create/")
@@ -110,11 +114,11 @@ interface JuJuApi {
 
     @FormUrlEncoded
     @POST("activity/like/")
-    fun likeActivity(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun likeActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     @FormUrlEncoded
     @POST("activity/dislike/")
-    fun dislikeActivity(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    fun dislikeActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
     // search
     @GET("/search/activity/")

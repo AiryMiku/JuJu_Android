@@ -65,4 +65,12 @@ class ActivityRepository {
     suspend fun isFollowActivity(params: Map<String, Any>): ReturnResult<IsFollow> {
         return RetrofitService.getJuJuApi().isFollowActivityAsync(params).await()
     }
+
+    suspend fun activityLike(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().likeActivityAsync(params).await()
+    }
+
+    suspend fun activityDisLike(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().dislikeActivityAsync(params).await()
+    }
 }

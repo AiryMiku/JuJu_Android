@@ -25,13 +25,15 @@ import java.lang.Exception
 
 class ItemListViewModel: ViewModel() {
 
+    private val groupRepository = GroupRepository.getInstance()
+    private val activityRepository = ActivityRepository.getInstance()
+    private val userRepository = UserRepository.getInstance()
+
     val activities: MutableLiveData<ReturnResult<ListData<Activity>>> = MutableLiveData()
     val groups: MutableLiveData<ReturnResult<ListData<Group>>> = MutableLiveData()
     val users: MutableLiveData<ReturnResult<ListData<User>>> = MutableLiveData()
 
-    private val groupRepository = GroupRepository.getInstance()
-    private val activityRepository = ActivityRepository.getInstance()
-    private val userRepository = UserRepository.getInstance()
+    val removeMemberResult: MutableLiveData<Boolean> = MutableLiveData()
 
     fun fetchFollowGroups(params: Map<String, Any>) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -80,6 +82,20 @@ class ItemListViewModel: ViewModel() {
                     users.value = r
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun removeGroupMember(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = groupRepository.removeGroupMember(params)
+                withContext(Dispatchers.Main) {
+                    removeMemberResult.value = r.code == 0
+                }
+            } catch (e: Exception) {
+                removeMemberResult.value = false
                 e.printStackTrace()
             }
         }

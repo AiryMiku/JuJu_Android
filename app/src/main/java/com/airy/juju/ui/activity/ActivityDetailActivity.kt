@@ -18,6 +18,7 @@ import com.airy.juju.viewModel.factroy.ActivityDetailViewModelFactory
 import com.airy.juju.databinding.ActivityActivityDetailBinding
 import com.airy.juju.util.UIUtil
 import com.airy.juju.util.UserCenter
+import com.airy.juju.widget.JiKeLikeView
 import kotlinx.android.synthetic.main.layout_app_bar.*
 
 class ActivityDetailActivity : BaseActivity() {
@@ -57,7 +58,12 @@ class ActivityDetailActivity : BaseActivity() {
 
         // like
         binding.like.setOnClickListener {
-            makeToast("点赞")
+            val likeView = it as JiKeLikeView
+            if (likeView.isLike()) {
+
+            } else {
+
+            }
         }
 
         // follow

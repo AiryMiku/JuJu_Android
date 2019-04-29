@@ -1,13 +1,14 @@
 package com.airy.juju.ui.activity
 
 import android.content.Intent
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import com.airy.juju.Common
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
+import com.airy.juju.bean.User
 import com.airy.juju.databinding.ActivityItemListBinding
 import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
 import com.airy.juju.ui.adapter.listView.GroupsAdapter
@@ -74,9 +75,10 @@ class ItemListActivity : BaseActivity() {
             Common.ItemListTypeKey.USER -> {
                 setToolBarTitle("人员列表")
                 usersAdapter = UsersAdapter {
-                    val intent = Intent(this, UserDetailActivity::class.java)
-                    intent.putExtra(Common.ParamTranferKey.USER_ID_KEY, it.id)
-                    startActivity(intent)
+//                    val intent = Intent(this, UserDetailActivity::class.java)
+//                    intent.putExtra(Common.ParamTranferKey.USER_ID_KEY, it.id)
+//                    startActivity(intent)
+                    showGroupMemberListDialog(it)
                 }
                 binding.list.adapter = usersAdapter
                 val params = HashMap<String, Any>()
@@ -115,5 +117,53 @@ class ItemListActivity : BaseActivity() {
         viewModel.users.observe(this, Observer {
             usersAdapter.submitList(it.data.list)
         })
+
+        viewModel.removeMemberResult.observe(this, Observer {
+            if (it) {
+                makeToast("移除成功")
+            } else {
+                makeToast("移除失败")
+            }
+        })
+    }
+
+    // group detail setting
+    private fun showGroupMemberListDialog(user: User) {
+        val itemStrings: Array<String> = arrayOf("查看资料","设置管理员","移除人员")
+        val listDialog = AlertDialog.Builder(this)
+        listDialog.setItems(itemStrings) { _, which ->
+            when(which) {
+                0 -> {
+                    val intent = Intent(this, UserDetailActivity::class.java)
+                    intent.putExtra(Common.ParamTranferKey.USER_ID_KEY, user.id)
+                    startActivity(intent)
+                }
+                1 -> {
+
+                }
+                2 -> {
+                    showRemoveMemberDialog(user)
+                }
+            }
+        }
+        listDialog.show()
+    }
+
+    private fun showRemoveMemberDialog(user: User) {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setMessage("真的真的要移除？")
+        dialogBuilder
+            .setPositiveButton("确认") { _, _ -> // dialog, which
+                val param = HashMap<String, Any>()
+                val groupId = intent.getIntExtra(Common.ParamTranferKey.GROUP_ID_KEY, 0)
+                param["group_id"] = groupId
+                param["require_user_id"] = user.id
+                viewModel.removeGroupMember(param)
+            }
+        dialogBuilder
+            .setNegativeButton("取消") { _, _ ->
+                makeToast("已取消")
+            }
+        dialogBuilder.show()
     }
 }
