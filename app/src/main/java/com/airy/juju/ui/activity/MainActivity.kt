@@ -1,21 +1,50 @@
 package com.airy.juju.ui.activity
 
 
+import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationManager
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
+import android.graphics.BitmapFactory
+import android.os.IBinder
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
+import com.airy.juju.eventBus.NotificationEvent
+import com.airy.juju.service.NotificationService
 import com.airy.juju.ui.adapter.fragment.MainFragmentAdapter
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_app_bar.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MainActivity : BaseActivity() {
 
     private lateinit var viewPager: ViewPager
     private lateinit var bottomNavigationBar: BottomNavigationBar
+
+    private val serviceConnection = object:ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName?) {
+            makeToast("ws service disconnect")
+        }
+
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as NotificationService.NotificationClientBinder
+            binder.sendMessage("hello server")
+        }
+
+    }
 
     override fun toSetContentView() {
         setContentView(R.layout.activity_main)
@@ -26,6 +55,8 @@ class MainActivity : BaseActivity() {
         initToolBar(false,false,true)
         initBottomNavigationBar()
         initViewPager()
+        startNotificationService()
+        EventBus.getDefault().register(this)
     }
 
     private fun initBottomNavigationBar() {
@@ -88,6 +119,36 @@ class MainActivity : BaseActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        unbindService(serviceConnection)
+        super.onDestroy()
+    }
+
+    private fun startNotificationService() {
+        val intent = Intent(this, NotificationService::class.java)
+        startService(intent)
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    @SuppressLint("ServiceCast")
+    private fun makeNotification(msg: String) {
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val ntf = NotificationCompat.Builder(this, "Main Notif")
+            .setContentTitle("收到新通知")
+            .setContentText(msg)
+            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_round))
+            .setDefaults(NotificationCompat.DEFAULT_SOUND)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+        manager.notify(1, ntf)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onServiceNotification(event: NotificationEvent) {
+        makeNotification(event.payload)
     }
 
 }
