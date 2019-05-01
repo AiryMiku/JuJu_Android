@@ -40,4 +40,8 @@ class ChatRepository {
         return RetrofitService.getJuJuApi().getSessionMessagesAsync(params).await()
     }
 
+    suspend fun getSessionById(params: Map<String, Any>): ReturnResult<Session> {
+        return RetrofitService.getJuJuApi().getSessionByIdAsync(params).await()
+    }
+
 }

@@ -67,4 +67,17 @@ class ChatViewModel: ViewModel() {
             }
         }
     }
+
+    fun getSessionById(params: Map<String, Any>) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val r = repository.getSessionById(params)
+                withContext(Dispatchers.Main) {
+                    session.value = r
+                }
+            }catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }

@@ -59,7 +59,7 @@ class ChatActivity : BaseActivity() {
             if (it.code == 0) {
                 sessionId = it.data.id
                 setToolBarTitle("正在与${it.data.title}消息中")
-                makeToast("message btn, id: $sessionId")
+//                makeToast("message btn, id: $sessionId")
             }
         })
 
@@ -116,10 +116,12 @@ class ChatActivity : BaseActivity() {
             params["left_id"] = UserCenter.getUserId() // sender
             params["right_id"] = intent.getIntExtra(Common.ParamTranferKey.USER_ID_KEY, 0) //reciver
             viewModel.getSession(params)
-
         } else if (type == Common.ChatEnterType.FROM_SESSION_LIST) {
             sessionId = intent.getIntExtra(Common.ParamTranferKey.SESSION_ID_KEY, 0)
-            makeToast("session list, id: $sessionId")
+            val params = HashMap<String, Any>()
+            params["access_token"] = UserCenter.getUserToken()
+            params["session_id"] = sessionId
+//            makeToast("session list, id: $sessionId")
         }
     }
 

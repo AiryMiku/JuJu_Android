@@ -1,6 +1,5 @@
 package com.airy.juju.ui.activity
 
-import android.view.WindowManager
 import com.airy.juju.R
 import com.airy.juju.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_welcome.*

@@ -203,6 +203,10 @@ interface JuJuApi {
     fun getSessionAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Session>>
 
     @FormUrlEncoded
+    @POST("/message/get_session_by_id/")
+    fun getSessionByIdAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Session>>
+
+    @FormUrlEncoded
     @POST("/message/create_message/")
     fun createMessageAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
 
@@ -215,5 +219,5 @@ interface JuJuApi {
     fun getSessionsAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Session>>>
 
     // notification
-
+    // todo
 }
