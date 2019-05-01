@@ -10,6 +10,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.graphics.BitmapFactory
 import android.os.IBinder
+import android.util.JsonReader
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.app.NotificationCompat
@@ -21,6 +22,7 @@ import com.airy.juju.base.BaseActivity
 import com.airy.juju.eventBus.NotificationEvent
 import com.airy.juju.service.NotificationService
 import com.airy.juju.ui.adapter.fragment.MainFragmentAdapter
+import com.alibaba.fastjson.JSON
 import com.ashokvarma.bottomnavigation.BottomNavigationBar
 import com.ashokvarma.bottomnavigation.BottomNavigationItem
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,7 +43,7 @@ class MainActivity : BaseActivity() {
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             val binder = service as NotificationService.NotificationClientBinder
-            binder.sendMessage("hello server")
+//            binder.sendMessage("hello server")
         }
 
     }
@@ -134,10 +136,11 @@ class MainActivity : BaseActivity() {
 
     @SuppressLint("ServiceCast")
     private fun makeNotification(msg: String) {
+        val jsonObejct = JSON.parseObject(msg)
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val ntf = NotificationCompat.Builder(this, "Main Notif")
             .setContentTitle("收到新通知")
-            .setContentText(msg)
+            .setContentText(jsonObejct.getString("event"))
             .setSmallIcon(R.mipmap.ic_launcher_round)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_round))
             .setDefaults(NotificationCompat.DEFAULT_SOUND)

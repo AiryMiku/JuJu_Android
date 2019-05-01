@@ -91,6 +91,7 @@ class SignUpActivity : BaseActivity() {
         btn_signup.isEnabled = true
         makeToast("注册成功")
         setResult(Activity.RESULT_OK, null)
+        activityIntentTo(LoginActivity::class.java)
         finish()
     }
 

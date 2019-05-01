@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/layout_app_bar"/>
+
+    <Button
+            android:background="@drawable/btn_style"
+            android:textColor="@drawable/btn_text_color"
+            android:id="@+id/btn_wel_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MainActivity"
+            android:layout_gravity="center"/>
+
+    <Button
+            android:id="@+id/btn_wel_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LoginActivity"
+            android:layout_gravity="center"/>
+
+    <Button
+            android:id="@+id/btn_wel_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SignUpActivity"
+            android:layout_gravity="center"/>
+
+    <Button
+            android:id="@+id/btn_wel_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GroupDetailActivity"
+            android:layout_gravity="center"/>
+    <Button
+            android:id="@+id/btn_wel_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ActivityDetailActivity"
+            android:layout_gravity="center"/>
+    <Button
+            android:id="@+id/btn_wel_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ChatActivity"
+            android:layout_gravity="center"/>
+
+</LinearLayout>

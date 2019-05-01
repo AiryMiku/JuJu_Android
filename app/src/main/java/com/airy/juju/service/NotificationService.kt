@@ -7,6 +7,7 @@ import android.os.IBinder
 import android.util.Log
 import com.airy.juju.Constant
 import com.airy.juju.eventBus.NotificationEvent
+import com.airy.juju.util.UserCenter
 import io.crossbar.autobahn.websocket.WebSocketConnection
 import io.crossbar.autobahn.websocket.WebSocketConnectionHandler
 import org.greenrobot.eventbus.EventBus
@@ -41,7 +42,7 @@ class NotificationService : Service() {
 
     private fun initWebSocket() {
         try {
-            mWsConnection.connect(Constant.Server.WS_URI, object :WebSocketConnectionHandler(){
+            mWsConnection.connect(Constant.Server.WS_PUSH_URI+"${UserCenter.getUserId()}/", object :WebSocketConnectionHandler(){
 
                 override fun onOpen() {
                     Log.d(TAG, "onOpen")

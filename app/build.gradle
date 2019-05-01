@@ -76,4 +76,5 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
     // websocket
     implementation 'io.crossbar.autobahn:autobahn-android:18.5.1'
+    implementation 'com.alibaba:fastjson:1.2.57'
 }

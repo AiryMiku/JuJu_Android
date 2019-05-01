@@ -121,6 +121,7 @@ class ChatActivity : BaseActivity() {
             val params = HashMap<String, Any>()
             params["access_token"] = UserCenter.getUserToken()
             params["session_id"] = sessionId
+            viewModel.getSessionById(params)
 //            makeToast("session list, id: $sessionId")
         }
     }
