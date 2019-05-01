@@ -4,10 +4,11 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.airy.juju">
 
+    <uses-sdk tools:overrideLibrary="io.crossbar.autobahn"/>
+
     <dist:module dist:instant="true"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-sdk tools:overrideLibrary="io.crossbar.autobahn"/>
 
     <application
             android:name=".JuJuApplication"
@@ -19,6 +20,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+
+
         <service
                 android:name=".service.NotificationService"
                 android:enabled="true"
@@ -64,6 +67,8 @@
         <activity
                 android:name=".ui.activity.LoginActivity"
                 android:theme="@style/AppTheme.Dark"/>
+        <activity android:name=".ui.activity.ModifyPasswordActivity"
+                  android:theme="@style/AppTheme.Dark"/>
     </application>
 
 </manifest>

@@ -38,11 +38,12 @@ class MainActivity : BaseActivity() {
 
     private val serviceConnection = object:ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
-            makeToast("ws service disconnect")
+            makeToast("websocket service disconnect")
         }
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder = service as NotificationService.NotificationClientBinder
+            makeToast("websocket service connect")
+//            val binder = service as NotificationService.NotificationClientBinder
 //            binder.sendMessage("hello server")
         }
 

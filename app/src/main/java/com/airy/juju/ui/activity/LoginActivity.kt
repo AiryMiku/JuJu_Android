@@ -61,7 +61,7 @@ class LoginActivity : BaseActivity() {
             if (it.code == 0) {
                 onLoginSuccess()
                 UserCenter.saveLogin(this, it.data.user_id, it.data.access_token)
-                makeToast("user id->"+it.data.user_id+"token->"+it.data.access_token)
+//                makeToast("user id->"+it.data.user_id+"token->"+it.data.access_token)
             } else {
                 onLoginFailed()
             }

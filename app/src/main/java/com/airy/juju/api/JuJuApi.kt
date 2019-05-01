@@ -219,5 +219,7 @@ interface JuJuApi {
     fun getSessionsAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Session>>>
 
     // notification
-    // todo
+    @FormUrlEncoded
+    @POST("/notification/get_notification_list/")
+    fun getNotificationsAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Notification>>>
 }

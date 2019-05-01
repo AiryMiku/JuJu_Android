@@ -10,10 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.airy.juju.Common
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentMeBinding
-import com.airy.juju.ui.activity.CreateOrModifyGroupActivity
-import com.airy.juju.ui.activity.ItemListActivity
-import com.airy.juju.ui.activity.LoginActivity
-import com.airy.juju.ui.activity.ModifyMyInfoActivity
+import com.airy.juju.ui.activity.*
 import com.airy.juju.util.UserCenter
 
 
@@ -67,7 +64,8 @@ class MeFragment: BaseFragment() {
             startActivity(intent)
         }
         binding.modifyPassword.setOnClickListener {
-            //todo
+            val intent = Intent(activity, ModifyPasswordActivity::class.java)
+            startActivity(intent)
         }
         binding.logout.setOnClickListener {
             UserCenter.logout()

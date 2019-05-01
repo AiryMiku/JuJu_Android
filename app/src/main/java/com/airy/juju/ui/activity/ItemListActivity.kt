@@ -57,6 +57,9 @@ class ItemListActivity : BaseActivity() {
                 params["page"] = 1
                 params["size"] = 99
                 viewModel.fetchActivity(params)
+                binding.refresh.setOnRefreshListener {
+                    viewModel.fetchActivity(params)
+                }
             }
             Common.ItemListTypeKey.MY_GROUP -> {
                 setToolBarTitle("我的群组")
@@ -71,6 +74,9 @@ class ItemListActivity : BaseActivity() {
                 params["page"] = 1
                 params["size"] = 99
                 viewModel.fetchFollowGroups(params)
+                binding.refresh.setOnRefreshListener {
+                    viewModel.fetchFollowGroups(params)
+                }
             }
             Common.ItemListTypeKey.USER -> {
                 setToolBarTitle("人员列表")
@@ -87,6 +93,9 @@ class ItemListActivity : BaseActivity() {
                 params["page"] = 1
                 params["size"] = 99
                 viewModel.fetchMemberInGroup(params)
+                binding.refresh.setOnRefreshListener {
+                    viewModel.fetchMemberInGroup(params)
+                }
             }
             Common.ItemListTypeKey.MY_FOLLOW_USER -> {
                 setToolBarTitle("关注的人")
@@ -101,6 +110,9 @@ class ItemListActivity : BaseActivity() {
                 params["page"] = 1
                 params["size"] = 99
                 viewModel.fetchFollowUsers(params)
+                binding.refresh.setOnRefreshListener {
+                    viewModel.fetchFollowUsers(params)
+                }
             }
         }
     }
@@ -108,14 +120,17 @@ class ItemListActivity : BaseActivity() {
     private fun subscribeUI() {
         viewModel.activities.observe(this, Observer {
             activitiesAdapter.submitList(it.data.list)
+            binding.refresh.isRefreshing = false
         })
 
         viewModel.groups.observe(this, Observer {
             groupsAdapter.submitList(it.data.list)
+            binding.refresh.isRefreshing = false
         })
 
         viewModel.users.observe(this, Observer {
             usersAdapter.submitList(it.data.list)
+            binding.refresh.isRefreshing = false
         })
 
         viewModel.removeMemberResult.observe(this, Observer {

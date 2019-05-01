@@ -69,4 +69,8 @@ class UserRepository{
     suspend fun getFollowUsers(params: Map<String, Any>): ReturnResult<ListData<User>> {
         return RetrofitService.getJuJuApi().getFollowUsersAsync(params).await()
     }
+
+    suspend fun changePassword(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().changePasswordAsync(params).await()
+    }
 }
