@@ -57,9 +57,8 @@ class NotificationFragment: BaseFragment() {
         viewModel.notifications.observe(this, Observer {
             if (it.code == 0) {
                 adapter.submitList(it.data.list)
-                makeToast("成功拉取，总共有"+it.data.count+"个数据")
             } else {
-                makeToast("拉取失败")
+                makeToast("通知拉取失败")
             }
             binding.refresh.isRefreshing = false
         })

@@ -77,4 +77,5 @@ dependencies {
     // websocket
     implementation 'io.crossbar.autobahn:autobahn-android:18.5.1'
     implementation 'com.alibaba:fastjson:1.2.57'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
 }

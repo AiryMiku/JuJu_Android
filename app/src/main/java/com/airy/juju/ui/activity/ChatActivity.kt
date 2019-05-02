@@ -69,14 +69,14 @@ class ChatActivity : BaseActivity() {
                 adapter.notifyItemInserted(it.data.count)
                 binding.list.smoothScrollToPosition(it.data.count)
             } else {
-                makeToast("pull messsages failed")
+                makeToast("拉取消息失败")
             }
             binding.refresh.isRefreshing = false
         })
 
         viewModel.postMessageResult.observe(this, Observer {
             if (it==true) {
-                makeToast("Post Msg Success")
+                makeToast("发送成功")
                 binding.msg.text.clear()
                 refresh()
             }

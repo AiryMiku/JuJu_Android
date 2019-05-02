@@ -66,12 +66,11 @@ class PlayGroundFragment: BaseFragment() {
 
     private fun subscribeUI() {
         viewModel.activities.observe(this, Observer {
-            adapter.submitList(it.data.list)
             if (it.code == 0) {
-                makeToast("成功拉取，总共有"+it.data.count+"个数据")
+                adapter.submitList(it.data.list)
                 binding.refresh.isRefreshing = false
             } else {
-                makeToast("拉取失败")
+                makeToast("广场拉取失败")
             }
         })
     }
