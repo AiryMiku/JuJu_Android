@@ -10,7 +10,9 @@ import com.airy.juju.eventBus.NotificationEvent
 import com.airy.juju.util.UserCenter
 import io.crossbar.autobahn.websocket.WebSocketConnection
 import io.crossbar.autobahn.websocket.WebSocketConnectionHandler
+import kotlinx.coroutines.delay
 import org.greenrobot.eventbus.EventBus
+import kotlin.concurrent.thread
 
 class NotificationService : Service() {
 
@@ -54,6 +56,7 @@ class NotificationService : Service() {
                 }
 
                 override fun onClose(code: Int, reason: String?) {
+                    initWebSocket()
                     Log.d(TAG, "onClose code->$code, reason->$reason")
                 }
             })
