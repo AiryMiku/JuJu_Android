@@ -68,8 +68,8 @@ class NotificationService : Service() {
 
                 override fun onClose(code: Int, reason: String?) {
 //                       initWebSocket()
-                        reconnectWs()
-//                    mWsConnection.reconnect()
+//                        reconnectWs()
+                    mWsConnection.reconnect()
                     Log.d(TAG, "onClose code->$code, reason->$reason")
                 }
             })
