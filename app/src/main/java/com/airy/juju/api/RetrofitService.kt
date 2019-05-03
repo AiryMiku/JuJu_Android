@@ -21,7 +21,7 @@ class RetrofitService {
 
         @JvmField
         val loggingInterceptor: HttpLoggingInterceptor = HttpLoggingInterceptor {
-            Log.e("RetrofitLog", it)
+            Log.d("RetrofitLog", it)
         }.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         @JvmField

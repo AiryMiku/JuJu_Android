@@ -62,7 +62,7 @@ class CrashHandler : Thread.UncaughtExceptionHandler {
         if (mDefaultCrashHandler != null) {
             mDefaultCrashHandler!!.uncaughtException(thread, ex)
         } else {
-            Process.killProcess(Process.myPid())
+            killProcess(myPid())
         }
 
     }
