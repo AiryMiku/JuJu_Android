@@ -109,20 +109,31 @@ class ChatActivity : BaseActivity() {
 
     private fun initSession() {
         val type = intent.getStringExtra(Common.ChatEnterType.KEY)
-        if (type == Common.ChatEnterType.FROM_MESSAGE_BUTTON) {
-            val params = HashMap<String, Any>()
-            params["access_token"] = UserCenter.getUserToken()
-            params["type"] = 1 // 个人
-            params["left_id"] = UserCenter.getUserId() // sender
-            params["right_id"] = intent.getIntExtra(Common.ParamTranferKey.USER_ID_KEY, 0) //reciver
-            viewModel.getSession(params)
-        } else if (type == Common.ChatEnterType.FROM_SESSION_LIST) {
-            sessionId = intent.getIntExtra(Common.ParamTranferKey.SESSION_ID_KEY, 0)
-            val params = HashMap<String, Any>()
-            params["access_token"] = UserCenter.getUserToken()
-            params["session_id"] = sessionId
-            viewModel.getSessionById(params)
-//            makeToast("session list, id: $sessionId")
+        when(type) {
+            Common.ChatEnterType.FROM_MESSAGE_BUTTON -> {
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                params["type"] = 1 // 个人
+                params["left_id"] = UserCenter.getUserId() // sender
+                params["right_id"] = intent.getIntExtra(Common.ParamTranferKey.USER_ID_KEY, 0) //reciver
+                viewModel.getSession(params)
+            }
+            Common.ChatEnterType.FROM_SESSION_LIST -> {
+                sessionId = intent.getIntExtra(Common.ParamTranferKey.SESSION_ID_KEY, 0)
+                val params = HashMap<String, Any>()
+                params["access_token"] = UserCenter.getUserToken()
+                params["session_id"] = sessionId
+                viewModel.getSessionById(params)
+            }
+            Common.ChatEnterType.FROM_GROUP -> {
+                val params = HashMap<String, Any>()
+                val gid = intent.getIntExtra(Common.ParamTranferKey.GROUP_ID_KEY, 0)
+                params["access_token"] = UserCenter.getUserToken()
+                params["type"] = 0 // 群组
+                params["left_id"] = gid // group_id
+                params["right_id"] = 0
+                viewModel.getSession(params)
+            }
         }
     }
 

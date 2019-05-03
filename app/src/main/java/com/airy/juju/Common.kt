@@ -55,6 +55,7 @@ object Common {
         const val KEY = "CHAT_ENTER_TYPE_KEY"
         const val FROM_SESSION_LIST = "FROM_SESSION_LIST"
         const val FROM_MESSAGE_BUTTON = "FROM_MESSAGE_BUTTON"
+        const val FROM_GROUP = "FROM_GROUP"
     }
 
 }
