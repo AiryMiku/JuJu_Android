@@ -1,16 +1,24 @@
 package com.airy.juju.service
 
+import android.annotation.SuppressLint
+import android.app.NotificationManager
 import android.app.Service
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Binder
 import android.os.IBinder
 import android.util.Log
+import androidx.core.app.NotificationCompat
 import com.airy.juju.Constant
+import com.airy.juju.R
 import com.airy.juju.eventBus.NotificationEvent
 import com.airy.juju.util.UserCenter
+import com.alibaba.fastjson.JSON
 import io.crossbar.autobahn.websocket.WebSocketConnection
 import io.crossbar.autobahn.websocket.WebSocketConnectionHandler
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.greenrobot.eventbus.EventBus
 import kotlin.concurrent.thread
 
@@ -52,11 +60,16 @@ class NotificationService : Service() {
 
                 override fun onMessage(payload: String?) {
                     Log.d(TAG, "onMessage -> $payload")
-                    EventBus.getDefault().post(payload?.let { NotificationEvent(it) })
+//                    EventBus.getDefault().post(payload?.let { NotificationEvent(it) })
+                    payload?.let {
+                        makeNotification(it)
+                    }
                 }
 
                 override fun onClose(code: Int, reason: String?) {
-                    initWebSocket()
+//                       initWebSocket()
+                        reconnectWs()
+//                    mWsConnection.reconnect()
                     Log.d(TAG, "onClose code->$code, reason->$reason")
                 }
             })
@@ -65,6 +78,17 @@ class NotificationService : Service() {
         }
     }
 
+    private fun reconnectWs() {
+        var times = 0
+        while (!mWsConnection.isConnected) {
+            runBlocking {
+                delay(2000)
+                mWsConnection.reconnect()
+                ++times
+                Log.d(TAG, "reconnect $times time(s)")
+            }
+        }
+    }
 
     inner class NotificationClientBinder : Binder() {
 
@@ -79,5 +103,20 @@ class NotificationService : Service() {
                 Log.d(TAG, "connection is close")
             }
         }
+    }
+
+    @SuppressLint("ServiceCast")
+    private fun makeNotification(msg: String) {
+        val jsonObejct = JSON.parseObject(msg)
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val ntf = NotificationCompat.Builder(applicationContext, "Main Notif")
+            .setContentTitle("收到新通知")
+            .setContentText(jsonObejct.getString("event"))
+            .setSmallIcon(R.mipmap.ic_launcher_round)
+            .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_round))
+            .setDefaults(NotificationCompat.DEFAULT_SOUND)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+        manager.notify(1, ntf)
     }
 }

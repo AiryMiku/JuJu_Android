@@ -11,6 +11,7 @@ import android.content.ServiceConnection
 import android.graphics.BitmapFactory
 import android.os.IBinder
 import android.util.JsonReader
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.app.NotificationCompat
@@ -38,13 +39,15 @@ class MainActivity : BaseActivity() {
 
     private val serviceConnection = object:ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
-            makeToast("websocket service disconnect")
+//            makeToast("websocket service disconnect")
+            Log.d("MainAct", "ntf service disconnect")
         }
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            makeToast("websocket service connect")
+//            makeToast("websocket service connect")
 //            val binder = service as NotificationService.NotificationClientBinder
 //            binder.sendMessage("hello server")
+            Log.d("MainAct", "ntf service connect")
         }
 
     }
@@ -59,7 +62,7 @@ class MainActivity : BaseActivity() {
         initBottomNavigationBar()
         initViewPager()
         startNotificationService()
-        EventBus.getDefault().register(this)
+//        EventBus.getDefault().register(this)
     }
 
     private fun initBottomNavigationBar() {
@@ -135,24 +138,24 @@ class MainActivity : BaseActivity() {
         bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
     }
 
-    @SuppressLint("ServiceCast")
-    private fun makeNotification(msg: String) {
-        val jsonObejct = JSON.parseObject(msg)
-        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val ntf = NotificationCompat.Builder(this, "Main Notif")
-            .setContentTitle("收到新通知")
-            .setContentText(jsonObejct.getString("event"))
-            .setSmallIcon(R.mipmap.ic_launcher_round)
-            .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_round))
-            .setDefaults(NotificationCompat.DEFAULT_SOUND)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .build()
-        manager.notify(1, ntf)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onServiceNotification(event: NotificationEvent) {
-        makeNotification(event.payload)
-    }
+//    @SuppressLint("ServiceCast")
+//    private fun makeNotification(msg: String) {
+//        val jsonObejct = JSON.parseObject(msg)
+//        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//        val ntf = NotificationCompat.Builder(applicationContext, "Main Notif")
+//            .setContentTitle("收到新通知")
+//            .setContentText(jsonObejct.getString("event"))
+//            .setSmallIcon(R.mipmap.ic_launcher_round)
+//            .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_round))
+//            .setDefaults(NotificationCompat.DEFAULT_SOUND)
+//            .setPriority(NotificationCompat.PRIORITY_HIGH)
+//            .build()
+//        manager.notify(1, ntf)
+//    }
+//
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun onServiceNotification(event: NotificationEvent) {
+//        makeNotification(event.payload)
+//    }
 
 }
