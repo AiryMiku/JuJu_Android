@@ -16,7 +16,7 @@ data class Session(
     val type: Int,
     val left_id: Int,
     val right_id: Int,
-    val last_message: String,
+    val content: String,
     val title: String,
     val latest_update_time: String
 ) : Serializable, Parcelable {
@@ -37,7 +37,7 @@ data class Session(
         writeInt(type)
         writeInt(left_id)
         writeInt(right_id)
-        writeString(last_message)
+        writeString(content)
         writeString(title)
         writeString(latest_update_time)
     }
