@@ -50,7 +50,6 @@ class ChatActivity : BaseActivity() {
         }
 //        fakeData()
         initSession()
-        refresh()
         subsrcibeUI()
     }
 
@@ -59,6 +58,7 @@ class ChatActivity : BaseActivity() {
             if (it.code == 0) {
                 sessionId = it.data.id
                 setToolBarTitle("正在与${it.data.title}消息中")
+                refresh()
 //                makeToast("message btn, id: $sessionId")
             }
         })

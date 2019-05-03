@@ -177,6 +177,7 @@ class GroupDetailActivity : BaseActivity() {
         viewModel.modifyNoticeResult.observe(this, Observer {
             if (it) {
                 makeSnackar(binding.linearLayout, "编辑公告成功")
+                viewModel.refresh()
             } else {
                 makeSnackar(binding.linearLayout, "编辑公告失败")
             }
