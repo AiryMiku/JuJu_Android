@@ -9,7 +9,6 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import androidx.databinding.BindingAdapter
 import com.airy.juju.R
 import com.airy.juju.util.DensityUtil
 
