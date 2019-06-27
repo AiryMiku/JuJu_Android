@@ -70,7 +70,7 @@ class UserDetailViewModel(private val userId: Int): ViewModel() {
     fun disfollow(params: Map<String, Any>) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val r = repository.disfollowUser(params)
+                val r = repository.unfollowUser(params)
                 withContext(Dispatchers.Main) {
                     disFollowResult.value = r.code == 0
                 }

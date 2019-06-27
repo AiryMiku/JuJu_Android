@@ -23,54 +23,54 @@ class ActivityRepository {
     }
 
     suspend fun getActivity(id: Int): ReturnResult<Activity> {
-        return RetrofitService.getJuJuApi().getActivityInfoAsync(id).await()
+        return RetrofitService.getJuJuApi().getActivityInfoAsync(id)
     }
 
     suspend fun getActvities(page: Int, size: Int): ReturnResult<ListData<Activity>> {
-        return RetrofitService.getJuJuApi().getActivitiesAsync(page, size).await()
+        return RetrofitService.getJuJuApi().getActivitiesAsync(page, size)
     }
 
     suspend fun getAttendActivities(params: Map<String, Any>): ReturnResult<ListData<Activity>> {
-        return RetrofitService.getJuJuApi().getAttendActivitiesAsync(params).await()
+        return RetrofitService.getJuJuApi().getAttendActivitiesAsync(params)
     }
 
     suspend fun getComments(id: Int, page: Int, size: Int): ReturnResult<ListData<Comment>> {
-        return RetrofitService.getJuJuApi().getCommentsAsync(id, page, size).await()
+        return RetrofitService.getJuJuApi().getCommentsAsync(id, page, size)
     }
 
     suspend fun createActivity(params: Map<String, Any>): ReturnResult<Id> {
-        return RetrofitService.getJuJuApi().createActivityAsync(params).await()
+        return RetrofitService.getJuJuApi().createActivityAsync(params)
     }
 
     suspend fun modifyActivity(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().modifyActivityAsync(params).await()
+        return RetrofitService.getJuJuApi().modifyActivityAsync(params)
     }
 
     suspend fun deleteActivity(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().deleteActivityAsync(params).await()
+        return RetrofitService.getJuJuApi().deleteActivityAsync(params)
     }
 
     suspend fun leaveComment(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().leaveCommentAsync(params).await()
+        return RetrofitService.getJuJuApi().leaveCommentAsync(params)
     }
 
     suspend fun followActivity(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().followActivityAsync(params).await()
+        return RetrofitService.getJuJuApi().followActivityAsync(params)
     }
 
-    suspend fun disFollowActivity(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().disFollowActivityAsync(params).await()
+    suspend fun unFollowActivity(params: Map<String, Any>): ReturnResult<Any> {
+        return RetrofitService.getJuJuApi().unFollowActivityAsync(params)
     }
 
     suspend fun isFollowActivity(params: Map<String, Any>): ReturnResult<IsFollow> {
-        return RetrofitService.getJuJuApi().isFollowActivityAsync(params).await()
+        return RetrofitService.getJuJuApi().isFollowActivityAsync(params)
     }
 
     suspend fun activityLike(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().likeActivityAsync(params).await()
+        return RetrofitService.getJuJuApi().likeActivityAsync(params)
     }
 
     suspend fun activityDisLike(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().dislikeActivityAsync(params).await()
+        return RetrofitService.getJuJuApi().dislikeActivityAsync(params)
     }
 }

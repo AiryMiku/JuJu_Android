@@ -26,14 +26,14 @@ class SearchRepository{
     }
 
     suspend fun getSearchActivities(keyWord: String, page: Int, size: Int): ReturnResult<ListData<Activity>> {
-        return RetrofitService.getJuJuApi().searchActivityAsync(keyWord, page, size).await()
+        return RetrofitService.getJuJuApi().searchActivityAsync(keyWord, page, size)
     }
 
     suspend fun getSearchGroups(keyWord: String, page: Int, size: Int): ReturnResult<ListData<Group>> {
-        return RetrofitService.getJuJuApi().searchGroupAsync(keyWord, page, size).await()
+        return RetrofitService.getJuJuApi().searchGroupAsync(keyWord, page, size)
     }
 
     suspend fun getSearchUsers(keyWord: String, page: Int, size: Int): ReturnResult<ListData<User>> {
-        return RetrofitService.getJuJuApi().searchUserAsync(keyWord, page, size).await()
+        return RetrofitService.getJuJuApi().searchUserAsync(keyWord, page, size)
     }
 }

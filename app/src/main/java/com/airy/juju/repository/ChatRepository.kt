@@ -25,23 +25,23 @@ class ChatRepository {
     }
 
     suspend fun getSession(params: Map<String, Any>): ReturnResult<Session> {
-        return RetrofitService.getJuJuApi().getSessionAsync(params).await()
+        return RetrofitService.getJuJuApi().getSessionAsync(params)
     }
 
     suspend fun getSessions(params: Map<String, Any>): ReturnResult<ListData<Session>> {
-        return RetrofitService.getJuJuApi().getSessionsAsync(params).await()
+        return RetrofitService.getJuJuApi().getSessionsAsync(params)
     }
 
     suspend fun createMessage(params: Map<String, Any>): ReturnResult<Any> {
-        return RetrofitService.getJuJuApi().createMessageAsync(params).await()
+        return RetrofitService.getJuJuApi().createMessageAsync(params)
     }
 
     suspend fun getSessionMessages(params: Map<String, Any>): ReturnResult<ListData<Message>> {
-        return RetrofitService.getJuJuApi().getSessionMessagesAsync(params).await()
+        return RetrofitService.getJuJuApi().getSessionMessagesAsync(params)
     }
 
     suspend fun getSessionById(params: Map<String, Any>): ReturnResult<Session> {
-        return RetrofitService.getJuJuApi().getSessionByIdAsync(params).await()
+        return RetrofitService.getJuJuApi().getSessionByIdAsync(params)
     }
 
 }

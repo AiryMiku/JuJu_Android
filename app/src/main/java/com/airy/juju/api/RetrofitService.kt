@@ -2,7 +2,6 @@ package com.airy.juju.api
 
 import android.util.Log
 import com.airy.juju.Constant
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,7 +31,6 @@ class RetrofitService {
         @JvmField
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(Constant.Server.BASE_URL)
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .client(loginClient)    // add log
             .build()

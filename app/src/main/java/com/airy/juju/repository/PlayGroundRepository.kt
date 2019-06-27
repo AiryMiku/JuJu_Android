@@ -23,6 +23,6 @@ class PlayGroundRepository{
     }
 
     suspend fun getPlayGround(page: Int, size: Int): ReturnResult<ListData<Activity>> {
-        return RetrofitService.getJuJuApi().getPlaygroundAsync(page, size).await()
+        return RetrofitService.getJuJuApi().getPlaygroundAsync(page, size)
     }
 }

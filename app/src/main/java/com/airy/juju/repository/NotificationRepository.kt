@@ -23,6 +23,6 @@ class NotificationRepository {
     }
 
     suspend fun getNotifications(params: Map<String, Any>): ReturnResult<ListData<Notification>> {
-        return RetrofitService.getJuJuApi().getNotificationsAsync(params).await()
+        return RetrofitService.getJuJuApi().getNotificationsAsync(params)
     }
 }

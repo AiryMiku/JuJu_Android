@@ -17,209 +17,209 @@ interface JuJuApi {
     // group
     @FormUrlEncoded
     @POST("/group/create/")
-    fun createGroupAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
+    suspend fun createGroupAsync(@FieldMap params: Map<String, Any>): ReturnResult<Id>
 
     @FormUrlEncoded
     @POST("/group/delete/")
-    fun deleteGroupAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun deleteGroupAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/group/modify/")
-    fun modifyGroupAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun modifyGroupAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @GET("/group/indexAll/")
-    fun getGroupsAsync(@Query("page") page: Int,
-                       @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
+    suspend fun getGroupsAsync(@Query("page") page: Int,
+                       @Query("size") size: Int): ReturnResult<ListData<Group>>
 
     @GET("/group/baseInfo/")
-    fun getGroupBaseInfoAsync(@Query("group_id") id: Int): Deferred<ReturnResult<Group>>
+    suspend fun getGroupBaseInfoAsync(@Query("group_id") id: Int): ReturnResult<Group>
 
     @GET("/group/baseActivityIndex/")
-    fun getGroupBaseActivityIndexAsync(@Query("group_id") id: Int,
+    suspend fun getGroupBaseActivityIndexAsync(@Query("group_id") id: Int,
                                        @Query("page") page: Int,
-                                       @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
+                                       @Query("size") size: Int): ReturnResult<ListData<Activity>>
 
     @FormUrlEncoded
     @POST("/group/memberIndex/")
-    fun getGroupMembersIndexAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<User>>>
+    suspend fun getGroupMembersIndexAsync(@FieldMap params: Map<String, Any>): ReturnResult<ListData<User>>
 
     @FormUrlEncoded
     @POST("/group/indexFollow/")
-    fun getFollowGroupsAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Group>>>
+    suspend fun getFollowGroupsAsync(@FieldMap params: Map<String, Any>): ReturnResult<ListData<Group>>
 
     @FormUrlEncoded
     @POST("/group/follow/")
-    fun followGroupAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun followGroupAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/group/disFollow/")
-    fun disfollowGroupAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun unfollowGroupAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/group/isFollow/")
-    fun isFollowGroupAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
+    suspend fun isFollowGroupAsync(@FieldMap params: Map<String, Any>): ReturnResult<IsFollow>
 
     @FormUrlEncoded
     @POST("/group/remove_member/")
-    fun removeGroupMemberAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun removeGroupMemberAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     // activity
     @FormUrlEncoded
     @POST("/activity/create/")
-    fun createActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Id>>
+    suspend fun createActivityAsync(@FieldMap params: Map<String, Any>): ReturnResult<Id>
 
     @FormUrlEncoded
     @POST("/activity/delete/")
-    fun deleteActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun deleteActivityAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/activity/modify/")
-    fun modifyActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun modifyActivityAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @GET("/activity/indexAll/")
-    fun getActivitiesAsync(@Query("page") page: Int,
-                           @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
+    suspend fun getActivitiesAsync(@Query("page") page: Int,
+                           @Query("size") size: Int): ReturnResult<ListData<Activity>>
 
     @FormUrlEncoded
     @POST("/activity/indexAttend/")
-    fun getAttendActivitiesAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Activity>>>
+    suspend fun getAttendActivitiesAsync(@FieldMap params: Map<String, Any>): ReturnResult<ListData<Activity>>
 
     @GET("/activity/info/")
-    fun getActivityInfoAsync(@Query("activity_id") id: Int): Deferred<ReturnResult<Activity>>
+    suspend fun getActivityInfoAsync(@Query("activity_id") id: Int): ReturnResult<Activity>
 
     @FormUrlEncoded
     @POST("/activity/leaveComment/")
-    fun leaveCommentAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun leaveCommentAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/activity/deleteComment/")
-    fun deleteCommentAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun deleteCommentAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @GET("/activity/indexComment/")
-    fun getCommentsAsync(@Query("activity_id") id: Int,
+    suspend fun getCommentsAsync(@Query("activity_id") id: Int,
                          @Query("page") page: Int,
-                         @Query("size") size: Int): Deferred<ReturnResult<ListData<Comment>>>
+                         @Query("size") size: Int): ReturnResult<ListData<Comment>>
 
     @FormUrlEncoded
     @POST("activity/follow/")
-    fun followActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun followActivityAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("activity/disFollow/")
-    fun disFollowActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun unFollowActivityAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("activity/isFollow/")
-    fun isFollowActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
+    suspend fun isFollowActivityAsync(@FieldMap params: Map<String, Any>): ReturnResult<IsFollow>
 
     @FormUrlEncoded
     @POST("activity/like/")
-    fun likeActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun likeActivityAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("activity/dislike/")
-    fun dislikeActivityAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun dislikeActivityAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     // search
     @GET("/search/activity/")
-    fun searchActivityAsync(@Query("key_word") key_word: String,
+    suspend fun searchActivityAsync(@Query("key_word") key_word: String,
                             @Query("page") page: Int,
-                            @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
+                            @Query("size") size: Int): ReturnResult<ListData<Activity>>
 
     @GET("/search/group/")
-    fun searchGroupAsync(@Query("key_word") key_word: String,
+    suspend fun searchGroupAsync(@Query("key_word") key_word: String,
                          @Query("page") page: Int,
-                         @Query("size") size: Int): Deferred<ReturnResult<ListData<Group>>>
+                         @Query("size") size: Int): ReturnResult<ListData<Group>>
 
     @GET("/search/user")
-    fun searchUserAsync(@Query("key_word") key_word: String,
+    suspend fun searchUserAsync(@Query("key_word") key_word: String,
                         @Query("page") page: Int,
-                        @Query("size") size: Int): Deferred<ReturnResult<ListData<User>>>
+                        @Query("size") size: Int): ReturnResult<ListData<User>>
 
     // playground
     @GET("/playground/show/")
-    fun getPlaygroundAsync(@Query("page") page: Int,
-                           @Query("size") size: Int): Deferred<ReturnResult<ListData<Activity>>>
+    suspend fun getPlaygroundAsync(@Query("page") page: Int,
+                           @Query("size") size: Int): ReturnResult<ListData<Activity>>
 
     // user
     @FormUrlEncoded
     @POST("/user/login/")
-    fun userLoginAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Token>>
+    suspend fun userLoginAsync(@FieldMap params: Map<String, Any>): ReturnResult<Token>
 
     @FormUrlEncoded
     @POST("/user/register/")
-    fun userSignUpAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun userSignUpAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/user/modify_password/")
-    fun changePasswordAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun changePasswordAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @GET("/user/get_information_by_id/")
-    fun getUserAsync(@Query("user_id") userId: Int): Deferred<ReturnResult<User>>
+    suspend fun getUserAsync(@Query("user_id") userId: Int): ReturnResult<User>
 
     @FormUrlEncoded
     @POST("/user/is_admin/")
-    fun isGroupAdminAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun isGroupAdminAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/user/follow/")
-    fun followUserAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun followUserAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/user/dis_follow/")
-    fun disFollowUserAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun unFollowUserAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/user/is_follow/")
-    fun isFollowUserAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsFollow>>
+    suspend fun isFollowUserAsync(@FieldMap params: Map<String, Any>): ReturnResult<IsFollow>
 
     @FormUrlEncoded
     @POST("/user/modify_information/")
-    fun modifyUserInfoAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun modifyUserInfoAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/user/is_enable_searched/")
-    fun isEnableSearchAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<IsEnableSearch>>
+    suspend fun isEnableSearchAsync(@FieldMap params: Map<String, Any>): ReturnResult<IsEnableSearch>
 
     @FormUrlEncoded
     @POST("/user/modify_enable_searched/")
-    fun enableOrDisableuserSearchPrivateAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>> // ture or false
+    suspend fun enableOrDisableuserSearchPrivateAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any> // ture or false
 
     @FormUrlEncoded
     @POST("/user/modify_enable_visited_list/")
-    fun modifyPersonalInfoPrivacyAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun modifyPersonalInfoPrivacyAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/user/get_enable_visited_list/")
-    fun getPersonalPrivacyAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<PersonalPrivacy>>
+    suspend fun getPersonalPrivacyAsync(@FieldMap params: Map<String, Any>): ReturnResult<PersonalPrivacy>
 
     @FormUrlEncoded
     @POST("/user/get_follow_list/")
-    fun getFollowUsersAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<User>>>
+    suspend fun getFollowUsersAsync(@FieldMap params: Map<String, Any>): ReturnResult<ListData<User>>
 
     // message
     @FormUrlEncoded
     @POST("/message/get_session/")
-    fun getSessionAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Session>>
+    suspend fun getSessionAsync(@FieldMap params: Map<String, Any>): ReturnResult<Session>
 
     @FormUrlEncoded
     @POST("/message/get_session_by_id/")
-    fun getSessionByIdAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Session>>
+    suspend fun getSessionByIdAsync(@FieldMap params: Map<String, Any>): ReturnResult<Session>
 
     @FormUrlEncoded
     @POST("/message/create_message/")
-    fun createMessageAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<Any>>
+    suspend fun createMessageAsync(@FieldMap params: Map<String, Any>): ReturnResult<Any>
 
     @FormUrlEncoded
     @POST("/message/get_message_list_by_session_id/")
-    fun getSessionMessagesAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Message>>>
+    suspend fun getSessionMessagesAsync(@FieldMap params: Map<String, Any>): ReturnResult<ListData<Message>>
 
     @FormUrlEncoded
     @POST("/message/get_session_list/")
-    fun getSessionsAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Session>>>
+    suspend fun getSessionsAsync(@FieldMap params: Map<String, Any>): ReturnResult<ListData<Session>>
 
     // notification
     @FormUrlEncoded
     @POST("/notification/get_notification_list/")
-    fun getNotificationsAsync(@FieldMap params: Map<String, Any>): Deferred<ReturnResult<ListData<Notification>>>
+    suspend fun getNotificationsAsync(@FieldMap params: Map<String, Any>): ReturnResult<ListData<Notification>>
 }

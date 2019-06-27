@@ -133,7 +133,7 @@ class GroupDetailViewModel(private val groupId: Int) :ViewModel() {
     fun disfollow(params: Map<String, Any>){
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val r = repository.disfollowGroup(params)
+                val r = repository.unfollowGroup(params)
                 withContext(Dispatchers.Main) {
                     disFollowResult.value = r.code == 0
                 }

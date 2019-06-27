@@ -109,7 +109,7 @@ class ActivityDetailViewModel(private val activityId: Int) :ViewModel() {
     fun disfollow(params: Map<String, Any>) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val r = repository.disFollowActivity(params)
+                val r = repository.unFollowActivity(params)
                 withContext(Dispatchers.Main) {
                     disFollowResult.value = r.code == 0
                 }
