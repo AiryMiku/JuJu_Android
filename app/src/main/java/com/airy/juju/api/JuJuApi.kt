@@ -12,6 +12,7 @@ import retrofit2.http.*
 
 @JvmSuppressWildcards // Map<String, Any> it be compiled into [java.util.Map<java.lang.String, ?>]
 interface JuJuApi {
+
     // group
     @FormUrlEncoded
     @POST("/group/create/")
