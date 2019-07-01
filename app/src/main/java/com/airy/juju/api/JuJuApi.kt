@@ -1,7 +1,6 @@
 package com.airy.juju.api
 
 import com.airy.juju.bean.*
-import kotlinx.coroutines.Deferred
 import retrofit2.http.*
 
 
