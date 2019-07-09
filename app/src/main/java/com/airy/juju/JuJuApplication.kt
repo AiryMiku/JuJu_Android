@@ -1,8 +1,8 @@
 package com.airy.juju
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import kotlin.properties.Delegates
 
 
 /**
@@ -15,15 +15,14 @@ class JuJuApplication: Application() {
 
     companion object {
 
-        @SuppressLint("StaticFieldLeak")
-        lateinit var contextSingle: Context
+        var instance: JuJuApplication by Delegates.notNull()
 
-        fun getApplicationContext(): Context = contextSingle
+        fun getApplicationContext(): Context = instance
     }
 
     override fun onCreate() {
         super.onCreate()
-        contextSingle = applicationContext
+        instance = this
 
         val crashHandler = CrashHandler.getInstance()
         crashHandler.init(this)
