@@ -4,6 +4,8 @@ import com.airy.juju.api.RetrofitService
 import com.airy.juju.api.ReturnResult
 import com.airy.juju.bean.Activity
 import com.airy.juju.bean.ListData
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
 /**
@@ -12,7 +14,8 @@ import com.airy.juju.bean.ListData
  * Github: AiryMiku
  */
 
-class PlayGroundRepository{
+@Singleton
+class PlayGroundRepository @Inject constructor(){
     companion object {
         @Volatile
         private var instance: PlayGroundRepository? = null

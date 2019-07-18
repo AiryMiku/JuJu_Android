@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import javax.inject.Inject
 
 
 /**
@@ -21,10 +22,13 @@ import java.lang.Exception
 
 class PlayGroundViewModel: ViewModel() {
 
-    private val repository = PlayGroundRepository.getInstance()
+    @Inject
+    lateinit var repository: PlayGroundRepository
+//    private val repository = PlayGroundRepository.getInstance()
     val activities: MutableLiveData<ReturnResult<ListData<Activity>>> = MutableLiveData()
 
     init {
+        DaggerPlayGroundViewModelComponent.builder().build().inject(this)
         refresh()
     }
 
