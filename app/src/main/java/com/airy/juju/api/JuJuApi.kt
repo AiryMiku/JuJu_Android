@@ -10,7 +10,7 @@ import retrofit2.http.*
  * Github: AiryMiku
  */
 
-@JvmSuppressWildcards // Map<String, Any> it be compiled into [java.util.Map<java.lang.String, ?>]
+@JvmSuppressWildcards // Map<String, Any> it will be compiled into [java.util.Map<java.lang.String, ?>]
 interface JuJuApi {
 
     // group

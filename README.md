@@ -1,12 +1,12 @@
 # JuJu_Android
 
-## 语言
+## Language
 * Kotlin
 
-## 架构
+## Construct
 * MVVM
 
-## 框架选择
+## Framework
 * NetWork
     * OkHttp3
     * Retrofit2
@@ -14,7 +14,7 @@
     * Databing
     * LiveData
     * ViewModel
-* kotlinx.coroutines（好东西nb）
+* kotlinx.coroutines
 * EventBus
-* Dragger2（可能有）
+* Dragger2 (Partly Import)
 

@@ -1,9 +1,6 @@
 package com.airy.juju.di
 
-import com.airy.juju.ui.activity.LoginActivity
-import com.airy.juju.ui.activity.MainActivity
-import com.airy.juju.ui.activity.MainActivityModule
-import com.airy.juju.ui.activity.WelcomeActivity
+import com.airy.juju.ui.activity.*
 import com.airy.juju.ui.fragment.chat.ChatModule
 import com.airy.juju.ui.fragment.group.GroupModule
 import com.airy.juju.ui.fragment.me.MeModule
@@ -45,5 +42,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector
     internal abstract fun loginActivity(): LoginActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector
+    internal abstract fun chatActivity(): ChatActivity
 
 }
