@@ -2,6 +2,9 @@ package com.airy.juju
 
 import android.app.Application
 import android.content.Context
+import com.airy.juju.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 import kotlin.properties.Delegates
 
 
@@ -11,7 +14,11 @@ import kotlin.properties.Delegates
  * Github: AiryMiku
  */
 
-class JuJuApplication: Application() {
+class JuJuApplication: DaggerApplication() {
+
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.factory().create(this)
+    }
 
     companion object {
 

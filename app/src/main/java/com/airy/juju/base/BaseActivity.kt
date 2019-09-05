@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.airy.juju.R
 import com.google.android.material.snackbar.Snackbar
+import dagger.android.support.DaggerAppCompatActivity
 
 
 /**
@@ -18,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
  * Github: AiryMiku
  */
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : DaggerAppCompatActivity() {
 
     val TAG = this.javaClass.name
     private lateinit var toolbar: Toolbar

@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.airy.juju.Common
 import com.airy.juju.base.BaseFragment
 import com.airy.juju.databinding.FragmentPlaygroundBinding
 import com.airy.juju.ui.activity.ActivityDetailActivity
 import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
+import com.airy.juju.util.viewModelProvider
+import javax.inject.Inject
 
 
 /**
@@ -23,6 +25,7 @@ import com.airy.juju.ui.adapter.listView.ActivitiesAdapter
 class PlayGroundFragment: BaseFragment() {
 
     private lateinit var binding: FragmentPlaygroundBinding
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: PlayGroundViewModel
     private lateinit var adapter: ActivitiesAdapter
 
@@ -31,7 +34,7 @@ class PlayGroundFragment: BaseFragment() {
     }
 
     override fun initPrepare() {
-        viewModel = ViewModelProviders.of(this).get(PlayGroundViewModel::class.java)
+        viewModel = viewModelProvider(viewModelFactory)
         initRefresh()
         initRecycleView()
         subscribeUI()

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.Nullable
+import dagger.android.support.DaggerFragment
 
 
 /**
@@ -16,7 +17,7 @@ import androidx.annotation.Nullable
  * Github: AiryMiku
  */
 
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : DaggerFragment() {
 
     private var isPrepared: Boolean = false
     private var isFirst: Boolean = true

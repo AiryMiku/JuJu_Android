@@ -6,6 +6,7 @@ import com.airy.juju.api.ReturnResult
 import com.airy.juju.bean.Activity
 import com.airy.juju.bean.ListData
 import com.airy.juju.repository.PlayGroundRepository
+import dagger.Provides
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ import javax.inject.Inject
  * Github: AiryMiku
  */
 
-class PlayGroundViewModel: ViewModel() {
+class PlayGroundViewModel@Inject constructor () : ViewModel() {
 
     @Inject
     lateinit var repository: PlayGroundRepository
