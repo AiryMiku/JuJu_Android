@@ -22,6 +22,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        dailyBuild {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
 
     dataBinding {
@@ -31,6 +35,12 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "juju_${variant.buildType.name}_${defaultConfig.versionName}_${releaseTime()}.apk"
+        }
     }
 }
 
@@ -82,4 +92,8 @@ dependencies {
     implementation 'io.crossbar.autobahn:autobahn-android:18.5.1'
     implementation 'com.alibaba:fastjson:1.2.57'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.14.1'
+}
+
+static def releaseTime() {
+    return new Date().format("yyyyMMddhhmmss", TimeZone.getTimeZone("UTC"))
 }
