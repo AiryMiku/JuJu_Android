@@ -1,6 +1,5 @@
 package com.airy.juju
 
-import android.app.Application
 import android.content.Context
 import com.airy.juju.di.DaggerAppComponent
 import dagger.android.AndroidInjector
@@ -8,7 +7,7 @@ import dagger.android.DaggerApplication
 import kotlin.properties.Delegates
 
 
-/**v
+/**
  * Created by Airy on 2019/3/28
  * Mail: a532710813@gmail.com
  * Github: AiryMiku
