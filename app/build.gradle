@@ -37,6 +37,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
     applicationVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "juju_${variant.buildType.name}_${defaultConfig.versionName}_${releaseTime()}.apk"
